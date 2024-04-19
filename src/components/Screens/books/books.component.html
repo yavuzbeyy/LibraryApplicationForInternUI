@@ -26,16 +26,8 @@
   <link href="/src/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="/src/assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
-  <!-- Template Main CSS File -->
   <link href="/src/assets/css/style.css" rel="stylesheet">
 
-  <!-- =======================================================
-  * Template Name: NiceAdmin
-  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-  * Updated: Apr 7 2024 with Bootstrap v5.3.3
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body>
@@ -56,18 +48,27 @@
           <div class="card">
             <img src="assets/img/book.jpg" class="card-img-top" alt="...">
             <div class="card-body">
-              <h5 class="card-title">Card with an image on top</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <h5 class="card-title">{{degisken.title}}</h5>
+              <p class="card-text">Yazım Tarihi : {{degisken.publicationYear}}</p>
+              <p class="card-text">Sayfa Sayısı : {{degisken.numberOfPages}}</p>
             </div>
           </div><!-- End Card with an image on top -->
 
+        </div>
+
+        <div>
+          <div *ngFor="let book of books" class="book-item">
+            <h3>{{ book.title }}</h3>
+            <p><strong>Yayın Yılı:</strong> {{ book.publicationYear }}</p>
+            <p><strong>Sayfa Sayısı:</strong> {{ book.numberOfPages }}</p>
+            <p><strong>Uygun mu:</strong> {{ book.isAvailable ? 'Evet' : 'Hayır' }}</p>
+          </div>
         </div>
 
       </div>
     </section>
 
   </main>
-
 
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
