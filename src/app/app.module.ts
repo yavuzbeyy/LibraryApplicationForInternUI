@@ -6,10 +6,13 @@ import { CommonModule } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { BooksComponent } from '../components/Screens/books/books.component';
+import { DataService } from '../components/Shared/services/DataService';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    BooksComponent
   ],
   imports: [
     BrowserModule,
@@ -18,7 +21,8 @@ import { AppComponent } from './app.component';
     CommonModule,
   ],
   providers: [
-    provideClientHydration()
+    provideClientHydration(),
+    DataService
   ],
   bootstrap: [AppComponent]
 })

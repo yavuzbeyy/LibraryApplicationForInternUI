@@ -17,53 +17,33 @@
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
 </head>
-
 <body>
-
-
   <main id="main" class="main">
-
     <div class="pagetitle">
       <h1>Kitaplar</h1>
     </div><!-- End Page Title -->
-
     <section class="section">
-      <div class="row align-items-top">
-
-        <div class="col-lg-3">
-
-          <!-- Card with an image on top -->
-          <div class="card">
-            <img src="assets/img/book.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h4 class="card-title">{{degisken.title}}</h4>
-              <p class="card-text">Yazar : {{degisken.authorName}}  {{degisken.authorSurname}} </p>
-              <p class="card-text">Yazım Tarihi : {{degisken.publicationYear}}</p>
-              <p class="card-text">Sayfa Sayısı : {{degisken.numberOfPages}}</p>
-            </div>
-          </div><!-- End Card with an image on top -->
-
-        </div>
-
-          <!--
-        <div>
-          <div *ngFor="let book of books" class="book-item">
-            <h3>{{ book.title }}</h3>
-            <p><strong>Yayın Yılı:</strong> {{ book.publicationYear }}</p>
-            <p><strong>Sayfa Sayısı:</strong> {{ book.numberOfPages }}</p>
-            <p><strong>Uygun mu:</strong> {{ book.isAvailable ? 'Evet' : 'Hayır' }}</p>
-          </div>
-        </div>
--->
-      </div>
+      <div class="row">
+        <div class="col-6 col-md-4" *ngFor="let book of books">
+          <!-- Her kitap için kart -->
+          <div class="book-item">
+            <div class="card">
+              <img src="assets/img/book.jpg" class="card-img-top" alt="Book Image">
+              <div class="card-body">
+                <h4 class="card-title">{{ book.title }}</h4>
+                <p class="card-text">Yazar: {{ book.authorName }} {{ book.authorSurname }}</p>
+                <p class="card-text">Yazım Tarihi: {{ book.publicationYear }}</p>
+                <p class="card-text">Sayfa Sayısı: {{ book.numberOfPages }}</p>
+                <p><strong>Uygun mu:</strong> {{ book.isAvailable ? 'Evet' : 'Hayır' }}</p>
+              </div>
+            </div><!-- End Card -->
+          </div><!-- End Book Item -->
+        </div><!-- End Col -->
+      </div><!-- End Row -->
     </section>
-
   </main>
-
-
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-
+  <!-- JavaScript Dosyaları -->
   <script src="/src/assets/vendor/apexcharts/apexcharts.min.js"></script>
   <script src="/src/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="/src/assets/vendor/chart.js/chart.umd.js"></script>
@@ -72,9 +52,8 @@
   <script src="/src/assets/vendor/simple-datatables/simple-datatables.js"></script>
   <script src="/src/assets/vendor/tinymce/tinymce.min.js"></script>
   <script src="/src/assets/vendor/php-email-form/validate.js"></script>
-
-  <!-- Template Main JS File -->
+  <!-- Ana JS Dosyası -->
   <script src="/src/assets/js/main.js"></script>
-
 </body>
+
 
