@@ -20,7 +20,6 @@
 <body>
   <main id="main" class="main">
     <div class="pagetitle">
-      <h1>Kitaplar</h1>
     </div><!-- End Page Title -->
     <section class="section">
       <div class="row">
@@ -28,7 +27,10 @@
           <!-- Her kitap için kart -->
           <div class="book-item">
             <div class="card">
-              <img src="assets/img/book.jpg" class="card-img-top" alt="Book Image">
+               <!-- Kitap Resmi -->
+            <img *ngIf="book.imageUrl" [src]="book.imageUrl" class="card-img-top" alt="Book Image">
+            <!-- Varsayılan Resim -->
+            <img *ngIf="!book.imageUrl" src="assets/img/book.jpg" class="card-img-top" alt="Default Book Image">
               <div class="card-body">
                 <h4 class="card-title">{{ book.title }}</h4>
                 <p class="card-text">Yazar: {{ book.authorName }} {{ book.authorSurname }}</p>

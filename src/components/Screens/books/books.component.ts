@@ -25,7 +25,7 @@ export class BooksComponent implements OnInit {
           
           // API'den gelen veriyi 'books' dizisine atama
           this.books = data.data;
-
+          this.loadBookImages();
           console.log(this.books);
         } else {
           console.error('Error fetching books: Invalid data format');
@@ -36,4 +36,24 @@ export class BooksComponent implements OnInit {
       }
     );
   }
+
+  loadBookImages() {
+    this.books.forEach(book => {
+      this.dataService.fetchBookImage(book.id).subscribe(
+        (imageBlob: Blob) => {
+          const reader = new FileReader();
+          reader.onload = () => {
+            const imageDataUrl = reader.result as string;
+            book.imageUrl = imageDataUrl; // Kitaba resim URL'sini ekle
+            console.log("Books : " + this.books)
+          };
+          reader.readAsDataURL(imageBlob);
+        },
+        (error) => {
+          console.error(`Error loading image for book ${book.id}:`, error);
+        }
+      );
+    });
+  }
+
 }
