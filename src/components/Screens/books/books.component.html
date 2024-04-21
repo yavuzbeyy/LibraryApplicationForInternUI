@@ -1,34 +1,16 @@
 
 
-<head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Components / Cards - NiceAdmin Bootstrap Template</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
-
-  <!-- Favicons -->
-  <link href="/src/assets/img/favicon.png" rel="icon">
-  <link href="/src/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.gstatic.com" rel="preconnect">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-
-</head>
-<body>
   <main id="main" class="main">
     <div class="pagetitle">
-    </div><!-- End Page Title -->
+    </div>
     <section class="section">
       <div class="row">
         <div class="col-6 col-md-4" *ngFor="let book of books">
           <!-- Her kitap için kart -->
           <div class="book-item">
             <div class="card">
-               <!-- Kitap Resmi -->
-            <img *ngIf="book.imageUrl" [src]="book.imageUrl" class="card-img-top" alt="Book Image">
+            <img *ngIf="book.imageUrl" [src]="book.imageUrl" class="card-img-top" alt="Book Image" style="width: auto; height: auto;">
             <!-- Varsayılan Resim -->
             <img *ngIf="!book.imageUrl" src="assets/img/book.jpg" class="card-img-top" alt="Default Book Image">
               <div class="card-body">
@@ -36,12 +18,12 @@
                 <p class="card-text">Yazar: {{ book.authorName }} {{ book.authorSurname }}</p>
                 <p class="card-text">Yazım Tarihi: {{ book.publicationYear }}</p>
                 <p class="card-text">Sayfa Sayısı: {{ book.numberOfPages }}</p>
-                <p><strong>Uygun mu:</strong> {{ book.isAvailable ? 'Evet' : 'Hayır' }}</p>
+                <p><strong>Alınabilir mi:</strong> {{ book.isAvailable ? 'Evet' : 'Hayır' }}</p>
               </div>
-            </div><!-- End Card -->
-          </div><!-- End Book Item -->
-        </div><!-- End Col -->
-      </div><!-- End Row -->
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
   </main>
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
@@ -56,6 +38,5 @@
   <script src="/src/assets/vendor/php-email-form/validate.js"></script>
   <!-- Ana JS Dosyası -->
   <script src="/src/assets/js/main.js"></script>
-</body>
 
 

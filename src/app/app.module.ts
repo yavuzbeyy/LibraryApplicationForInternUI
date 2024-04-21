@@ -8,11 +8,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BooksComponent } from '../components/Screens/books/books.component';
 import { DataService } from '../components/Shared/services/DataService';
+import { AuthorComponent } from '../components/Screens/author/author.component';
+import { CategoryComponent } from '../components/Screens/category/category.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    BooksComponent
+    BooksComponent,
+    AuthorComponent,
+    CategoryComponent
   ],
   imports: [
     BrowserModule,

@@ -3,23 +3,31 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root',
-  
+  providedIn: 'root'
 })
 export class DataService {
 
-  
-  private baseApiUrl = 'https://localhost:7107/api/Book/ListAll';
-  private baseGetImageUrl = 'https://localhost:7107/file/GetImageByBookId?bookId';
+  private baseApi = "https://localhost:7107/";
 
   constructor(private http: HttpClient) { }
 
   fetchData(): Observable<any[]> {
-    return this.http.get<any[]>(this.baseApiUrl);
+    const apiUrl = this.baseApi + 'api/Book/ListAll';
+    return this.http.get<any[]>(apiUrl);
   }
 
   fetchBookImage(bookId: number): Observable<Blob> {
-    const url = `${this.baseGetImageUrl}=${bookId}`;
-    return this.http.get(url, { responseType: 'blob' });
+    const imageUrl = `${this.baseApi}file/GetImageByBookId?bookId=${bookId}`;
+    return this.http.get(imageUrl, { responseType: 'blob' });
+  }
+
+  fetchAuthors(): Observable<any[]> {
+    const url = `${this.baseApi}api/Author/ListAll`;
+    return this.http.get<any[]>(url);
+  }
+
+  fetchCategories(): Observable<any[]> {
+    const url = `${this.baseApi}api/Category/ListAll`;
+    return this.http.get<any[]>(url);
   }
 }

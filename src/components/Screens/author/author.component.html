@@ -1,1 +1,22 @@
-<p>author works!</p>
+<div class="container">
+    <div class="row">
+      <div class="col-md-4" *ngFor="let author of authors">
+        <div class="card mb-3">
+          <div class="row g-0">
+            <div class="col-md-4">
+              <!-- Yazar resmini göster (varsayılan resim kullanabilirsiniz) -->
+              <img src="assets/img/anonym.jpg" class="img-fluid rounded-start" style="max-width: 100%; height: auto;" alt="Author Image">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title">{{ author.name }} {{ author.surname }}</h5>
+                <p class="card-text">Doğum Yeri: {{ author.placeOfBirth }}</p>
+                <p class="card-text">Doğum Tarihi: {{ author.yearOfBirth }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
