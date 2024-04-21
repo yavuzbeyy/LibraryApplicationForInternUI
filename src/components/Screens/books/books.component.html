@@ -1,6 +1,4 @@
 
-
-
   <main id="main" class="main">
     <div class="pagetitle">
     </div>
@@ -15,10 +13,10 @@
             <img *ngIf="!book.imageUrl" src="assets/img/book.jpg" class="card-img-top" alt="Default Book Image">
               <div class="card-body">
                 <h4 class="card-title">{{ book.title }}</h4>
-                <p class="card-text">Yazar: {{ book.authorName }} {{ book.authorSurname }}</p>
-                <p class="card-text">Yazım Tarihi: {{ book.publicationYear }}</p>
-                <p class="card-text">Sayfa Sayısı: {{ book.numberOfPages }}</p>
-                <p><strong>Alınabilir mi:</strong> {{ book.isAvailable ? 'Evet' : 'Hayır' }}</p>
+                <p class="card-text"><strong>Yazar : </strong> {{ book.authorName }} {{ book.authorSurname }}</p>
+                <p class="card-text"> <strong>Yayımlanma Tarihi : </strong>{{ book.publicationYear }}</p>
+                <p class="card-text">Sayfa Sayısı : {{ book.numberOfPages }}</p>
+                <p><strong>Alınabilir mi : </strong> {{ book.isAvailable ? 'Evet' : 'Hayır' }}</p>
               </div>
             </div>
           </div>

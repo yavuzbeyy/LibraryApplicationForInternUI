@@ -6,10 +6,10 @@ import { CommonModule } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BooksComponent } from '../components/Screens/books/books.component';
-import { DataService } from '../components/Shared/services/DataService';
-import { AuthorComponent } from '../components/Screens/author/author.component';
-import { CategoryComponent } from '../components/Screens/category/category.component';
+import { BooksComponent } from '../../Screens/books/books.component';
+import { DataService } from '../services/DataService';
+import { AuthorComponent } from '../../Screens/author/author.component';
+import { CategoryComponent } from '../../Screens/category/category.component';
 
 @NgModule({
   declarations: [

@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg fixed-top navbar-scroll shadow-0" style="background-color: #ffede7;">
   <div class="container">
-    <a class="navbar-brand" href="#">Kütüphanem</a>
+    <a class="navbar-brand" routerLink="/book" routerLinkActive="active">Kütüphanem</a>
     <button class="navbar-toggler ps-0" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarExample01"
       aria-controls="navbarExample01" aria-expanded="false" aria-label="Toggle navigation">
       <span class="d-flex justify-content-start align-items-center">
@@ -10,43 +10,45 @@
     <div class="collapse navbar-collapse" id="navbarExample01">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link px-3" routerLink="/book" routerLinkActive="activebutton" aria-current="page">
+          <a class="nav-link px-3" routerLink="/book" routerLinkActive="active" aria-current="page">
             Kitaplar
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link px-3" routerLink="/author" routerLinkActive="activebutton" aria-current="page">
+          <a class="nav-link px-3" routerLink="/author" routerLinkActive="active" aria-current="page">
             Yazarlar
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link px-3" routerLink="/category" routerLinkActive="activebutton" aria-current="page">
+          <a class="nav-link px-3" routerLink="/category" routerLinkActive="active" aria-current="page">
             Kategoriler
           </a>
         </li>
-      <li class="nav-item dropdown"> 
-        <a class="nav-link dropdown-toggle px-3" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-          aria-expanded="false">
-          Giriş
-        </a>
-        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <li>
-            <a class="dropdown-item" routerLink="/login" routerLinkActive="activebutton">Giriş Yap</a>
-          </li>
-          <li><a class="dropdown-item" routerLink="/register" routerLinkActive="activebutton">Kayıt Ol</a></li>
-        </ul>
-      </li>
+        <li class="nav-item dropdown"> 
+          <a class="nav-link dropdown-toggle px-3" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            Giriş
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li>
+              <a class="dropdown-item" routerLink="/login" routerLinkActive="active">Giriş Yap</a>
+            </li>
+            <li><a class="dropdown-item" routerLink="/register" routerLinkActive="active">Kayıt Ol</a></li>
+          </ul>
+        </li>
       </ul>
     </div>
-    <router-outlet />
+    <router-outlet></router-outlet>
   </div>
 </nav>
+
 
 <div style="height: 60px;"></div>
 <div class="container mt-5"> 
   <router-outlet></router-outlet> 
 </div>
 
+<div style="height: 60px;"></div>
 <footer class="footer mt-auto py-3">
   <div class="container text-center">
     <span class="text-muted">© 2024 Kütüphanem</span>

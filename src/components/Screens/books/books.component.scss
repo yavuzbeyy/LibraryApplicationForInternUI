@@ -1,0 +1,29 @@
+/* Kartların boyutunu küçültmek için */
+.book-item {
+    margin-bottom: 20px; /* Her kartın altına 20px boşluk bırak */
+  }
+  
+  .card {
+    width: 70%; /* Kartların genişliğini tamamen dolduracak şekilde ayarla */
+  }
+  
+  .card-img-top {
+    width: 100%; /* Kart resimlerinin genişliğini tamamen dolduracak şekilde ayarla */
+    height: auto; /* Resim yüksekliğini otomatik olarak ayarla */
+  }
+  
+  .card-title {
+    font-size: 18px; /* Kart başlığı font büyüklüğünü ayarla */
+    margin-bottom: 10px; /* Kart başlığının altına 10px boşluk bırak */
+  }
+  
+  .card-text {
+    font-size: 14px; /* Kart metin font büyüklüğünü ayarla */
+    margin-bottom: 5px; /* Kart metninin altına 5px boşluk bırak */
+  }
+  
+  /* Kartların altında boşluk bırakmak için */
+  .book-item:not(:last-child) {
+    margin-bottom: 20px; /* Son kart dışındaki her kartın altına 20px boşluk bırak */
+  }
+  
