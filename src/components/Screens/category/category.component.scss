@@ -1,0 +1,36 @@
+   /* Sil düğmesi için stil */
+   button.delete {
+    background-color: #dc3545; 
+    color: #fff; 
+    padding: 8px 16px; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer;
+    font-size: 14px; 
+    transition: background-color 0.3s ease; 
+    margin-right: 10px; 
+  }
+  
+
+  button.delete:hover {
+    background-color: #c82333; 
+  }
+  
+ 
+  button.update {
+    background-color: #ffc107; 
+    color: #fff; 
+    padding: 8px 16px; 
+    border: none;
+    border-radius: 5px; 
+    cursor: pointer; 
+    font-size: 14px; 
+    transition: background-color 0.3s ease; 
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+  
+
+  button.update:hover {
+    background-color: #ffa500; 
+  }

@@ -72,4 +72,39 @@ body {
     margin-top: 10px;
   }
   
+   /* Sil düğmesi için stil */
+button.delete {
+  background-color: #dc3545; /* Kırmızı tonunda arka plan */
+  color: #fff; /* Beyaz renkte metin */
+  padding: 8px 16px; /* Düğme içeriğinin etrafındaki iç boşluk */
+  border: none; /* Kenarlık olmadan düzgün bir düğme oluştur */
+  border-radius: 5px; /* Köşeleri yuvarlat */
+  cursor: pointer; /* Fare imlecini el işareti olarak değiştir */
+  font-size: 14px; /* Metin boyutu */
+  transition: background-color 0.3s ease; /* Arka plan rengi geçişi için animasyon */
+  margin-right: 10px; /* Sil düğmesi ile arasında boşluk bırak */
+}
+
+/* Sil düğmesi üzerine gelindiğinde */
+button.delete:hover {
+  background-color: #c82333; /* Hover üzerine geldiğinde daha koyu bir kırmızı tonu */
+}
+
+/* Güncelle düğmesi için stil */
+button.update {
+  background-color: #ffc107; /* Turuncu tonunda arka plan */
+  color: #fff; /* Beyaz renkte metin */
+  padding: 8px 16px; /* Düğme içeriğinin etrafındaki iç boşluk */
+  border: none; /* Kenarlık olmadan düzgün bir düğme oluştur */
+  border-radius: 5px; /* Köşeleri yuvarlat */
+  cursor: pointer; /* Fare imlecini el işareti olarak değiştir */
+  font-size: 14px; /* Metin boyutu */
+  transition: background-color 0.3s ease; /* Arka plan rengi geçişi için animasyon */
+  margin-right: 10px;
+}
+
+/* Güncelle düğmesi üzerine gelindiğinde */
+button.update:hover {
+  background-color: #ffa500; /* Hover üzerine geldiğinde daha koyu bir turuncu tonu */
+}
   
