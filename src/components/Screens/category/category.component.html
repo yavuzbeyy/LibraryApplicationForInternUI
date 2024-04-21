@@ -9,7 +9,7 @@
             <p class="card-text">{{ category.description }}</p>
             <a href="#" class="btn btn-primary">Kitapları Gör</a>
             <button class="update">Güncelle</button>
-            <button class="delete">Sil</button>
+            <button (click)="deleteCategory(category.id)" class="delete">Sil</button>
           </div>
         </div>
       </div>

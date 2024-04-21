@@ -31,4 +31,17 @@ export class CategoryComponent implements OnInit {
       }
     );
   }
+
+  deleteCategory(categoryId: number) {
+    this.dataService.deleteCategory(categoryId).subscribe(
+      (response) => {
+        console.log('Category deleted successfully.');
+        // Kategori başarıyla silindiğinde, listeden kaldırmak için yerel diziden de kaldırabilirsiniz.
+        this.categories = this.categories.filter(c => c.id !== categoryId);
+      },
+      (error) => {
+        console.error('Error deleting category:', error);
+      }
+    );
+  }
 }

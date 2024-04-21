@@ -14,7 +14,7 @@
                 <p class="card-text"><strong>Doğum Tarihi :  </strong>{{ author.yearOfBirth }}</p>
                 <a href="#" class="btn btn-primary">Kitaplar </a>
                 <button class="update">Düzenle</button>
-                <button class="delete">Sil</button>
+                <button (click)="deleteAuthor(author.id)" class="delete">Sil</button>
               </div>
             </div>
           </div>

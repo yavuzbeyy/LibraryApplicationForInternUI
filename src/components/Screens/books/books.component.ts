@@ -56,4 +56,17 @@ export class BooksComponent implements OnInit {
     });
   }
 
+  deleteBook(bookId: number) {
+    this.dataService.deleteBook(bookId).subscribe(
+      (response) => {
+        console.log('Category deleted successfully.');
+        this.books = this.books.filter(b => b.id !== bookId);
+        this.fetchBooks();
+      },
+      (error) => {
+        console.error('Error deleting category:', error);
+      }
+    );
+  }
+
 }

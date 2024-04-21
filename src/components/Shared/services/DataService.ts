@@ -30,4 +30,19 @@ export class DataService {
     const url = `${this.baseApi}api/Category/ListAll`;
     return this.http.get<any[]>(url);
   }
+
+  deleteCategory(categoryId: number): Observable<any> {
+    const url = `${this.baseApi}api/Category/Delete?id=${categoryId}`;
+    return this.http.delete(url);
+  }
+
+  deleteAuthor(authorId: number): Observable<any> {
+    const url = `${this.baseApi}api/Author/Delete?id=${authorId}`;
+    return this.http.delete(url);
+  }
+
+  deleteBook(bookId: number): Observable<any> {
+    const url = `${this.baseApi}api/Book/Delete?id=${bookId}`;
+    return this.http.delete(url);
+  }
 }
