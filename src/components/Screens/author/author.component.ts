@@ -10,6 +10,7 @@ import { DataService } from '../../Shared/services/DataService';
 export class AuthorComponent implements OnInit {
 
   authors: any[] = [];
+  selectedAuthorId: number | null = null;
 
   constructor(private dataService: DataService) { }
 
@@ -22,7 +23,6 @@ export class AuthorComponent implements OnInit {
       (data: any) => {
         if (data && data.data && Array.isArray(data.data)) {
           this.authors = data.data;
-          //console.log(this.authors); 
         } else {
           console.error('Error fetching authors: Invalid data format');
         }
@@ -45,4 +45,9 @@ export class AuthorComponent implements OnInit {
       }
     );
   }
+
+  showAuthorBooks(authorId: number) {
+    this.selectedAuthorId = authorId; 
+  }
+
 }

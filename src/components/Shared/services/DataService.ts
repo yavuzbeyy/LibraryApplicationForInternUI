@@ -71,4 +71,9 @@ export class DataService {
       const apiUrl = `${this.baseApi}api/Book/ListBooksByCategoryId?categoryId=${categoryId}`;
       return this.http.get<any[]>(apiUrl);
     }
+
+    fetchBooksByAuthorId(authorId: number): Observable<any[]> {
+      const apiUrl = `${this.baseApi}api/Book/ListBooksByAuthorId?categoryId=${authorId}`;
+      return this.http.get<any[]>(apiUrl);
+    }
 }

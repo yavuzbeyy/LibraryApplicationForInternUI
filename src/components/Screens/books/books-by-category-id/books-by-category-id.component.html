@@ -2,7 +2,7 @@
     <table class="table">
       <thead>
         <tr>
-          <th scope="col">Başlık</th>
+          <th scope="col">Kitap Adı</th>
           <th scope="col">Yayımlanma Tarihi</th>
           <th scope="col">Sayfa Sayısı</th>
         </tr>
@@ -18,7 +18,7 @@
     <button (click)="closeComponent()" class="btn btn-secondary">Kapat</button>
   </div>
   <div class="container" *ngIf="isOpen && !(books && books.length > 0)">
-    <p>Kitap bulunamadı veya yükleniyor...</p>
+    <p>Kitap bulunamadı...</p>
     <button (click)="closeComponent()" class="btn btn-secondary">Kapat</button>
   </div>
   
