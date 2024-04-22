@@ -5,12 +5,12 @@ import { NgModule } from '@angular/core';
 @Component({
   selector: 'app-books',
   templateUrl: './books.component.html',
-  styleUrls: ['./books.component.scss'] // 'styleUrls' olarak düzeltilmiş
+  styleUrls: ['./books.component.scss'] 
   
 })
 export class BooksComponent implements OnInit {
-  books: any[] = []; // Kitapların tutulacağı dizi
-  degisken: any; // Örnek bir değişken
+  books: any[] = []; 
+  degisken: any; 
 
   constructor(private dataService: DataService) { }
 
@@ -44,7 +44,7 @@ export class BooksComponent implements OnInit {
           const reader = new FileReader();
           reader.onload = () => {
             const imageDataUrl = reader.result as string;
-            book.imageUrl = imageDataUrl; // Kitaba resim URL'sini ekle
+            book.imageUrl = imageDataUrl; 
             console.log("Books : " + this.books)
           };
           reader.readAsDataURL(imageBlob);
@@ -59,7 +59,6 @@ export class BooksComponent implements OnInit {
   deleteBook(bookId: number) {
     this.dataService.deleteBook(bookId).subscribe(
       (response) => {
-        console.log('Category deleted successfully.');
         this.books = this.books.filter(b => b.id !== bookId);
         this.fetchBooks();
       },

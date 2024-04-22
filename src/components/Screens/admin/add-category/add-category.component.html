@@ -1,15 +1,14 @@
-<div style="max-width: 400px; margin: 20px auto;">
-    <h2>Kategori Ekleme</h2>
-    <form (ngSubmit)="submitForm()" novalidate>
-      <div style="margin-bottom: 10px;">
-        <label for="name" style="display: block;">Kategori Adı:</label>
-        <input type="text" id="name" name="name" style="width: 100%; padding: 8px;" [(ngModel)]="category.name" required>
+<div class="container mt-4">
+  <h2>Kategori Ekleme</h2>
+  <form (ngSubmit)="submitForm()" novalidate>
+      <div class="mb-3">
+          <label for="name" class="form-label">Kategori Adı:</label>
+          <input type="text" id="name" name="name" class="form-control" [(ngModel)]="category.name" required>
       </div>
-      <div style="margin-bottom: 10px;">
-        <label for="description" style="display: block;">Kategori Açıklaması:</label>
-        <textarea id="description" name="description" style="width: 100%; padding: 8px;" [(ngModel)]="category.description" required></textarea>
+      <div class="mb-3">
+          <label for="description" class="form-label">Kategori Açıklaması:</label>
+          <textarea id="description" name="description" class="form-control" [(ngModel)]="category.description" required></textarea>
       </div>
-      <button type="submit" style="padding: 10px 20px; background-color: #007bff; color: #fff; border: none; cursor: pointer;">Oluştur</button>
-    </form>
-  </div>
-  
+      <button type="submit" class="btn btn-primary">Oluştur</button>
+  </form>
+</div>

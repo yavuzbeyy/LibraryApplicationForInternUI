@@ -66,4 +66,9 @@ export class DataService {
       const url = `${this.baseApi}api/Book/Create`;
       return this.http.post(url, book);
     }
+
+    fetchBooksByCategoryId(categoryId: number): Observable<any[]> {
+      const apiUrl = `${this.baseApi}api/Book/ListBooksByCategoryId?categoryId=${categoryId}`;
+      return this.http.get<any[]>(apiUrl);
+    }
 }

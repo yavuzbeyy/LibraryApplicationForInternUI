@@ -9,6 +9,7 @@ import { DataService } from '../../Shared/services/DataService';
 export class CategoryComponent implements OnInit {
 
   categories: any[] = [];
+  selectedCategoryId: number | null = null;
 
   constructor(private dataService: DataService) { }
 
@@ -43,5 +44,9 @@ export class CategoryComponent implements OnInit {
         console.error('Error deleting category:', error);
       }
     );
+  }
+
+  showCategoryBooks(categoryId: number) {
+    this.selectedCategoryId = categoryId; // Seçilen kategori ID'sini ayarla
   }
 }
