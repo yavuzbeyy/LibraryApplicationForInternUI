@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { CategoryModel } from '../Models/CategoryModel';
+import { AuthorModel } from '../Models/AuthorModel';
+
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +14,7 @@ export class DataService {
 
   constructor(private http: HttpClient) { }
 
+    // fetch requestlerim
   fetchData(): Observable<any[]> {
     const apiUrl = this.baseApi + 'api/Book/ListAll';
     return this.http.get<any[]>(apiUrl);
@@ -31,6 +35,7 @@ export class DataService {
     return this.http.get<any[]>(url);
   }
 
+  // Delete Requestlerim
   deleteCategory(categoryId: number): Observable<any> {
     const url = `${this.baseApi}api/Category/Delete?id=${categoryId}`;
     return this.http.delete(url);
@@ -45,4 +50,14 @@ export class DataService {
     const url = `${this.baseApi}api/Book/Delete?id=${bookId}`;
     return this.http.delete(url);
   }
+    // add requestler
+    createCategory(category: CategoryModel): Observable<any> {
+      const url = `${this.baseApi}api/Category/Create`;
+      return this.http.post(url, category);
+    }
+
+    createAuthor(author: AuthorModel): Observable<any> {
+      const url = `${this.baseApi}api/Author/Create`;
+      return this.http.post(url, author);
+    }
 }

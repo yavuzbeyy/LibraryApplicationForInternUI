@@ -1,1 +1,15 @@
-<p>add-category works!</p>
+<div style="max-width: 400px; margin: 20px auto;">
+    <h2>Kategori Ekleme</h2>
+    <form (ngSubmit)="submitForm()" novalidate>
+      <div style="margin-bottom: 10px;">
+        <label for="name" style="display: block;">Kategori Adı:</label>
+        <input type="text" id="name" name="name" style="width: 100%; padding: 8px;" [(ngModel)]="category.name" required>
+      </div>
+      <div style="margin-bottom: 10px;">
+        <label for="description" style="display: block;">Kategori Açıklaması:</label>
+        <textarea id="description" name="description" style="width: 100%; padding: 8px;" [(ngModel)]="category.description" required></textarea>
+      </div>
+      <button type="submit" style="padding: 10px 20px; background-color: #007bff; color: #fff; border: none; cursor: pointer;">Oluştur</button>
+    </form>
+  </div>
+  
