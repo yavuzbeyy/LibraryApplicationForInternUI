@@ -15,6 +15,7 @@ import { CategoryComponent } from '../../Screens/category/category.component';
 import { AddCategoryComponent } from '../../Screens/admin/add-category/add-category.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AddAuthorComponent } from '../../Screens/admin/add-author/add-author.component';
+import { AddBookComponent } from '../../Screens/admin/add-book/add-book.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { AddAuthorComponent } from '../../Screens/admin/add-author/add-author.co
     AuthorComponent,
     CategoryComponent,
     AddCategoryComponent,
-    AddAuthorComponent
+    AddAuthorComponent,
+    AddBookComponent
   ],
   imports: [
     BrowserModule,

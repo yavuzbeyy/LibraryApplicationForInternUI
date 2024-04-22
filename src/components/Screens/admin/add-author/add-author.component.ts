@@ -17,13 +17,11 @@ export class AddAuthorComponent {
     this.dataService.createAuthor(this.author).subscribe(
       (response) => {
         console.log('Author added successfully!', response);
-        this.toastr.success('Author added successfully!', 'Success');
-        // Başka bir işlem yapabilirsiniz (örneğin başka bir sayfaya yönlendirme)
+        this.toastr.success(response.message, 'Success');
       },
       (error) => {
-        console.error('Error adding author:', error);
-        this.toastr.error('Error adding author. Please try again.', 'Error');
-        // Hata durumunda kullanıcıya bildirim gösterilebilir
+        console.error(error.message, error);
+        this.toastr.error(error.message, 'Error');
       }
     );
   }

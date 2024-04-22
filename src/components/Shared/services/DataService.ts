@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CategoryModel } from '../Models/CategoryModel';
 import { AuthorModel } from '../Models/AuthorModel';
+import { BookModel } from '../Models/BookModel';
 
 
 @Injectable({
@@ -59,5 +60,10 @@ export class DataService {
     createAuthor(author: AuthorModel): Observable<any> {
       const url = `${this.baseApi}api/Author/Create`;
       return this.http.post(url, author);
+    }
+
+    createBook(book: BookModel): Observable<any> {
+      const url = `${this.baseApi}api/Book/Create`;
+      return this.http.post(url, book);
     }
 }

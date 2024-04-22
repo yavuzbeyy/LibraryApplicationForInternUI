@@ -16,15 +16,15 @@ export class AddCategoryComponent {
   submitForm() {
     this.dataService.createCategory(this.category).subscribe(
       (response) => {
-        console.log('Category added successfully!', response);
-        this.toastr.success('Category added successfully!', 'Success', {
+        console.log(response.message, response);
+        this.toastr.success(response.message, 'Success', {
           positionClass: 'toast-top-right' 
         });
   
       },
       (error) => {
-        console.error('Error adding category:', error);
-        this.toastr.error('Error adding category. Please try again.', 'Error', {
+        console.error(error.message, error);
+        this.toastr.error(error.message, 'Error', {
           positionClass: 'toast-top-right' 
         });
        
