@@ -73,7 +73,7 @@ export class DataService {
     }
 
     fetchBooksByAuthorId(authorId: number): Observable<any[]> {
-      const apiUrl = `${this.baseApi}api/Book/ListBooksByAuthorId?categoryId=${authorId}`;
+      const apiUrl = `${this.baseApi}api/Book/ListBooksByAuthorId?authorId=${authorId}`;
       return this.http.get<any[]>(apiUrl);
     }
 }

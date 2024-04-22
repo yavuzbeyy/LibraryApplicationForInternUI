@@ -36,7 +36,6 @@ export class AuthorComponent implements OnInit {
   deleteAuthor(authorId: number) {
     this.dataService.deleteAuthor(authorId).subscribe(
       (response) => {
-        console.log('Category deleted successfully.');
         this.authors = this.authors.filter(a => a.id !== authorId);
         this.fetchAuthors();
       },

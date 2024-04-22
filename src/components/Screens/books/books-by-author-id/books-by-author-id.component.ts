@@ -21,7 +21,7 @@ export class BooksByAuthorIdComponent implements OnInit {
   }
 
   fetchBooksByAuthorId(authorId: number) {
-    this.dataService.fetchBooksByCategoryId(authorId).subscribe(
+    this.dataService.fetchBooksByAuthorId(authorId).subscribe(
       (data: any) => {
         if (data && data.data && Array.isArray(data.data)) {
           this.books = data.data;

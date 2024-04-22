@@ -9,7 +9,7 @@ import { DataService } from '../../../Shared/services/DataService';
 export class BooksByCategoryIdComponent implements OnInit {
   @Input() categoryId?: number;
   books: any[] = [];
-  isOpen = true; // Varsayılan olarak bileşen açık olsun
+  isOpen = true; 
 
   constructor(private dataService: DataService) { }
 
