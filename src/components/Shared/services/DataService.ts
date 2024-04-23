@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CategoryModel } from '../Models/CategoryModel';
 import { AuthorModel } from '../Models/AuthorModel';
@@ -21,8 +21,8 @@ export class DataService {
     return this.http.get<any[]>(apiUrl);
   }
 
-  fetchBookImage(bookId: number): Observable<Blob> {
-    const imageUrl = `${this.baseApi}file/GetImageByBookId?bookId=${bookId}`;
+  fetchImages(filekey: string): Observable<Blob> {
+    const imageUrl = `${this.baseApi}file/GetImageByFotokey?filekey=${filekey}`;
     return this.http.get(imageUrl, { responseType: 'blob' });
   }
 
@@ -75,5 +75,19 @@ export class DataService {
     fetchBooksByAuthorId(authorId: number): Observable<any[]> {
       const apiUrl = `${this.baseApi}api/Book/ListBooksByAuthorId?authorId=${authorId}`;
       return this.http.get<any[]>(apiUrl);
+    }
+
+    uploadImage(file: File): Observable<any> {
+      const url = `${this.baseApi}file/Upload`;
+      const formData = new FormData();
+      formData.append('imageFile', file);
+  
+      const options = {
+        headers: new HttpHeaders({
+          'Accept': 'application/json'
+        })
+      };
+  
+      return this.http.post(url, formData, options);
     }
 }

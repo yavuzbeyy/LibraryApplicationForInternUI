@@ -39,7 +39,7 @@ export class BooksComponent implements OnInit {
 
   loadBookImages() {
     this.books.forEach(book => {
-      this.dataService.fetchBookImage(book.id).subscribe(
+      this.dataService.fetchImages(book.filekey).subscribe(
         (imageBlob: Blob) => {
           const reader = new FileReader();
           reader.onload = () => {
