@@ -39,16 +39,21 @@
             Yazar Ekle
           </a>
         </li>
-        <li class="nav-item dropdown"> 
-          <a class="nav-link dropdown-toggle px-3" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
             aria-expanded="false">
-            Giriş
+            {{ username ? username : 'Giriş' }}
           </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+            <li *ngIf="username">
+              <a class="dropdown-item" (click)="logout()">Çıkış Yap</a>
+            </li>
+            <li *ngIf="!username">
               <a class="dropdown-item" routerLink="/login" routerLinkActive="active">Giriş Yap</a>
             </li>
-            <li><a class="dropdown-item" routerLink="/register" routerLinkActive="active">Kayıt Ol</a></li>
+            <li>
+              <a class="dropdown-item" routerLink="/register" routerLinkActive="active">Kayıt Ol</a>
+            </li>
           </ul>
         </li>
       </ul>

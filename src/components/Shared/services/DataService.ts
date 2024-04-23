@@ -15,6 +15,11 @@ export class DataService {
 
   constructor(private http: HttpClient) { }
 
+  login(username: string, password: string): Observable<any> {
+    const url = `${this.baseApi}api/User/Login`;
+    return this.http.post<any>(url, { username, password });
+  }
+  
     // fetch requestlerim
   fetchData(): Observable<any[]> {
     const apiUrl = this.baseApi + 'api/Book/ListAll';
