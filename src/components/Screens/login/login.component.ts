@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { DataService } from '../../Shared/services/DataService'; 
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -12,7 +13,10 @@ export class LoginComponent {
   password: string = '';
   errorMessage: string = '';
 
-  constructor(private dataService: DataService, private router: Router) { }
+  constructor(
+    private dataService: DataService,
+    private router: Router
+  ) { }
 
   onSubmit(): void {
     if (this.username && this.password) {
@@ -20,22 +24,24 @@ export class LoginComponent {
         response => {
           console.log(response.message);
           if (response.success) {
-            
-            const token = response.message; // Tokeni alma
-            console.log(token);
-            if (typeof window !== 'undefined') {
-              localStorage.setItem('token', token)
-            }
-            this.router.navigate(['/book']).then(() => {
-              window.location.reload(); // navbarı güncellemek için sayfayı yenile
-            });
+            const token = response.message;
+
+            localStorage.setItem('token', token);
+
+            this.dataService.showSuccessMessage(response);
+
+            setTimeout(() => {
+              this.router.navigate(['/book']).then(() => {
+                window.location.reload(); 
+              });
+            }, 1000); //1 Saniye bekletip gidelim
           } else {
-            this.errorMessage = 'Kullanıcı adı veya şifre yanlış.';
+            this.dataService.showFailMessage(response);
           }
         },
         error => {
           this.errorMessage = 'Giriş yaparken bir hata oluştu. Lütfen tekrar deneyin.';
-          console.error(error);
+          this.dataService.showFailMessage(error);
         }
       );
     } else {

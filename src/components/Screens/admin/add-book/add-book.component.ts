@@ -75,10 +75,9 @@ export class AddBookComponent implements OnInit {
   }
 
   createBook() {
-    // Create the book using the updated book model
     this.dataService.createBook(this.book).subscribe(
       (createResponse) => {
-        this.toastr.success(createResponse.message, 'Success');
+        this.toastr.success(createResponse.message, 'Başarılı');
       },
       (createError) => {
         this.toastr.error(createError.message, 'Error');

@@ -17,11 +17,11 @@ export class RegisterComponent {
   createUser() {
     this.dataService.createUser(this.user).subscribe(
       response => {
-        console.log(response.message, response);
+        this.dataService.showSuccessMessage(response);
         this.router.navigate(['/login'])
       },
       error => {
-        console.error(error.message, error);
+        this.dataService.showFailMessage(error);
         if (error.error && error.error.message) {
           this.errorMessage = error.error.message;
         } else {

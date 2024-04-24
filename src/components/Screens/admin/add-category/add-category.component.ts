@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { DataService } from '../../../Shared/services/DataService';
 import { CategoryModel } from '../../../Shared/Models/CategoryModel';
-import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-add-category',
@@ -11,23 +11,15 @@ import { ToastrService } from 'ngx-toastr';
 export class AddCategoryComponent {
   category: CategoryModel = new CategoryModel();
 
-  constructor(private dataService: DataService, private toastr: ToastrService) {}
+  constructor(private dataService: DataService) {}
 
   submitForm() {
     this.dataService.createCategory(this.category).subscribe(
       (response) => {
-        console.log(response.message, response);
-        this.toastr.success(response.message, 'Success', {
-          positionClass: 'toast-top-right' 
-        });
-  
+        this.dataService.showSuccessMessage(response);
       },
       (error) => {
-        console.error(error.message, error);
-        this.toastr.error(error.message, 'Error', {
-          positionClass: 'toast-top-right' 
-        });
-       
+        this.dataService.showFailMessage(error);     
       }
     );
   }

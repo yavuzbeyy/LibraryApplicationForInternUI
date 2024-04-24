@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../Shared/services/DataService';
+import { response } from 'express';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-category',
@@ -22,7 +24,6 @@ export class CategoryComponent implements OnInit {
       (data: any) => {
         if (data && data.data && Array.isArray(data.data)) {
           this.categories = data.data;
-          console.log(this.categories); // Gelen kategori verileri
         } else {
           console.error('Error fetching categories: Invalid data format');
         }
@@ -36,11 +37,12 @@ export class CategoryComponent implements OnInit {
   deleteCategory(categoryId: number) {
     this.dataService.deleteCategory(categoryId).subscribe(
       (response) => {
-        console.log('Category deleted successfully.');
         this.categories = this.categories.filter(c => c.id !== categoryId);
+        this.dataService.showSuccessMessage(response);
       },
       (error) => {
         console.error('Error deleting category:', error);
+        this.dataService.showFailMessage(error);
       }
     );
   }

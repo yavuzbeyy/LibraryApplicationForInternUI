@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../Shared/services/DataService';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -12,7 +13,7 @@ export class AuthorComponent implements OnInit {
   authors: any[] = [];
   selectedAuthorId: number | null = null;
 
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService,private toastr: ToastrService) { }
 
   ngOnInit() {
     this.fetchAuthors();
@@ -38,9 +39,10 @@ export class AuthorComponent implements OnInit {
       (response) => {
         this.authors = this.authors.filter(a => a.id !== authorId);
         this.fetchAuthors();
+        this.dataService.showSuccessMessage(response);
       },
       (error) => {
-        console.error('Error deleting category:', error);
+        this.dataService.showFailMessage(error);
       }
     );
   }

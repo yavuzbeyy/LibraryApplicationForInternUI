@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../Shared/services/DataService';
 import { NgModule } from '@angular/core';
 
+
 @Component({
   selector: 'app-books',
   templateUrl: './books.component.html',
@@ -61,9 +62,10 @@ export class BooksComponent implements OnInit {
       (response) => {
         this.books = this.books.filter(b => b.id !== bookId);
         this.fetchBooks();
+        this.dataService.showSuccessMessage(response);
       },
       (error) => {
-        console.error('Error deleting category:', error);
+        this.dataService.showFailMessage(error);
       }
     );
   }

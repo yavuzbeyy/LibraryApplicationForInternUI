@@ -16,12 +16,10 @@ export class AddAuthorComponent {
   submitForm() {
     this.dataService.createAuthor(this.author).subscribe(
       (response) => {
-        console.log('Author added successfully!', response);
-        this.toastr.success(response.message, 'Success');
+        this.dataService.showSuccessMessage(response);
       },
       (error) => {
-        console.error(error.message, error);
-        this.toastr.error(error.message, 'Error');
+        this.dataService.showFailMessage(error);
       }
     );
   }

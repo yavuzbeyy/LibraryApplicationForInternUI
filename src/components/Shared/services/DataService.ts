@@ -5,6 +5,7 @@ import { CategoryModel } from '../Models/CategoryModel';
 import { AuthorModel } from '../Models/AuthorModel';
 import { BookModel } from '../Models/BookModel';
 import { UserCreateModel } from '../Models/UserCreateModel';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Injectable({
@@ -14,7 +15,19 @@ export class DataService {
 
   private baseApi = "https://localhost:7107/";
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private toastr: ToastrService) { }
+
+  showSuccessMessage(response : any){
+    this.toastr.success(response.message, 'Başarılı', {
+      positionClass: 'toast-top-right' 
+    });
+  }
+
+  showFailMessage(response : any){
+    this.toastr.error(response.message, 'Başarısız', {
+      positionClass: 'toast-top-right' 
+    });
+  }
 
   login(username: string, password: string): Observable<any> {
     const url = `${this.baseApi}api/User/Login`;
