@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../Shared/services/DataService';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { AuthService } from '../Auth/AuthService';
 
 
 @Component({
@@ -13,10 +14,15 @@ export class AuthorComponent implements OnInit {
 
   authors: any[] = [];
   selectedAuthorId: number | null = null;
+  isAdmin : boolean = false;
 
-  constructor(private dataService: DataService,private toastr: ToastrService,private router: Router) { }
+  constructor(private dataService: DataService,private toastr: ToastrService,private router: Router,private authService: AuthService) { }
 
   ngOnInit() {
+    const token = localStorage.getItem('token');
+    if(token){ 
+      this.isAdmin = this.authService.isAdmin(token);
+    }
     this.fetchAuthors();
   }
 

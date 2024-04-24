@@ -8,9 +8,9 @@
             <h6 class="card-subtitle mb-2 text-muted">{{ category.name }}</h6>
             <p class="card-text">{{ category.description }}</p>
             <!-- "Kitapları Gör" butonuna tıklandığında seçilen kategori ID'sini ayarla -->
-            <button (click)="showCategoryBooks(category.id)" class="btn btn-primary" style="margin-right: 10px;">Kitaplar</button>
-            <button (click)="goToUpdateCategory(category.id)" class="btn btn-warning" style="margin-right: 10px;">Güncelle</button>
-            <button (click)="deleteCategory(category.id)" class="delete">Sil</button>
+            <button (click)="showCategoryBooks(category.id)"  class="btn btn-primary" style="margin-right: 10px;">Kitaplar</button>
+            <button (click)="goToUpdateCategory(category.id)" *ngIf="isAdmin" class="btn btn-warning" style="margin-right: 10px;">Güncelle</button>
+            <button (click)="deleteCategory(category.id)" *ngIf="isAdmin" class="delete">Sil</button>
             <app-books-by-category-id *ngIf="selectedCategoryId === category.id" [categoryId]="category.id"></app-books-by-category-id>
           </div>
         </div>

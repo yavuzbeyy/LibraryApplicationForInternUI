@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../Shared/services/DataService';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router'; // RouterModule ve Router modülünü ekledik
+import { AuthService } from '../Auth/AuthService';
 
 @Component({
   selector: 'app-category',
@@ -12,14 +13,20 @@ export class CategoryComponent implements OnInit {
 
   categories: any[] = [];
   selectedCategoryId: number | null = null;
+  isAdmin : boolean = false;
 
   constructor(
     private dataService: DataService,
     private toastr: ToastrService,
-    private router: Router 
+    private router: Router,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
+    const token = localStorage.getItem('token');
+    if(token){ 
+      this.isAdmin = this.authService.isAdmin(token);
+    }
     this.fetchCategories();
   }
 

@@ -28,17 +28,17 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link px-3" routerLink="/add-book" routerLinkActive="active" aria-current="page">
+          <a class="nav-link px-3" routerLink="/add-book" routerLinkActive="active" aria-current="page" *ngIf="isAdmin">
             Kitap Ekle
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link px-3" routerLink="/add-category" routerLinkActive="active" aria-current="page">
+          <a class="nav-link px-3" routerLink="/add-category" routerLinkActive="active" aria-current="page" *ngIf="isAdmin">
             Kategori Ekle
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link px-3" routerLink="/add-author" routerLinkActive="active" aria-current="page">
+          <a class="nav-link px-3" routerLink="/add-author" routerLinkActive="active" aria-current="page" *ngIf="isAdmin">
             Yazar Ekle
           </a>
         </li>

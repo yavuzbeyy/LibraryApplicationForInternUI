@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../Shared/services/DataService';
 import { NgModule } from '@angular/core';
+import { AuthService } from '../Auth/AuthService';
 /*import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 
 
@@ -19,10 +20,15 @@ ClassicEditor.create( editorPlaceholder ).catch( error => {
 export class BooksComponent implements OnInit {
   books: any[] = []; 
   degisken: any; 
+  isAdmin : boolean = false;
 
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService,private authService: AuthService) { }
 
   ngOnInit() {
+    const token = localStorage.getItem('token');
+    if(token){ 
+      this.isAdmin = this.authService.isAdmin(token);
+    }
     this.fetchBooks();
   }
 
@@ -31,7 +37,6 @@ export class BooksComponent implements OnInit {
       (data: any) => {
         if (data && data.data && Array.isArray(data.data)) {
           
-          // API'den gelen veriyi 'books' dizisine atama
           this.books = data.data;
           this.loadBookImages();
           console.log(this.books);

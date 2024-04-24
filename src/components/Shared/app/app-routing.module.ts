@@ -15,7 +15,7 @@ import { AuthGuard } from '../../Screens/Auth/AuthGuard';
 
 const routes: Routes = [
  
-  { path: 'book', component: BooksComponent ,canActivate: [AuthGuard]},
+  { path: 'book', component: BooksComponent },
   { path: 'author', component: AuthorComponent,canActivate: [AuthGuard] },
   { path: 'category', component: CategoryComponent ,canActivate: [AuthGuard]},
   { path: 'login', component: LoginComponent },

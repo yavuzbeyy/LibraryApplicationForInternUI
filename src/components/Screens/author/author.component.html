@@ -13,8 +13,8 @@
                 <p class="card-text"> <strong>Doğum Yeri :  </strong>{{ author.placeOfBirth }}</p>
                 <p class="card-text"><strong>Doğum Tarihi :  </strong>{{ author.yearOfBirth }}</p>
                 <button (click)="showAuthorBooks(author.id)" class="btn btn-primary" style="margin-right: 5px;">Kitaplar</button>
-                <button (click)="goToUpdateAuthor(author.id)" class="btn btn-warning" style="margin-right: 5px;">Güncelle</button>
-                <button (click)="deleteAuthor(author.id)" class="delete">Sil</button>
+                <button (click)="goToUpdateAuthor(author.id)" *ngIf="isAdmin" class="btn btn-warning" style="margin-right: 5px;">Güncelle</button>
+                <button (click)="deleteAuthor(author.id)" *ngIf="isAdmin" class="delete">Sil</button>
                 <app-books-by-author-id *ngIf="selectedAuthorId === author.id" [authorId]="author.id"></app-books-by-author-id>
               </div>
             </div>
