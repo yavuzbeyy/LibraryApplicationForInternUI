@@ -17,7 +17,7 @@
                 <p class="card-text"><strong>Kategori : </strong> {{ book.categoryName }} </p>
                 <p class="card-text"> <strong>Yayımlanma Tarihi : </strong>{{ book.publicationYear }}</p>
                 <p class="card-text"><strong>Sayfa Sayısı : </strong>{{ book.numberOfPages }}</p>
-                <p><strong>Alınabilir mi : </strong> {{ book.isAvailable ? 'Evet' : 'Hayır' }}</p>
+                <p class="card-text"><strong>Alınabilir mi : </strong>{{ book.isAvailable ? 'Evet' : 'Hayır' }}</p>
                 <button class="update">Düzenle</button>
                 <button (click)="deleteBook(book.id)" class="delete">Sil</button>
               </div>

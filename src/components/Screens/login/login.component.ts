@@ -26,14 +26,14 @@ export class LoginComponent {
             if (typeof window !== 'undefined') {
               localStorage.setItem('token', token)
             }
-            
 
-            this.router.navigate(['/book']); 
-
+            this.router.navigate(['/book']).then(() => {
+              window.location.reload(); // navbarı güncellemek için sayfayı yenile
+            });
           } else {
             this.errorMessage = 'Kullanıcı adı veya şifre yanlış.';
-
           }
+        
         },
         error => {
           this.errorMessage = 'Giriş yaparken bir hata oluştu. Lütfen tekrar deneyin.';

@@ -51,7 +51,7 @@
             <li *ngIf="!username">
               <a class="dropdown-item" routerLink="/login" routerLinkActive="active">Giriş Yap</a>
             </li>
-            <li>
+            <li *ngIf="!username">
               <a class="dropdown-item" routerLink="/register" routerLinkActive="active">Kayıt Ol</a>
             </li>
           </ul>

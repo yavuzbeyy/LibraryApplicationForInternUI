@@ -30,7 +30,7 @@ export class AppComponent implements OnInit {
   
       console.log('Decoded Token:', decodedToken);
   
-      this.router.navigate(['/book']); // Örnek bir yönlendirme
+      this.router.navigate(['/book']); 
     } catch (error) {
       console.error('Error decoding token:', error);
       this.router.navigate(['/login']);
@@ -39,6 +39,8 @@ export class AppComponent implements OnInit {
 
   logout(): void {
     localStorage.removeItem('token');
-    this.router.navigate(['/login']);
+    this.router.navigate(['/login']).then(() => {
+      window.location.reload(); 
+    });
   }
 }
