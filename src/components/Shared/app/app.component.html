@@ -1,4 +1,5 @@
-<script src="https://kit.fontawesome.com/c9437daace.js" crossorigin="anonymous"></script>
+
+<div id="editor"></div>
 
 <nav class="navbar navbar-expand-lg fixed-top navbar-scroll shadow-0" style="background-color: #ffede7;">
   <div class="container">
@@ -48,7 +49,9 @@
           </a>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
             <li *ngIf="username">
-             <i class="fa-solid fa-right-from-bracket"><a class="dropdown-item" (click)="logout()">Çıkış Yap</a></i> 
+              <a class="dropdown-item" (click)="logout()">
+                <i class="fas fa-sign-out-alt"></i> Çıkış Yap
+              </a>
             </li>
             <li *ngIf="!username">
               <a class="dropdown-item" routerLink="/login" routerLinkActive="active">Giriş Yap</a>
@@ -63,6 +66,7 @@
     <router-outlet></router-outlet>
   </div>
 </nav>
+
 
 
 <div style="height: 60px;"></div>

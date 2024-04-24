@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { jwtDecode } from "jwt-decode";
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -22,6 +23,8 @@ export class AppComponent implements OnInit {
       this.router.navigate(['/login']);
     }
   }
+
+  
 
   decodeToken(token: string): void {
     try {

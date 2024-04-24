@@ -1,7 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../Shared/services/DataService';
 import { NgModule } from '@angular/core';
+/*import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 
+
+const editorPlaceholder = document.querySelector( '#editor' ) as HTMLElement;
+
+ClassicEditor.create( editorPlaceholder ).catch( error => {
+    console.error( error );
+} );*/
 
 @Component({
   selector: 'app-books',

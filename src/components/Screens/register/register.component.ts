@@ -21,11 +21,12 @@ export class RegisterComponent {
         this.router.navigate(['/login'])
       },
       error => {
-        this.dataService.showFailMessage(error);
+        //this.dataService.showFailMessage(error);
         if (error.error && error.error.message) {
           this.errorMessage = error.error.message;
         } else {
-          this.errorMessage = 'Bir hata oluştu. Lütfen tekrar deneyiniz.';
+          this.errorMessage = 'Kullanıcı Adı veya mail zaten sisteme kayıtlı. Lütfen farklı bir kullanıcı adı deneyin.';
+          this.dataService.showFailMessage(error.message);
         }
       }
     );

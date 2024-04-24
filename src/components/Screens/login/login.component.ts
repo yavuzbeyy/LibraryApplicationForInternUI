@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { DataService } from '../../Shared/services/DataService'; 
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -15,7 +16,8 @@ export class LoginComponent {
 
   constructor(
     private dataService: DataService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) { }
 
   onSubmit(): void {
@@ -28,7 +30,9 @@ export class LoginComponent {
 
             localStorage.setItem('token', token);
 
-            this.dataService.showSuccessMessage(response);
+            this.toastr.success("Yönlendiriliyor...", 'Başarılı', {
+              positionClass: 'toast-top-right' 
+            });
 
             setTimeout(() => {
               this.router.navigate(['/book']).then(() => {
@@ -36,12 +40,16 @@ export class LoginComponent {
               });
             }, 1000); //1 Saniye bekletip gidelim
           } else {
-            this.dataService.showFailMessage(response);
+            this.toastr.error("Kullanıcı adı veya şifre hatalı", 'Başarısız', {
+              positionClass: 'toast-top-right' 
+            });
           }
         },
         error => {
           this.errorMessage = 'Giriş yaparken bir hata oluştu. Lütfen tekrar deneyin.';
-          this.dataService.showFailMessage(error);
+          this.toastr.error("Kullanıcı adı veya şifre hatalı", 'Başarısız', {
+            positionClass: 'toast-top-right' 
+          });
         }
       );
     } else {
