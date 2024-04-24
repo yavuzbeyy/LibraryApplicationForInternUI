@@ -16,7 +16,7 @@ export class CategoryComponent implements OnInit {
   constructor(
     private dataService: DataService,
     private toastr: ToastrService,
-    private router: Router // Router'ı RouterModule üzerinden enjekte ettik
+    private router: Router 
   ) { }
 
   ngOnInit() {

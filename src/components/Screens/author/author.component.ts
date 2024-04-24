@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../Shared/services/DataService';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -13,7 +14,7 @@ export class AuthorComponent implements OnInit {
   authors: any[] = [];
   selectedAuthorId: number | null = null;
 
-  constructor(private dataService: DataService,private toastr: ToastrService) { }
+  constructor(private dataService: DataService,private toastr: ToastrService,private router: Router) { }
 
   ngOnInit() {
     this.fetchAuthors();
@@ -49,6 +50,10 @@ export class AuthorComponent implements OnInit {
 
   showAuthorBooks(authorId: number) {
     this.selectedAuthorId = authorId; 
+  }
+
+  goToUpdateAuthor(authorId: number) {
+    this.router.navigate(['/update-author', authorId]); 
   }
 
 }
