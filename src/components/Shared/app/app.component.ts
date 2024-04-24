@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { jwtDecode } from "jwt-decode";
+import { AuthService } from '../../Screens/Auth/AuthService';
 
 
 @Component({
@@ -11,13 +12,16 @@ import { jwtDecode } from "jwt-decode";
 export class AppComponent implements OnInit {
   username: string | null = null;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router,private authService: AuthService) {}
 
   ngOnInit(): void {
     const token = localStorage.getItem('token');
 
     if (token) {
+      //token varsa giriş yapmıştırsayfalara erişebilsin.
+      this.authService.login();
       this.decodeToken(token);
+      
     } else {
       console.log('Token not found');
       this.router.navigate(['/login']);
@@ -42,6 +46,7 @@ export class AppComponent implements OnInit {
 
   logout(): void {
     localStorage.removeItem('token');
+    this.authService.logout();
     this.router.navigate(['/login']).then(() => {
       window.location.reload(); 
     });

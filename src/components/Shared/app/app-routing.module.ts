@@ -3,28 +3,29 @@ import { RouterModule, Routes } from '@angular/router';
 import { BooksComponent } from '../../Screens/books/books.component';
 import { AuthorComponent } from '../../Screens/author/author.component';
 import { CategoryComponent } from '../../Screens/category/category.component';
-import { LoginComponent } from '../../Screens/login/login.component';
-import { RegisterComponent } from '../../Screens/register/register.component';
+import { LoginComponent } from '../../Screens/Auth/login/login.component';
+import { RegisterComponent } from '../../Screens/Auth/register/register.component';
 import { AddAuthorComponent } from '../../Screens/admin/add-author/add-author.component';
 import { AddBookComponent } from '../../Screens/admin/add-book/add-book.component';
 import { AddCategoryComponent } from '../../Screens/admin/add-category/add-category.component';
 import { UpdateAuthorComponent } from '../../Screens/admin/update-author/update-author.component';
 import { UpdateCategoryComponent } from '../../Screens/admin/update-category/update-category.component';
 import { UpdateBookComponent } from '../../Screens/admin/update-book/update-book.component';
+import { AuthGuard } from '../../Screens/Auth/AuthGuard';
 
 const routes: Routes = [
  
-  { path: 'book', component: BooksComponent },
-  { path: 'author', component: AuthorComponent },
-  { path: 'category', component: CategoryComponent },
+  { path: 'book', component: BooksComponent ,canActivate: [AuthGuard]},
+  { path: 'author', component: AuthorComponent,canActivate: [AuthGuard] },
+  { path: 'category', component: CategoryComponent ,canActivate: [AuthGuard]},
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'add-category', component: AddCategoryComponent },
-  { path: 'add-book', component: AddBookComponent },
-  { path: 'add-author', component: AddAuthorComponent },
-  { path: 'update-author/:id', component: UpdateAuthorComponent },
-  { path: 'update-category/:id', component: UpdateCategoryComponent },
-  { path: 'update-book/:id', component: UpdateBookComponent },
+  { path: 'add-category', component: AddCategoryComponent ,canActivate: [AuthGuard]},
+  { path: 'add-book', component: AddBookComponent ,canActivate: [AuthGuard]},
+  { path: 'add-author', component: AddAuthorComponent ,canActivate: [AuthGuard]},
+  { path: 'update-author/:id', component: UpdateAuthorComponent ,canActivate: [AuthGuard]},
+  { path: 'update-category/:id', component: UpdateCategoryComponent ,canActivate: [AuthGuard]},
+  { path: 'update-book/:id', component: UpdateBookComponent ,canActivate: [AuthGuard]},
 ];
 
 @NgModule({

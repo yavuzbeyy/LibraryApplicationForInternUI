@@ -18,8 +18,8 @@ import { AddAuthorComponent } from '../../Screens/admin/add-author/add-author.co
 import { AddBookComponent } from '../../Screens/admin/add-book/add-book.component';
 import { BooksByCategoryIdComponent } from '../../Screens/books/books-by-category-id/books-by-category-id.component';
 import { BooksByAuthorIdComponent } from '../../Screens/books/books-by-author-id/books-by-author-id.component';
-import { LoginComponent } from '../../Screens/login/login.component';
-import { RegisterComponent } from '../../Screens/register/register.component';
+import { LoginComponent } from '../../Screens/Auth/login/login.component';
+import { RegisterComponent } from '../../Screens/Auth/register/register.component';
 import { UpdateAuthorComponent } from '../../Screens/admin/update-author/update-author.component';
 import { UpdateBookComponent } from '../../Screens/admin/update-book/update-book.component';
 import { UpdateCategoryComponent } from '../../Screens/admin/update-category/update-category.component';
