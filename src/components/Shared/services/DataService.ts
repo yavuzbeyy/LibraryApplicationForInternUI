@@ -6,6 +6,7 @@ import { AuthorModel } from '../Models/AuthorModel';
 import { BookModel } from '../Models/BookModel';
 import { UserCreateModel } from '../Models/UserCreateModel';
 import { ToastrService } from 'ngx-toastr';
+import { UpdateCategoryModel } from '../Models/UpdateCategoryModel';
 
 
 @Injectable({
@@ -114,4 +115,15 @@ export class DataService {
   
       return this.http.post(url, formData, options);
     }
+
+    getCategoryById(categoryId: number): Observable<any[]> {
+      const apiUrl = `${this.baseApi}api/Category/GetCategoryById?id=${categoryId}`;
+      return this.http.get<any[]>(apiUrl);
+    }
+
+    updateCategory(category: UpdateCategoryModel): Observable<any> {
+      const url = `${this.baseApi}api/Category/Update`;
+      return this.http.put(url, category);
+    }
+    
 }

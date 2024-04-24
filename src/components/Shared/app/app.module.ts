@@ -19,8 +19,10 @@ import { AddBookComponent } from '../../Screens/admin/add-book/add-book.componen
 import { BooksByCategoryIdComponent } from '../../Screens/books/books-by-category-id/books-by-category-id.component';
 import { BooksByAuthorIdComponent } from '../../Screens/books/books-by-author-id/books-by-author-id.component';
 import { LoginComponent } from '../../Screens/login/login.component';
-import { UserCreateModel } from '../Models/UserCreateModel';
 import { RegisterComponent } from '../../Screens/register/register.component';
+import { UpdateAuthorComponent } from '../../Screens/admin/update-author/update-author.component';
+import { UpdateBookComponent } from '../../Screens/admin/update-book/update-book.component';
+import { UpdateCategoryComponent } from '../../Screens/admin/update-category/update-category.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,10 @@ import { RegisterComponent } from '../../Screens/register/register.component';
     BooksByCategoryIdComponent,
     BooksByAuthorIdComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    UpdateAuthorComponent,
+    UpdateBookComponent,
+    UpdateCategoryComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +48,7 @@ import { RegisterComponent } from '../../Screens/register/register.component';
     CommonModule,
     FormsModule,
     ToastrModule.forRoot({
-      positionClass: 'toast-top-right' // Sağ üst köşe konumu
+      positionClass: 'toast-top-right' 
     }),
     BrowserAnimationsModule
   ],

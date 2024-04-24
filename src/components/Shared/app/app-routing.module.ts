@@ -8,6 +8,9 @@ import { RegisterComponent } from '../../Screens/register/register.component';
 import { AddAuthorComponent } from '../../Screens/admin/add-author/add-author.component';
 import { AddBookComponent } from '../../Screens/admin/add-book/add-book.component';
 import { AddCategoryComponent } from '../../Screens/admin/add-category/add-category.component';
+import { UpdateAuthorComponent } from '../../Screens/admin/update-author/update-author.component';
+import { UpdateCategoryComponent } from '../../Screens/admin/update-category/update-category.component';
+import { UpdateBookComponent } from '../../Screens/admin/update-book/update-book.component';
 
 const routes: Routes = [
  
@@ -19,6 +22,9 @@ const routes: Routes = [
   { path: 'add-category', component: AddCategoryComponent },
   { path: 'add-book', component: AddBookComponent },
   { path: 'add-author', component: AddAuthorComponent },
+  { path: 'update-author/:id', component: UpdateAuthorComponent },
+  { path: 'update-category/:id', component: UpdateCategoryComponent },
+  { path: 'update-book/:id', component: UpdateBookComponent },
 ];
 
 @NgModule({

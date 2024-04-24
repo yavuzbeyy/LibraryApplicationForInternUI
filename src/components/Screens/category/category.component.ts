@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../Shared/services/DataService';
-import { response } from 'express';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router'; // RouterModule ve Router modülünü ekledik
 
 @Component({
   selector: 'app-category',
@@ -13,7 +13,11 @@ export class CategoryComponent implements OnInit {
   categories: any[] = [];
   selectedCategoryId: number | null = null;
 
-  constructor(private dataService: DataService) { }
+  constructor(
+    private dataService: DataService,
+    private toastr: ToastrService,
+    private router: Router // Router'ı RouterModule üzerinden enjekte ettik
+  ) { }
 
   ngOnInit() {
     this.fetchCategories();
@@ -48,6 +52,10 @@ export class CategoryComponent implements OnInit {
   }
 
   showCategoryBooks(categoryId: number) {
-    this.selectedCategoryId = categoryId; // Seçilen kategori ID'sini ayarla
+    this.selectedCategoryId = categoryId;
+  }
+
+  goToUpdateCategory(categoryId: number) {
+    this.router.navigate(['/update-category', categoryId]); // Router üzerinden yönlendirme
   }
 }

@@ -9,7 +9,7 @@
             <p class="card-text">{{ category.description }}</p>
             <!-- "Kitapları Gör" butonuna tıklandığında seçilen kategori ID'sini ayarla -->
             <button (click)="showCategoryBooks(category.id)" class="btn btn-primary">Kitaplar</button>
-            <button class="update">Güncelle</button>
+            <button (click)="goToUpdateCategory(category.id)" class="btn btn-warning">Güncelle</button>
             <button (click)="deleteCategory(category.id)" class="delete">Sil</button>
             <app-books-by-category-id *ngIf="selectedCategoryId === category.id" [categoryId]="category.id"></app-books-by-category-id>
           </div>
