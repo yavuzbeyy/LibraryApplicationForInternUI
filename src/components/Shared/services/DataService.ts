@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { CategoryModel } from '../Models/CategoryModel';
 import { AuthorModel } from '../Models/AuthorModel';
 import { BookModel } from '../Models/BookModel';
+import { UserCreateModel } from '../Models/UserCreateModel';
 
 
 @Injectable({
@@ -65,6 +66,11 @@ export class DataService {
     createAuthor(author: AuthorModel): Observable<any> {
       const url = `${this.baseApi}api/Author/Create`;
       return this.http.post(url, author);
+    }
+
+    createUser(user: UserCreateModel): Observable<any> {
+      const url = `${this.baseApi}api/User/Create`;
+      return this.http.post(url, user);
     }
 
     createBook(book: BookModel): Observable<any> {

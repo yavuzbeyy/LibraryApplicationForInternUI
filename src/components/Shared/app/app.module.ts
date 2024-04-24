@@ -19,6 +19,8 @@ import { AddBookComponent } from '../../Screens/admin/add-book/add-book.componen
 import { BooksByCategoryIdComponent } from '../../Screens/books/books-by-category-id/books-by-category-id.component';
 import { BooksByAuthorIdComponent } from '../../Screens/books/books-by-author-id/books-by-author-id.component';
 import { LoginComponent } from '../../Screens/login/login.component';
+import { UserCreateModel } from '../Models/UserCreateModel';
+import { RegisterComponent } from '../../Screens/register/register.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import { LoginComponent } from '../../Screens/login/login.component';
     AddBookComponent,
     BooksByCategoryIdComponent,
     BooksByAuthorIdComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
