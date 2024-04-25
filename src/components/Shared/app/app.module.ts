@@ -5,6 +5,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { ToastrModule } from 'ngx-toastr';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -25,6 +27,7 @@ import { UpdateBookComponent } from '../../Screens/admin/update-book/update-book
 import { UpdateCategoryComponent } from '../../Screens/admin/update-category/update-category.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { RequestBooksComponent } from '../../Screens/request-books/request-books.component';
+import { BookDetailsModalComponent } from '../../Screens/books/book-details-modal/book-details-modal.component';
 
 
 @NgModule({
@@ -43,7 +46,8 @@ import { RequestBooksComponent } from '../../Screens/request-books/request-books
     UpdateAuthorComponent,
     UpdateBookComponent,
     UpdateCategoryComponent,
-    RequestBooksComponent
+    RequestBooksComponent,
+    BookDetailsModalComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +59,8 @@ import { RequestBooksComponent } from '../../Screens/request-books/request-books
       positionClass: 'toast-top-right' 
     }),
     BrowserAnimationsModule,
-    CKEditorModule
+    CKEditorModule,
+    NgbModule
   ],
   providers: [
     provideClientHydration(),

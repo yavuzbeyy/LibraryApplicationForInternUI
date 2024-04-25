@@ -1,0 +1,44 @@
+.modal-dialog {
+    max-width: 80%;
+  }
+  
+  .modal-content {
+    border: none;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    width: auto;
+    height: auto;
+  }
+  
+  .modal-header {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+  
+  .modal-body {
+    padding: 20px;
+  }
+  
+  .modal-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .close {
+    font-size: 2rem;
+    color: #aaa;
+    transition: color 0.3s ease;
+  }
+  
+  .close:hover {
+    color: #f00; /* Kırmızı renk */
+  }
+  
+  .modal-footer {
+    border-top: none;
+    padding-top: 20px;
+  }
+  
+  .modal-footer button {
+    margin-right: 10px;
+  }
+  

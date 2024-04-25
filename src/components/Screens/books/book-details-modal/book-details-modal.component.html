@@ -1,0 +1,19 @@
+<div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="bookDetailsModalLabel">{{ book?.title }}</h5>
+    </div>
+    <div class="modal-body">
+      <p><strong>Yazar:</strong> {{ book?.authorName }} {{ book?.authorSurname }}</p>
+      <p><strong>Kategori:</strong> {{ book?.categoryName }}</p>
+      <p><strong>Yayımlanma Tarihi:</strong> {{ book?.publicationYear }}</p>
+      <p><strong>Sayfa Sayısı:</strong> {{ book?.numberOfPages }}</p>
+      <p><strong>Alınabilir mi:</strong> {{ book?.isAvailable ? 'Evet' : 'Hayır' }}</p>
+      <p><strong>Özet: </strong> {{ book?.description }}</p>
+      <img *ngIf="book?.imageUrl" [src]="book?.imageUrl" alt="Book Image" style="max-width: 100%; margin-top: 10px;">
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-danger" (click)="closeModal()">Kapat</button>
+      <button type="button" class="btn btn-primary" (click)="orderBook()">Sipariş Et</button>
+    </div>
+  </div>
+  
