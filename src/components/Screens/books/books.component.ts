@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../Shared/services/DataService';
 import { NgModule } from '@angular/core';
 import { AuthService } from '../Auth/AuthService';
+import { Router } from '@angular/router';
 /*import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 
 
@@ -22,7 +23,7 @@ export class BooksComponent implements OnInit {
   degisken: any; 
   isAdmin : boolean = false;
 
-  constructor(private dataService: DataService,private authService: AuthService) { }
+  constructor(private dataService: DataService,private authService: AuthService,private router: Router) { }
 
   ngOnInit() {
     const token = localStorage.getItem('token');
@@ -48,6 +49,10 @@ export class BooksComponent implements OnInit {
         console.error('Error fetching books:', error);
       }
     );
+  }
+
+  goToUpdateBook(bookId: number) {
+    this.router.navigate(['/update-book', bookId]); // Router üzerinden yönlendirme
   }
 
   loadBookImages() {

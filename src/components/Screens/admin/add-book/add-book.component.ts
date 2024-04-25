@@ -17,6 +17,7 @@ export class AddBookComponent implements OnInit {
   constructor(private dataService: DataService, private toastr: ToastrService) {}
 
   ngOnInit() {
+    
     this.fetchAuthors();
     this.fetchCategories();
   }
