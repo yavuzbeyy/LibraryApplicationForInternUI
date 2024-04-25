@@ -148,5 +148,13 @@ export class DataService {
       return this.http.put(url, author);
     }
 
-    
+    fetchBookRequests(): Observable<any[]> {
+      const url = `${this.baseApi}api/User/GetAllRequests`;
+      return this.http.get<any[]>(url);
+    }
+
+    getUserById(userId: number): Observable<any[]> {
+      const apiUrl = `${this.baseApi}api/User/GetUserByUserId?id=${userId}`;
+      return this.http.get<any[]>(apiUrl);
+    }
 }

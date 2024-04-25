@@ -1,1 +1,30 @@
-<p>request-books works!</p>
+<div>
+    <h2>Kitap İstekleri</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>İstek Oluşturma Tarihi</th>
+          <th>Kitap Başlığı</th>
+          <th>Kullanıcı Adı</th>
+          <th>İstek Başlangıç Tarihi</th>
+          <th>Tahmini Geri Veriş Tarihi</th>
+          <th>Onay Durumu</th>
+          <th>Geri Verildi mi ?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let request of bookRequests">
+          <td>{{ request.id }}</td>
+          <td>{{ request.createdDate }}</td>
+          <td>{{ request.bookTitle }}</td>
+          <td>{{ request.userName }}</td>
+          <td>{{ request.requestDate }}</td>
+          <td>{{ request.returnDate }}</td>
+          <td>{{ request.isApproved ? 'Onaylandı' : 'Onaylanmadı' }}</td>
+          <td>null</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

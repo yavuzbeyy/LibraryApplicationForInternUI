@@ -24,6 +24,7 @@ import { UpdateAuthorComponent } from '../../Screens/admin/update-author/update-
 import { UpdateBookComponent } from '../../Screens/admin/update-book/update-book.component';
 import { UpdateCategoryComponent } from '../../Screens/admin/update-category/update-category.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { RequestBooksComponent } from '../../Screens/request-books/request-books.component';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     RegisterComponent,
     UpdateAuthorComponent,
     UpdateBookComponent,
-    UpdateCategoryComponent
+    UpdateCategoryComponent,
+    RequestBooksComponent
   ],
   imports: [
     BrowserModule,
