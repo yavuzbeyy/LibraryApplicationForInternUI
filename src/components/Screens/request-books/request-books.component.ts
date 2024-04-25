@@ -77,4 +77,18 @@ export class RequestBooksComponent implements OnInit {
   fetchUserById(userId: number): Observable<any> {
     return this.dataService.getUserById(userId);
   }
+
+  deleteRequest(requestId: number): void {
+    this.dataService.deleteRequest(requestId).subscribe(
+      (response) => {
+        this.bookRequests = this.bookRequests.filter((request) => request.id !== requestId);
+        this.dataService.showSuccessMessage(response);
+      },
+      (error) => {
+        console.error('Error deleting request:', error);
+        this.dataService.showFailMessage(error);
+      }
+    );
+  }
+
 }

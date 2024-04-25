@@ -71,9 +71,14 @@ export class DataService {
   }
 
   deleteBook(bookId: number): Observable<any> {
-    const url = `${this.baseApi}api/Book/Delete?id=${bookId}`;
+   const url = `${this.baseApi}api/Book/Delete?id=${bookId}`;
     return this.http.delete(url);
-  }
+  } 
+
+  deleteRequest(requestId: number): Observable<any> {
+    const url = `${this.baseApi}api/User/DeleteBookRequest?id=${requestId}`;
+     return this.http.delete(url);
+   } 
     // add requestler
     createCategory(category: CategoryModel): Observable<any> {
       const url = `${this.baseApi}api/Category/Create`;
