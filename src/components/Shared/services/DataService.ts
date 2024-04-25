@@ -9,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 import { UpdateCategoryModel } from '../Models/UpdateCategoryModel';
 import { UpdateAuthorModel } from '../Models/UpdateAuthorModel';
 import { UpdateBookModel } from '../Models/UpdateBookModel';
+import { RequestBookModel } from '../Models/RequestBookModel';
 
 
 @Injectable({
@@ -92,6 +93,11 @@ export class DataService {
     createBook(book: BookModel): Observable<any> {
       const url = `${this.baseApi}api/Book/Create`;
       return this.http.post(url, book);
+    }
+
+    createBookRequest(bookrequest: RequestBookModel): Observable<any> {
+      const url = `${this.baseApi}api/User/CreateBookRequest`;
+      return this.http.post(url, bookrequest);
     }
 
     fetchBooksByCategoryId(categoryId: number): Observable<any[]> {

@@ -43,7 +43,6 @@ export class BooksComponent implements OnInit {
   openBookDetailsModal(book: any) {
     const modalRef = this.modalService.open(BookDetailsModalComponent, { centered: true });
     modalRef.componentInstance.book = book;
-    console.log(book)
   }
 
   loadBookImages() {

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'; // NgbActiveModal'ü ekleyin
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-book-details-modal',
@@ -7,17 +7,25 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'; // NgbActiveModal'�
   styleUrls: ['./book-details-modal.component.scss']
 })
 export class BookDetailsModalComponent {
-  @Input() book: any; // Kitap verisini giriş olarak al
+  @Input() book: any;
+  borrowDate: string = ''; 
+  returnDate: string= ''; 
 
   constructor(public activeModal: NgbActiveModal) { }
 
   closeModal() {
-    this.activeModal.dismiss(); // Modalı kapat
+    this.activeModal.dismiss();
   }
 
   orderBook() {
-    // Sipariş etmek için gereken işlemleri burada yapabilirsiniz
-    console.log('Kitap sipariş edildi.');
-    this.activeModal.dismiss(); // Modalı kapat
+    if (this.borrowDate && this.returnDate) {
+      console.log('Alış Tarihi:', this.borrowDate);
+      console.log('Geri Veriş Tarihi:', this.returnDate);
+
+      console.log('Kitap sipariş edildi.');
+      this.activeModal.dismiss();
+    } else {
+      alert('Lütfen alış ve geri veriş tarihlerini seçin.');
+    }
   }
 }

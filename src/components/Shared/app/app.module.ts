@@ -47,7 +47,7 @@ import { BookDetailsModalComponent } from '../../Screens/books/book-details-moda
     UpdateBookComponent,
     UpdateCategoryComponent,
     RequestBooksComponent,
-    BookDetailsModalComponent
+    BookDetailsModalComponent,
   ],
   imports: [
     BrowserModule,
