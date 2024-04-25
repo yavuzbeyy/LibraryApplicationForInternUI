@@ -3,6 +3,7 @@ import { DataService } from '../../Shared/services/DataService';
 import { NgModule } from '@angular/core';
 import { AuthService } from '../Auth/AuthService';
 import { Router } from '@angular/router';
+
 /*import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 
 
@@ -85,6 +86,10 @@ export class BooksComponent implements OnInit {
         this.dataService.showFailMessage(error);
       }
     );
+  }
+
+  bookDetails(bookId:number){
+    console.log(bookId);
   }
 
 }

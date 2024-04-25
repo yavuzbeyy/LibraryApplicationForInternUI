@@ -11,6 +11,7 @@ import { AddCategoryComponent } from '../../Screens/admin/add-category/add-categ
 import { UpdateAuthorComponent } from '../../Screens/admin/update-author/update-author.component';
 import { UpdateCategoryComponent } from '../../Screens/admin/update-category/update-category.component';
 import { UpdateBookComponent } from '../../Screens/admin/update-book/update-book.component';
+import { RequestBooksComponent} from '../../Screens/request-books/request-books.component';
 import { AuthGuard } from '../../Screens/Auth/AuthGuard';
 
 const routes: Routes = [
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: 'update-author/:id', component: UpdateAuthorComponent ,canActivate: [AuthGuard]},
   { path: 'update-category/:id', component: UpdateCategoryComponent ,canActivate: [AuthGuard]},
   { path: 'update-book/:id', component: UpdateBookComponent ,canActivate: [AuthGuard]},
+  { path: 'book-requests', component: RequestBooksComponent},
 ];
 
 @NgModule({

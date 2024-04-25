@@ -23,6 +23,8 @@ import { RegisterComponent } from '../../Screens/Auth/register/register.componen
 import { UpdateAuthorComponent } from '../../Screens/admin/update-author/update-author.component';
 import { UpdateBookComponent } from '../../Screens/admin/update-book/update-book.component';
 import { UpdateCategoryComponent } from '../../Screens/admin/update-category/update-category.component';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+
 
 @NgModule({
   declarations: [
@@ -50,7 +52,8 @@ import { UpdateCategoryComponent } from '../../Screens/admin/update-category/upd
     ToastrModule.forRoot({
       positionClass: 'toast-top-right' 
     }),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    CKEditorModule
   ],
   providers: [
     provideClientHydration(),
