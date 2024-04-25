@@ -67,7 +67,7 @@ export class RequestBooksComponent implements OnInit {
   }
 
   formatDate(dateString: string): string {
-    return this.datePipe.transform(new Date(dateString), 'dd/MM/yyyy HH:mm') || ''; 
+    return this.datePipe.transform(new Date(dateString), 'dd/MM/yyyy') || ''; 
   }
 
   fetchBookById(bookId: number): Observable<any> {

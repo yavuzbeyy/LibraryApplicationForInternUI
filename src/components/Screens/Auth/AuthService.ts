@@ -27,6 +27,19 @@ export class AuthService {
     return this.isLoggedIn;
   }
 
+  getUserId(): number | undefined {
+    const token = localStorage.getItem('token');
+    if (token !== null) {
+      const decodedToken: any = jwtDecode(token);
+      const userId = decodedToken.UserId;
+      console.log(userId)
+      return userId;
+    } else {
+      return undefined;
+    }
+  }
+  
+
   isAdmin(token : string):boolean{
      const decodedToken: any = jwtDecode(token);
     this.role = decodedToken.roles;

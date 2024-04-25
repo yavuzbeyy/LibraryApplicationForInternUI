@@ -19,7 +19,6 @@ export class AppComponent implements OnInit {
   constructor(
     private router: Router,
     private authService: AuthService,
-    @Inject(PLATFORM_ID) private platformId: any 
   ) {}
 
   ngOnInit(): void {
@@ -34,14 +33,6 @@ export class AppComponent implements OnInit {
       this.router.navigate(['/login']);
     }
 
-    // Load CKEditor only on the browser
-    if (isPlatformBrowser(this.platformId)) {
-      import('@ckeditor/ckeditor5-build-classic').then(ClassicEditor => {
-        this.Editor = ClassicEditor.default;
-      }).catch(error => {
-        console.error('Error loading CKEditor:', error);
-      });
-    }
   }
 
   decodeToken(token: string): void {
