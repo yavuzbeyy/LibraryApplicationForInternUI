@@ -39,11 +39,10 @@ export class AuthService {
     }
   }
   
-
+  //gereksiz çağrılıyor buna bak
   isAdmin(token : string):boolean{
      const decodedToken: any = jwtDecode(token);
     this.role = decodedToken.roles;
-    console.log("Rol :" + this.role)
     if(this.role === '1'){
         return true;
     }else{

@@ -4,6 +4,9 @@ import { isPlatformBrowser } from '@angular/common';
 import { jwtDecode } from 'jwt-decode';
 import { AuthService } from '../../Screens/Auth/AuthService';
 import { HubConnection, HubConnectionBuilder,HttpTransportType } from '@microsoft/signalr';
+import { addAbortSignal } from 'stream';
+import { setDataInElement } from '@ckeditor/ckeditor5-utils';
+import { error } from 'console';
 
 @Component({
   selector: 'app-root',
@@ -24,7 +27,8 @@ export class AppComponent implements OnInit {
     private hubConnection: HubConnection
   ) 
   {
-    this.hubConnection = new HubConnectionBuilder()
+    this.startSignalRConnection();
+  /* this.hubConnection = new HubConnectionBuilder()
     .withUrl('http://localhost:5062/connectServerHub',{
       skipNegotiation: true,
       transport: HttpTransportType.WebSockets
@@ -33,8 +37,11 @@ export class AppComponent implements OnInit {
 
  
      this.hubConnection.start()
-    .then(() => console.log('SignalR bağlantısı başarılı !'))
-    .catch(err => console.error('Error while establishing connection: ' + err));
+    .then(() =>
+     //  console.log('SignalR bağlantısı başarılı !')
+    this.hubConnection.invoke("BroadcastMessageToAllClient","helloWorld")
+  )
+    .catch(err => console.error('Error while establishing connection: ' + err)); */
   }
 
   ngOnInit(): void {
@@ -48,8 +55,47 @@ export class AppComponent implements OnInit {
       console.log('Token not found');
       this.router.navigate(['/login']);
     }
-
   }
+
+
+  startSignalRConnection() {
+    const connectionOptions = {
+      withUrl: 'http://localhost:5062/connectServerHub',
+      skipNegotiation: true,
+      transport: HttpTransportType.WebSockets
+    };
+
+  
+    const startConnection = () => {
+      this.hubConnection = new HubConnectionBuilder()
+        .withUrl(connectionOptions.withUrl, { ...connectionOptions })
+        .build();
+  
+      this.hubConnection.start()
+        .then(() => {
+          console.log("SignalR Bağlantısı Kuruldu");
+          this.hubConnection.invoke("BroadcastMessageToAllClient", "Selam");
+          this.hubConnection.invoke("sendWelcomeMessage");
+        })
+        .then(() => {
+          console.log("Mesaj sunucuya gönderildi.");
+        })
+        .catch(error => {
+          console.error("Error while establishing connection or invoking method:", error);
+          setTimeout(startConnection, 5000); 
+        });
+  
+     this.hubConnection.on("ReceiveMesasgesForAllClients", (message) => {
+        console.log("Gelen Mesaj : " + message);
+      })
+      this.hubConnection.on("WelcomeMessage", (message) => {
+        console.log("Hoşgeldin Mesajı : " + message);
+      })
+    };
+  
+    startConnection(); 
+  }
+  
 
   decodeToken(token: string): void {
     try {
