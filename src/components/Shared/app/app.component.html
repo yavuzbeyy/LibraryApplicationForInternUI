@@ -89,10 +89,11 @@
     <div class="card mt-3">
       <div id="liveChatMessages"></div> <!-- Gelen mesajları göstereceğimiz alan -->
       <div class="form-group px-3">
-        <textarea class="form-control" #chatMessage rows="5" placeholder="Lütfen mesajınızı giriniz"></textarea>
+        <textarea class="form-control" #chatMessage rows="5" style="font-size: 10px;" placeholder="Lütfen mesajınızı giriniz"></textarea>
       </div>
       <div class="d-grid gap-2 col-6 mx-auto">
-        <button class="btn btn-primary" (click)="sendChatMessage(chatMessage.value)">Gönder</button>
+        <button class="btn btn-primary" (click)="sendChatMessage(chatMessage.value, username)">Gönder</button>
+
         
       </div>
     </div>

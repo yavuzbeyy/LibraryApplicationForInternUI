@@ -78,8 +78,8 @@ export class AppComponent implements OnInit {
        })
 
        //Kullanıcının mesajı
-        this.hubConnection.on("MessageSentFromClient", (message) => {
-         console.log("Kullanıcının ilettiği mesaj : " + message);
+        this.hubConnection.on("MessageSentFromClient", (message,username) => {
+         console.log("Kullanıcının ilettiği mesaj : " + message,username);
          this.showReceivedMessage(message);
        })
      };
@@ -92,26 +92,26 @@ export class AppComponent implements OnInit {
       const chatMessageElement = document.createElement('div');
       chatMessageElement.classList.add('chat-message', 'p-3');
       chatMessageElement.innerHTML = `
-        <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-7.png" width="30" height="30">
+        <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-7.png" width="30" height="30"> <h5>Yönetici</h5>
         <div class="message-content">${message}</div>`;
       chatElement.appendChild(chatMessageElement);
     }
   }
 
-  sendChatMessage(message: string): void {
+  sendChatMessage(message: string, username:string): void {
     const chatElement = document.getElementById('liveChatMessages');
     if (chatElement) {
       console.log("Kullanıcıdan Gelen Mesaj : ",message)
       const chatMessageElement = document.createElement('div');
       chatMessageElement.classList.add('chat-message', 'p-3');
       chatMessageElement.innerHTML = `
-        <img src="https://img.icons8.com/color/48/000000/circled-user-male-skin-type-7.png" width="30" height="30">
+        <img src="https://img.icons8.com/color/48/000000/circled-user-male-skin-type-7.png" width="30" height="30"> <h5>${this.username}</h5>
         <div class="message-content">${message}</div>`;
       chatElement.appendChild(chatMessageElement);
     }
   
     // SignalR üzerinden mesajı gönder
-    this.hubConnection.invoke("SendChatMessage", message)
+    this.hubConnection.invoke("SendChatMessageClientOnly", message, username)
       .then(() => {
         console.log("Mesaj gönderildi:", message);
       })

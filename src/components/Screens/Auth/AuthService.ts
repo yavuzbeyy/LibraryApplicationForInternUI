@@ -32,7 +32,6 @@ export class AuthService {
     if (token !== null) {
       const decodedToken: any = jwtDecode(token);
       const userId = decodedToken.UserId;
-      console.log(userId)
       return userId;
     } else {
       return undefined;
