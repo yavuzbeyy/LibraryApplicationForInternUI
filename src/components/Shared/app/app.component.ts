@@ -11,7 +11,7 @@ import { HubConnection, HubConnectionBuilder, HttpTransportType } from '@microso
 })
 export class AppComponent implements OnInit {
   public Editor: any; 
-  username: string = '';
+  username: string | any = '';
   decodedToken: any = null; 
   role: number | null = null;
   isAdmin: boolean = false;
@@ -48,7 +48,7 @@ export class AppComponent implements OnInit {
   
      const startConnection = () => {
        this.hubConnection = new HubConnectionBuilder()
-         .withUrl(connectionOptions.withUrl, { ...connectionOptions })
+        .withUrl(connectionOptions.withUrl, { ...connectionOptions })
         .build();
   
        this.hubConnection.start()
@@ -65,7 +65,7 @@ export class AppComponent implements OnInit {
          setTimeout(startConnection, 5000); 
      });
      
-     //Hoşgeldiniz mesajı
+      //Hoşgeldiniz mesajı
          this.hubConnection.on("ReceiveMesasgesForAllClients", (message) => {
          console.log("Gelen Mesaj : " + message);
          this.showReceivedMessage(message);
@@ -82,6 +82,14 @@ export class AppComponent implements OnInit {
          console.log("Kullanıcının ilettiği mesaj : " + message,username);
          this.showReceivedMessage(message);
        })
+
+      // SignalRdan Gelen Eski Mesajlar
+      this.hubConnection.on("ShowPreviousMessages", (messages) => {
+      console.log("Previous messages:", messages);
+      messages.forEach((message: any) => { // Her bir mesaj için forEach döngüsü
+      this.sendChatMessage(message.message,this.username); // Mesaj içeriğini göstermek için showReceivedMessage fonksiyonunu çağır
+  });
+});
      };
      startConnection(); 
    }
@@ -119,6 +127,18 @@ export class AppComponent implements OnInit {
         console.error("Error while sending message:", error);
       });
   }
+
+  getPreviousMessages() {
+    this.hubConnection.invoke("GetPreviousMessages", this.username)
+      .then(() => {
+        console.log("Bu kullanıcıların geçmiş mesajlarını görme isteği: " + this.username);
+        // this.getPreviousMessage(message);
+      })
+      .catch(error => {
+        console.error("Error while getting previous messages:", error);
+      });
+  }
+  
   
 
   decodeToken(token: string): void {
