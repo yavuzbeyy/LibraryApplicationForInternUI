@@ -17,7 +17,7 @@ import { RequestBookModel } from '../Models/RequestBookModel';
 })
 export class DataService {
 
-  private baseApi = "https://localhost:7107/";
+  private baseApi = "http://localhost:5062/";
 
   constructor(private http: HttpClient,private toastr: ToastrService) { }
 

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
 import { jwtDecode } from 'jwt-decode';
 import { AuthService } from '../../Screens/Auth/AuthService';
+import { HubConnection, HubConnectionBuilder,HttpTransportType } from '@microsoft/signalr';
 
 @Component({
   selector: 'app-root',
@@ -16,10 +17,25 @@ export class AppComponent implements OnInit {
   role: number | null = null;
   isAdmin: boolean = false;
 
+
   constructor(
     private router: Router,
     private authService: AuthService,
-  ) {}
+    private hubConnection: HubConnection
+  ) 
+  {
+    this.hubConnection = new HubConnectionBuilder()
+    .withUrl('http://localhost:5062/connectServerHub',{
+      skipNegotiation: true,
+      transport: HttpTransportType.WebSockets
+    }) 
+    .build();
+
+ 
+     this.hubConnection.start()
+    .then(() => console.log('SignalR bağlantısı başarılı !'))
+    .catch(err => console.error('Error while establishing connection: ' + err));
+  }
 
   ngOnInit(): void {
     const token = localStorage.getItem('token');

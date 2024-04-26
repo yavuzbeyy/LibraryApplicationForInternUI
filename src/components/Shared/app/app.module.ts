@@ -28,6 +28,7 @@ import { UpdateCategoryComponent } from '../../Screens/admin/update-category/upd
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { RequestBooksComponent } from '../../Screens/request-books/request-books.component';
 import { BookDetailsModalComponent } from '../../Screens/books/book-details-modal/book-details-modal.component';
+import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 
 
 @NgModule({
@@ -60,11 +61,18 @@ import { BookDetailsModalComponent } from '../../Screens/books/book-details-moda
     }),
     BrowserAnimationsModule,
     CKEditorModule,
-    NgbModule
+    NgbModule,
+    
   ],
   providers: [
     provideClientHydration(),
-    DataService
+    DataService,
+    {
+      provide: HubConnection,
+      useValue: new HubConnectionBuilder()
+        .withUrl('https://localhost:5062/connectServerHub')
+        .build()
+    }
   ],
   bootstrap: [AppComponent]
 })
