@@ -28,10 +28,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     
-    if (this.authService.username){
-      this.startSignalRConnection();
-    }
-
     const token = localStorage.getItem('token');
     if (token) {
       this.authService.login();
@@ -43,92 +39,52 @@ export class AppComponent implements OnInit {
     }
   }
 
-  startSignalRConnection() {
+   startSignalRConnection() {
     const connectionOptions = {
-      withUrl: 'http://localhost:5062/connectServerHub',
+       withUrl: 'http://localhost:5062/connectServerHub',
       skipNegotiation: true,
-      transport: HttpTransportType.WebSockets
+       transport: HttpTransportType.WebSockets
     };
-
   
-    const startConnection = () => {
-      this.hubConnection = new HubConnectionBuilder()
-        .withUrl(connectionOptions.withUrl, { ...connectionOptions })
+     const startConnection = () => {
+       this.hubConnection = new HubConnectionBuilder()
+         .withUrl(connectionOptions.withUrl, { ...connectionOptions })
         .build();
   
-      this.hubConnection.start()
+       this.hubConnection.start()
         .then(() => {
           console.log("SignalR Bağlantısı Kuruldu");
-          this.hubConnection.invoke("BroadcastMessageToAllClient", "Merhabalar !");
-          this.hubConnection.invoke("sendWelcomeMessage");
+         this.hubConnection.invoke("BroadcastMessageToAllClient", "Merhabalar !");
+         this.hubConnection.invoke("sendWelcomeMessage");
         })
         .then(() => {
           console.log("Mesaj sunucuya gönderildi.");
         })
         .catch(error => {
           console.error("Error while establishing connection or invoking method:", error);
-          setTimeout(startConnection, 5000); 
-        });
-  
-     this.hubConnection.on("ReceiveMesasgesForAllClients", (message) => {
-        console.log("Gelen Mesaj : " + message);
-        this.showReceivedMessage(message);
-      })
-      this.hubConnection.on("WelcomeMessage", (message) => {
-        console.log("Hoşgeldin Mesajı : " + message);
-        this.showReceivedMessage(message);
-      })
-      this.hubConnection.on("MessageSentFromClient", (message) => {
-        console.log("Hoşgeldin Mesajı : " + message);
-        this.showReceivedMessage(message);
-      })
-    };
-    startConnection(); 
-  }
+         setTimeout(startConnection, 5000); 
+     });
+     
+     //Hoşgeldiniz mesajı
+         this.hubConnection.on("ReceiveMesasgesForAllClients", (message) => {
+         console.log("Gelen Mesaj : " + message);
+         this.showReceivedMessage(message);
+       })
 
+       //Hoşheldiniz Mesajı
+        this.hubConnection.on("WelcomeMessage", (message) => {
+         console.log("Hoşgeldin Mesajı : " + message);
+        this.showReceivedMessage(message);
+       })
 
-  // startSignalRConnection() {
-  //   const connectionOptions = {
-  //     withUrl: 'http://localhost:5062/connectServerHub',
-  //     skipNegotiation: true,
-  //     transport: HttpTransportType.WebSockets
-  //   };
-
-  
-  //   const startConnection = () => {
-  //     this.hubConnection = new HubConnectionBuilder()
-  //       .withUrl(connectionOptions.withUrl, { ...connectionOptions })
-  //       .build();
-  
-  //     this.hubConnection.start()
-  //       .then(() => {
-  //         console.log("SignalR Bağlantısı Kuruldu");
-  //         this.hubConnection.invoke("BroadcastMessageToAllClient", "Merhabalar !");
-  //         this.hubConnection.invoke("sendWelcomeMessage");
-  //       })
-  //       .then(() => {
-  //         console.log("Mesaj sunucuya gönderildi.");
-  //       })
-  //       .catch(error => {
-  //         console.error("Error while establishing connection or invoking method:", error);
-  //         setTimeout(startConnection, 5000); 
-  //       });
-  
-  //    this.hubConnection.on("ReceiveMesasgesForAllClients", (message) => {
-  //       console.log("Gelen Mesaj : " + message);
-  //       this.showReceivedMessage(message);
-  //     })
-  //     this.hubConnection.on("WelcomeMessage", (message) => {
-  //       console.log("Hoşgeldin Mesajı : " + message);
-  //       this.showReceivedMessage(message);
-  //     })
-  //     this.hubConnection.on("MessageSentFromClient", (message) => {
-  //       console.log("Hoşgeldin Mesajı : " + message);
-  //       this.showReceivedMessage(message);
-  //     })
-  //   };
-  //   startConnection(); 
-  // }
+       //Kullanıcının mesajı
+        this.hubConnection.on("MessageSentFromClient", (message) => {
+         console.log("Kullanıcının ilettiği mesaj : " + message);
+         this.showReceivedMessage(message);
+       })
+     };
+     startConnection(); 
+   }
 
   showReceivedMessage(message: string): void {
     const chatElement = document.getElementById('liveChatMessages');

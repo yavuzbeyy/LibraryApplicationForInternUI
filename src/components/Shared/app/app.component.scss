@@ -170,3 +170,25 @@ body{
   font-size: 14px;
   max-width: 70%;
 }
+
+.messages-container {
+  max-height: 200px; /* Mesajlar konteynerinin maksimum yüksekliği */
+  overflow-y: auto; /* Yükseklik aşıldığında scrollbar göster */
+}
+
+.chat-message {
+  margin-bottom: 10px;
+}
+
+.message-content {
+  background-color: #cbf57f;
+  border-radius: 15px;
+  padding: 10px 15px;
+  font-size: 14px;
+  max-width: 70%;
+}
+
+#liveChatMessages {
+  max-height: 300px; /* İsteğe bağlı olarak ayarlayabilirsiniz */
+  overflow-y: auto; /* Yalnızca yükseklik aşıldığında scrollbar'ı göster */
+}
