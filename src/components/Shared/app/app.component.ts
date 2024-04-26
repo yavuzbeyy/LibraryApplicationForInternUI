@@ -1,12 +1,8 @@
-import { Component, OnInit, PLATFORM_ID, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { isPlatformBrowser } from '@angular/common';
 import { jwtDecode } from 'jwt-decode';
 import { AuthService } from '../../Screens/Auth/AuthService';
-import { HubConnection, HubConnectionBuilder,HttpTransportType } from '@microsoft/signalr';
-import { addAbortSignal } from 'stream';
-import { setDataInElement } from '@ckeditor/ckeditor5-utils';
-import { error } from 'console';
+import { HubConnection, HubConnectionBuilder, HttpTransportType } from '@microsoft/signalr';
 
 @Component({
   selector: 'app-root',
@@ -15,11 +11,11 @@ import { error } from 'console';
 })
 export class AppComponent implements OnInit {
   public Editor: any; 
-  username: string | null = null;
+  username: string = '';
   decodedToken: any = null; 
   role: number | null = null;
   isAdmin: boolean = false;
-
+  
 
   constructor(
     private router: Router,
@@ -27,26 +23,16 @@ export class AppComponent implements OnInit {
     private hubConnection: HubConnection
   ) 
   {
-    this.startSignalRConnection();
-  /* this.hubConnection = new HubConnectionBuilder()
-    .withUrl('http://localhost:5062/connectServerHub',{
-      skipNegotiation: true,
-      transport: HttpTransportType.WebSockets
-    }) 
-    .build();
-
- 
-     this.hubConnection.start()
-    .then(() =>
-     //  console.log('SignalR bağlantısı başarılı !')
-    this.hubConnection.invoke("BroadcastMessageToAllClient","helloWorld")
-  )
-    .catch(err => console.error('Error while establishing connection: ' + err)); */
+    this.startSignalRConnection(); // buradan kaynaklı giriş yapmış kullanıcının çıkış yapma butonlarını vs.görüyor orayı düzelt
   }
 
   ngOnInit(): void {
-    const token = localStorage.getItem('token');
+    
+    if (this.authService.username){
+      this.startSignalRConnection();
+    }
 
+    const token = localStorage.getItem('token');
     if (token) {
       this.authService.login();
       this.decodeToken(token);
@@ -56,7 +42,6 @@ export class AppComponent implements OnInit {
       this.router.navigate(['/login']);
     }
   }
-
 
   startSignalRConnection() {
     const connectionOptions = {
@@ -74,7 +59,7 @@ export class AppComponent implements OnInit {
       this.hubConnection.start()
         .then(() => {
           console.log("SignalR Bağlantısı Kuruldu");
-          this.hubConnection.invoke("BroadcastMessageToAllClient", "Selam");
+          this.hubConnection.invoke("BroadcastMessageToAllClient", "Merhabalar !");
           this.hubConnection.invoke("sendWelcomeMessage");
         })
         .then(() => {
@@ -87,13 +72,96 @@ export class AppComponent implements OnInit {
   
      this.hubConnection.on("ReceiveMesasgesForAllClients", (message) => {
         console.log("Gelen Mesaj : " + message);
+        this.showReceivedMessage(message);
       })
       this.hubConnection.on("WelcomeMessage", (message) => {
         console.log("Hoşgeldin Mesajı : " + message);
+        this.showReceivedMessage(message);
+      })
+      this.hubConnection.on("MessageSentFromClient", (message) => {
+        console.log("Hoşgeldin Mesajı : " + message);
+        this.showReceivedMessage(message);
       })
     };
-  
     startConnection(); 
+  }
+
+
+  // startSignalRConnection() {
+  //   const connectionOptions = {
+  //     withUrl: 'http://localhost:5062/connectServerHub',
+  //     skipNegotiation: true,
+  //     transport: HttpTransportType.WebSockets
+  //   };
+
+  
+  //   const startConnection = () => {
+  //     this.hubConnection = new HubConnectionBuilder()
+  //       .withUrl(connectionOptions.withUrl, { ...connectionOptions })
+  //       .build();
+  
+  //     this.hubConnection.start()
+  //       .then(() => {
+  //         console.log("SignalR Bağlantısı Kuruldu");
+  //         this.hubConnection.invoke("BroadcastMessageToAllClient", "Merhabalar !");
+  //         this.hubConnection.invoke("sendWelcomeMessage");
+  //       })
+  //       .then(() => {
+  //         console.log("Mesaj sunucuya gönderildi.");
+  //       })
+  //       .catch(error => {
+  //         console.error("Error while establishing connection or invoking method:", error);
+  //         setTimeout(startConnection, 5000); 
+  //       });
+  
+  //    this.hubConnection.on("ReceiveMesasgesForAllClients", (message) => {
+  //       console.log("Gelen Mesaj : " + message);
+  //       this.showReceivedMessage(message);
+  //     })
+  //     this.hubConnection.on("WelcomeMessage", (message) => {
+  //       console.log("Hoşgeldin Mesajı : " + message);
+  //       this.showReceivedMessage(message);
+  //     })
+  //     this.hubConnection.on("MessageSentFromClient", (message) => {
+  //       console.log("Hoşgeldin Mesajı : " + message);
+  //       this.showReceivedMessage(message);
+  //     })
+  //   };
+  //   startConnection(); 
+  // }
+
+  showReceivedMessage(message: string): void {
+    const chatElement = document.getElementById('liveChatMessages');
+    if (chatElement) {
+      const chatMessageElement = document.createElement('div');
+      chatMessageElement.classList.add('chat-message', 'p-3');
+      chatMessageElement.innerHTML = `
+        <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-7.png" width="30" height="30">
+        <div class="message-content">${message}</div>`;
+      chatElement.appendChild(chatMessageElement);
+    }
+  }
+
+  sendChatMessage(message: string): void {
+    const chatElement = document.getElementById('liveChatMessages');
+    if (chatElement) {
+      console.log("Kullanıcıdan Gelen Mesaj : ",message)
+      const chatMessageElement = document.createElement('div');
+      chatMessageElement.classList.add('chat-message', 'p-3');
+      chatMessageElement.innerHTML = `
+        <img src="https://img.icons8.com/color/48/000000/circled-user-male-skin-type-7.png" width="30" height="30">
+        <div class="message-content">${message}</div>`;
+      chatElement.appendChild(chatMessageElement);
+    }
+  
+    // SignalR üzerinden mesajı gönder
+    this.hubConnection.invoke("SendChatMessage", message)
+      .then(() => {
+        console.log("Mesaj gönderildi:", message);
+      })
+      .catch(error => {
+        console.error("Error while sending message:", error);
+      });
   }
   
 
@@ -107,6 +175,8 @@ export class AppComponent implements OnInit {
       console.error('Error decoding token:', error);
       this.router.navigate(['/login']);
     }
+
+    
   }
 
   logout(): void {
