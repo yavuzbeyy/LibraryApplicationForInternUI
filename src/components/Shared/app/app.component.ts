@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
   public Editor: any; 
   username: string | any = '';
   decodedToken: any = null; 
-  role: number | null = null;
+  role: number | any = null;
   isAdmin: boolean = false;
   
 
@@ -87,7 +87,7 @@ export class AppComponent implements OnInit {
       this.hubConnection.on("ShowPreviousMessages", (messages) => {
       console.log("Previous messages:", messages);
       messages.forEach((message: any) => { // Her bir mesaj için forEach döngüsü
-      this.sendChatMessage(message.message,this.username); // Mesaj içeriğini göstermek için showReceivedMessage fonksiyonunu çağır
+      this.showPreviousChatMessage(message.message,this.username,message.isAdminMessage);
   });
 });
      };
@@ -106,10 +106,10 @@ export class AppComponent implements OnInit {
     }
   }
 
-  sendChatMessage(message: string, username:string): void {
+  showPreviousChatMessage(message: string, username:string,isAdminMessage:boolean): void {
     const chatElement = document.getElementById('liveChatMessages');
-    if (chatElement) {
-      console.log("Kullanıcıdan Gelen Mesaj : ",message)
+    //normal kullanıcının mesajııysa
+    if (chatElement && isAdminMessage === false) {
       const chatMessageElement = document.createElement('div');
       chatMessageElement.classList.add('chat-message', 'p-3');
       chatMessageElement.innerHTML = `
@@ -117,9 +117,45 @@ export class AppComponent implements OnInit {
         <div class="message-content">${message}</div>`;
       chatElement.appendChild(chatMessageElement);
     }
+    //admin kullanıcı ise
+    else if (chatElement && isAdminMessage === true) {
+      const chatMessageElement = document.createElement('div');
+      chatMessageElement.classList.add('chat-message', 'p-3');
+      chatMessageElement.innerHTML = `
+        <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-7.png" width="30" height="30"> <h5>Yönetici</h5>
+        <div class="message-content">${message}</div>`;
+      chatElement.appendChild(chatMessageElement);
+    }
   
+  }
+
+
+    //Yeni mesaj gönderme butonu
+  sendChatMessage(message: string, username:string,role:string): void {
+    console.log("Rol bu : " + typeof(role))
+    const chatElement = document.getElementById('liveChatMessages');
+       //normal kullanıcının mesajııysa
+       if (chatElement && role ==="2" ) {
+        const chatMessageElement = document.createElement('div');
+        chatMessageElement.classList.add('chat-message', 'p-3');
+        chatMessageElement.innerHTML = `
+          <img src="https://img.icons8.com/color/48/000000/circled-user-male-skin-type-7.png" width="30" height="30"> <h5>${this.username}</h5>
+          <div class="message-content">${message}</div>`;
+        chatElement.appendChild(chatMessageElement);
+      }
+      //admin kullanıcı ise
+      else if (chatElement && role === "1") {
+        const chatMessageElement = document.createElement('div');
+        chatMessageElement.classList.add('chat-message', 'p-3');
+        chatMessageElement.innerHTML = `
+          <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-7.png" width="30" height="30"> <h5>Yönetici</h5>
+          <div class="message-content">${message}</div>`;
+        chatElement.appendChild(chatMessageElement);
+      }
+  
+    console.log(message, username,role)
     // SignalR üzerinden mesajı gönder
-    this.hubConnection.invoke("SendChatMessageClientOnly", message, username)
+    this.hubConnection.invoke("SendChatMessageClientOnly", message, username,role)
       .then(() => {
         console.log("Mesaj gönderildi:", message);
       })
@@ -138,8 +174,6 @@ export class AppComponent implements OnInit {
         console.error("Error while getting previous messages:", error);
       });
   }
-  
-  
 
   decodeToken(token: string): void {
     try {

@@ -92,7 +92,7 @@
         <textarea class="form-control" #chatMessage rows="5" style="font-size: 10px;" placeholder="Lütfen mesajınızı giriniz"></textarea>
       </div>
       <div class="d-grid gap-2 col-6 mx-auto">
-        <button class="btn btn-primary" (click)="sendChatMessage(chatMessage.value, username)">Gönder</button>
+        <button class="btn btn-primary" (click)="sendChatMessage(chatMessage.value, username,role)">Gönder</button>
         <button class="btn btn-primary" (click)="getPreviousMessages()">EskiMesajlar</button>
       </div>
     </div>
