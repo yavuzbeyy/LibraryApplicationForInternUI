@@ -83,12 +83,25 @@ export class AppComponent implements OnInit {
          this.showReceivedMessage(message);
        })
 
+       this.hubConnection.on("ShowMessageToAdmin", (message, username) => {
+        console.log("Admin'e gösterilecek mesaj:", message, "Gönderen:", username);
+        this.showMessageToAdmin(message, username);
+      });
+
+      this.hubConnection.on("ShowAdminMessageToUser", (message) => {
+        console.log("Admin'den kullanıcıya gösterilecek mesaj:", message);
+        this.showAdminMessageToUser(message);
+      });
+      
+
       // SignalRdan Gelen Eski Mesajlar
       this.hubConnection.on("ShowPreviousMessages", (messages) => {
       console.log("Previous messages:", messages);
       messages.forEach((message: any) => { // Her bir mesaj için forEach döngüsü
       this.showPreviousChatMessage(message.message,this.username,message.isAdminMessage);
   });
+
+  
 });
      };
      startConnection(); 
@@ -144,14 +157,14 @@ export class AppComponent implements OnInit {
         chatElement.appendChild(chatMessageElement);
       }
       //admin kullanıcı ise
-      else if (chatElement && role === "1") {
+     /* else if (chatElement && role === "1") {
         const chatMessageElement = document.createElement('div');
         chatMessageElement.classList.add('chat-message', 'p-3');
         chatMessageElement.innerHTML = `
           <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-7.png" width="30" height="30"> <h5>Yönetici</h5>
           <div class="message-content">${message}</div>`;
         chatElement.appendChild(chatMessageElement);
-      }
+      }*/
   
     console.log(message, username,role)
     // SignalR üzerinden mesajı gönder
@@ -174,6 +187,33 @@ export class AppComponent implements OnInit {
         console.error("Error while getting previous messages:", error);
       });
   }
+
+  showMessageToAdmin(message: string, username: string): void {
+    const chatElement = document.getElementById('liveChatMessages');
+    if (chatElement && this.isAdmin) { // Check if the user is admin
+      const chatMessageElement = document.createElement('div');
+      chatMessageElement.classList.add('chat-message', 'p-3');
+      chatMessageElement.innerHTML = `
+        <img src="https://img.icons8.com/color/48/000000/circled-user-male-skin-type-7.png" width="30" height="30"> <h5>${username}</h5>
+        <div class="message-content">${message}</div>`;
+      chatElement.appendChild(chatMessageElement);
+    }
+  }
+
+  showAdminMessageToUser(message: string): void {
+    const chatElement = document.getElementById('liveChatMessages');
+    if (chatElement) {
+      const chatMessageElement = document.createElement('div');
+      chatMessageElement.classList.add('chat-message', 'p-3');
+      chatMessageElement.innerHTML = `
+        <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-7.png" width="30" height="30"> <h5>Yönetici</h5>
+        <div class="message-content">${message}</div>`;
+      chatElement.appendChild(chatMessageElement);
+    }
+  }
+  
+
+
 
   decodeToken(token: string): void {
     try {
