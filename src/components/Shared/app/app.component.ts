@@ -116,6 +116,8 @@ export class AppComponent implements OnInit {
         <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-7.png" width="30" height="30"> <h5>Yönetici</h5>
         <div class="message-content">${message}</div>`;
       chatElement.appendChild(chatMessageElement);
+       // Otomatik olarak en aşağıya kaydır
+     chatElement.scrollTop = chatElement.scrollHeight;
     }
   }
 
@@ -123,12 +125,7 @@ export class AppComponent implements OnInit {
     const chatElement = document.getElementById('liveChatMessages');
     //normal kullanıcının mesajııysa
     if (chatElement && isAdminMessage === false) {
-      const chatMessageElement = document.createElement('div');
-      chatMessageElement.classList.add('chat-message', 'p-3');
-      chatMessageElement.innerHTML = `
-        <img src="https://img.icons8.com/color/48/000000/circled-user-male-skin-type-7.png" width="30" height="30"> <h5>${this.username}</h5>
-        <div class="message-content">${message}</div>`;
-      chatElement.appendChild(chatMessageElement);
+      this.showUserImmage(chatElement,message,username)
     }
     //admin kullanıcı ise
     else if (chatElement && isAdminMessage === true) {
@@ -138,10 +135,11 @@ export class AppComponent implements OnInit {
         <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-7.png" width="30" height="30"> <h5>Yönetici</h5>
         <div class="message-content">${message}</div>`;
       chatElement.appendChild(chatMessageElement);
+       // Otomatik olarak en aşağıya kaydır
+     chatElement.scrollTop = chatElement.scrollHeight;
+      
     }
-  
   }
-
 
     //Yeni mesaj gönderme butonu
   sendChatMessage(message: string, username:string,role:string): void {
@@ -149,12 +147,7 @@ export class AppComponent implements OnInit {
     const chatElement = document.getElementById('liveChatMessages');
        //normal kullanıcının mesajııysa
        if (chatElement && role ==="2" ) {
-        const chatMessageElement = document.createElement('div');
-        chatMessageElement.classList.add('chat-message', 'p-3');
-        chatMessageElement.innerHTML = `
-          <img src="https://img.icons8.com/color/48/000000/circled-user-male-skin-type-7.png" width="30" height="30"> <h5>${this.username}</h5>
-          <div class="message-content">${message}</div>`;
-        chatElement.appendChild(chatMessageElement);
+        this.showUserImmage(chatElement,message,this.username)
       }
       //admin kullanıcı ise
      /* else if (chatElement && role === "1") {
@@ -190,31 +183,40 @@ export class AppComponent implements OnInit {
 
   showMessageToAdmin(message: string, username: string): void {
     const chatElement = document.getElementById('liveChatMessages');
-    if (chatElement && this.isAdmin) { // Check if the user is admin
-      const chatMessageElement = document.createElement('div');
-      chatMessageElement.classList.add('chat-message', 'p-3');
-      chatMessageElement.innerHTML = `
-        <img src="https://img.icons8.com/color/48/000000/circled-user-male-skin-type-7.png" width="30" height="30"> <h5>${username}</h5>
-        <div class="message-content">${message}</div>`;
-      chatElement.appendChild(chatMessageElement);
+    if (chatElement && this.isAdmin) { 
+      this.showUserImmage(chatElement,message,username)
     }
   }
 
   showAdminMessageToUser(message: string): void {
     const chatElement = document.getElementById('liveChatMessages');
     if (chatElement) {
-      const chatMessageElement = document.createElement('div');
-      chatMessageElement.classList.add('chat-message', 'p-3');
-      chatMessageElement.innerHTML = `
-        <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-7.png" width="30" height="30"> <h5>Yönetici</h5>
-        <div class="message-content">${message}</div>`;
-      chatElement.appendChild(chatMessageElement);
+      this.showAdminImage(message,chatElement)
     }
   }
+
+  showUserImmage(chatElement: any , message:string,username:any){
+    const chatMessageElement = document.createElement('div');
+    chatMessageElement.classList.add('chat-message', 'p-3');
+    chatMessageElement.innerHTML = `
+      <img src="https://img.icons8.com/color/48/000000/circled-user-male-skin-type-7.png" width="30" height="30"> <h5>${username}</h5>
+      <div class="message-content">${message}</div>`;
+    chatElement.appendChild(chatMessageElement);
+     // Otomatik olarak en aşağıya kaydır
+     chatElement.scrollTop = chatElement.scrollHeight;
+  }
+
+  showAdminImage(message:string,chatElement:any){
+    const chatMessageElement = document.createElement('div');
+    chatMessageElement.classList.add('chat-message', 'p-3');
+    chatMessageElement.innerHTML = `
+      <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-7.png" width="30" height="30"> <h5>Yönetici</h5>
+      <div class="message-content">${message}</div>`;
+    chatElement.appendChild(chatMessageElement);
+     // Otomatik olarak en aşağıya kaydır
+     chatElement.scrollTop = chatElement.scrollHeight;
+  }
   
-
-
-
   decodeToken(token: string): void {
     try {
       this.decodedToken = jwtDecode(token);
@@ -225,7 +227,6 @@ export class AppComponent implements OnInit {
       console.error('Error decoding token:', error);
       this.router.navigate(['/login']);
     }
-
     
   }
 
