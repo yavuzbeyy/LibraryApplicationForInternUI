@@ -27,6 +27,17 @@ export class AuthService {
     return this.isLoggedIn;
   }
 
+  getUserName(): string {
+    const token = localStorage.getItem('token');
+    if (token !== null) {
+      const decodedToken: any = jwtDecode(token);
+      const username = decodedToken.username;
+      return username;
+    } else {
+      return 'null';
+    }
+  }
+
   getUserId(): number | undefined  {
     const token = localStorage.getItem('token');
     if (token !== null) {
@@ -56,7 +67,6 @@ export class AuthService {
       this.role = decodedToken.roles;
   
       console.log('Decoded Token:', decodedToken);
-    
       this.router.navigate(['/book']); 
     } catch (error) {
       console.error('Error decoding token:', error);

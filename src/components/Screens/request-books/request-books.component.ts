@@ -27,22 +27,29 @@ interface BookRequest {
 export class RequestBooksComponent implements OnInit {
   bookRequests: BookRequest[] = []; 
   isAdmin: boolean = false;
+  username: string | any = '';
+  decodedToken: string | any = '';
+
   book: BookUpdateModel = new BookUpdateModel();
   selectedRequest: BookRequest | undefined;
 
   constructor(private dataService: DataService, private datePipe: DatePipe,private authService: AuthService,private router: Router,) { }
 
   ngOnInit(): void {
-    this.fetchBookRequests();
-
+   
     const token = localStorage.getItem('token');
     if (token) {
       this.authService.login();
+      this.username = this.authService.getUserName();
       this.isAdmin = this.authService.isAdmin(token);
+
+      console.log(" username bu : ", this.username)
     } else {
       console.log('Token not found');
       this.router.navigate(['/login']);
     }
+
+    this.fetchBookRequests();
   }
 
   fetchBookRequests(): void {
@@ -64,7 +71,6 @@ export class RequestBooksComponent implements OnInit {
               if (bookData && bookData.data && bookData.data.length > 0) {
                 request.bookTitle = bookData.data[0].title; 
                 request.isApproved = bookData.data[0].isAvailable;
-              //  console.log(request.isApproved)
               }
             });
 
@@ -72,6 +78,7 @@ export class RequestBooksComponent implements OnInit {
               if (userData && userData.data && userData.data.length > 0) {
               //  request.userName = userData.data[0].name + ' ' + userData.data[0].surname; 
               request.userName = userData.data[0].username; 
+              console.log("isteklerin userNamesi :" , request.userName);
               }
             });
           });
@@ -123,13 +130,14 @@ export class RequestBooksComponent implements OnInit {
     this.dataService.updateBookIsAvailable(this.book).subscribe(
       (response) => {
         this.dataService.showSuccessMessage(response);
+        this.router.navigate(['/book']); //yönlendirmeleri kitap isteklerine de yapabilirim
       },
       (error) => {
         console.error('Error updating book:', error);
         this.dataService.showFailMessage(error);
       }
     );
-  }
 
+  }
 
 }

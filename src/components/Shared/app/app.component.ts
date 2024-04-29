@@ -213,7 +213,6 @@ export class AppComponent implements OnInit {
       <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-7.png" width="30" height="30"> <h5>Yönetici</h5>
       <div class="message-content">${message}</div>`;
     chatElement.appendChild(chatMessageElement);
-     // Otomatik olarak en aşağıya kaydır
      chatElement.scrollTop = chatElement.scrollHeight;
   }
   
