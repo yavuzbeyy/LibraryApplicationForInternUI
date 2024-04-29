@@ -15,9 +15,8 @@
                 <h4 class="card-title">{{ book.title }}</h4>
                 <p class="card-text"><strong>Yazar : </strong> {{ book.authorName }} {{ book.authorSurname }}</p>
                 <p class="card-text"><strong>Kategori : </strong> {{ book.categoryName }} </p>
-                
                 <p class="card-text"><strong>Sayfa Sayısı : </strong>{{ book.numberOfPages }}</p>
-                <p class="card-text"><strong>Alınabilir mi : </strong>{{ book.isAvailable ? 'Evet' : 'Hayır' }}</p>
+                <p class="card-text" [ngStyle]="{'color': book.isAvailable ? 'green' : 'red'}"><strong>Alınabilir mi : </strong>{{ book.isAvailable ? 'Evet' : 'Hayır' }}</p>
                 <button (click)="openBookDetailsModal(book)" class="btn btn-primary" style="margin-right: 5px; margin-bottom: 5px;"  >Detay</button>
                 <button (click)="goToUpdateBook(book.id)" *ngIf="isAdmin" class="btn btn-warning" style="margin-right: 5px;">Düzenle</button>
                 <button (click)="deleteBook(book.id)" class="delete" *ngIf="isAdmin">Sil</button>

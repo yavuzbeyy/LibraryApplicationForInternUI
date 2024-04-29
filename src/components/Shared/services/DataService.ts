@@ -149,6 +149,11 @@ export class DataService {
       return this.http.put(url, book);
     }
 
+    updateBookIsAvailable(book: UpdateBookModel): Observable<any> {
+      const url = `${this.baseApi}api/Book/UpdateBookIsAvailable`;
+      return this.http.put(url, book);
+    }
+
     getAuthorById(authorId: number): Observable<any[]> {
       const apiUrl = `${this.baseApi}api/Author/GetAuthorById?id=${authorId}`;
       return this.http.get<any[]>(apiUrl);

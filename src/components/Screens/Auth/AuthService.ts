@@ -27,11 +27,11 @@ export class AuthService {
     return this.isLoggedIn;
   }
 
-  getUserId(): number | undefined {
+  getUserId(): number | undefined  {
     const token = localStorage.getItem('token');
     if (token !== null) {
       const decodedToken: any = jwtDecode(token);
-      const userId = decodedToken.UserId;
+      const userId = decodedToken.userId;
       return userId;
     } else {
       return undefined;

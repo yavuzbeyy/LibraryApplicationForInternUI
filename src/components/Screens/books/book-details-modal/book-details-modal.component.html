@@ -23,6 +23,10 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-danger" (click)="closeModal()">Kapat</button>
-    <button type="button" class="btn btn-primary" (click)="orderBook()">Sipariş Et</button>
+    <button type="button" class="btn btn-primary" (click)="orderBook()" *ngIf="book?.isAvailable; else notAvailable">Sipariş Et</button>
+<ng-template #notAvailable>
+  <button type="button" class="btn btn-primary" (click)="closeModal()" disabled>Sipariş veremezsiniz. Kitap başka bir kullanıcıda.</button>
+</ng-template>
+
   </div>
 </div>

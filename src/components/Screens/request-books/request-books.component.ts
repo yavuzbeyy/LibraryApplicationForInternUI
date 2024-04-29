@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../Shared/services/DataService';
 import { DatePipe } from '@angular/common';
 import { Observable } from 'rxjs';
+import { AuthService } from '../Auth/AuthService';
+import { Router } from '@angular/router';
+import { BookUpdateModel } from '../../Shared/Models/BookUpdateModel';
 
 interface BookRequest {
   id: number;
@@ -23,11 +26,23 @@ interface BookRequest {
 })
 export class RequestBooksComponent implements OnInit {
   bookRequests: BookRequest[] = []; 
+  isAdmin: boolean = false;
+  book: BookUpdateModel = new BookUpdateModel();
+  selectedRequest: BookRequest | undefined;
 
-  constructor(private dataService: DataService, private datePipe: DatePipe) { }
+  constructor(private dataService: DataService, private datePipe: DatePipe,private authService: AuthService,private router: Router,) { }
 
   ngOnInit(): void {
     this.fetchBookRequests();
+
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.authService.login();
+      this.isAdmin = this.authService.isAdmin(token);
+    } else {
+      console.log('Token not found');
+      this.router.navigate(['/login']);
+    }
   }
 
   fetchBookRequests(): void {
@@ -48,6 +63,8 @@ export class RequestBooksComponent implements OnInit {
             this.fetchBookById(request.bookId).subscribe((bookData: any) => {
               if (bookData && bookData.data && bookData.data.length > 0) {
                 request.bookTitle = bookData.data[0].title; 
+                request.isApproved = bookData.data[0].isAvailable;
+              //  console.log(request.isApproved)
               }
             });
 
@@ -90,5 +107,29 @@ export class RequestBooksComponent implements OnInit {
       }
     );
   }
+
+
+
+  approveRequest(requestId: number): void {
+    this.selectedRequest = this.bookRequests.find(request => request.id === requestId);
+    console.log("kitabın idsi : " ,this.selectedRequest?.bookId)
+
+    
+    if(this.selectedRequest?.bookId){
+    this.book.id = this.selectedRequest?.bookId;
+    this.book.isAvailable = false;
+    }
+
+    this.dataService.updateBookIsAvailable(this.book).subscribe(
+      (response) => {
+        this.dataService.showSuccessMessage(response);
+      },
+      (error) => {
+        console.error('Error updating book:', error);
+        this.dataService.showFailMessage(error);
+      }
+    );
+  }
+
 
 }

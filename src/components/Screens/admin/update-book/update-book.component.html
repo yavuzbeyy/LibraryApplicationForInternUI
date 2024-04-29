@@ -25,10 +25,10 @@
           <option *ngFor="let category of categories" [value]="category.name">{{ category.name }}</option>
         </select>
       </div>
-      <div class="mb-3">
+   <!--   <div class="mb-3">
         <label for="imageFile" class="form-label">Kitap Kapak Resmi : </label>
         <input type="file" id="imageFile" name="imageFile" (change)="onFileSelected($event)" class="form-control" accept="image/*" required>
-      </div>
+      </div>-->
       <button type="submit" class="btn btn-primary">Kitabı Güncelle</button>
     </form>
   </div>

@@ -9,29 +9,24 @@
         <th>Kitap Alış Tarihi</th>
         <th>Kitap Teslim Tarihi</th>
         <th>Onay Durumu</th>
-        <th>Geri Verildi mi?</th>
         <th>İşlem</th>
-        <th>Sil</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let request of bookRequests">
+      <tr *ngFor="let request of bookRequests" [ngClass]="{'approved': request.isApproved, 'not-approved': !request.isApproved}">
         <td>{{ request.createdDate }}</td>
         <td>{{ request.bookTitle }}</td>
         <td>{{ request.userName }}</td>
         <td>{{ request.requestDate }}</td>
         <td>{{ request.returnDate }}</td>
-        <td>{{ request.isApproved ? 'Onaylandı' : 'Onaylanmadı' }}</td>
-        <td>{{ request.isApproved ? 'Evet' : 'Hayır' }}</td>
-      <!--  <td>{{ request.isReturned ? 'Evet' : 'Hayır' }}</td>-->
+        <td> <strong> {{ request.isApproved ? 'Onaylanmadı' : 'Onaylandı' }} </strong></td>
+        <!--  <td>{{ request.isReturned ? 'Evet' : 'Hayır' }}</td>-->
         <td>
-          <button class="approve-button">Onayla</button>
-          <button class="reject-button">Reddet</button>
-        </td>
-        <td>
-          <button class="delete-button" (click)="deleteRequest(request.id)">Sil</button>
+          <button class="approve-button" *ngIf="isAdmin" (click)="approveRequest(request.id)">Onayla</button>
+          <button class="delete-button" *ngIf="isAdmin" (click)="deleteRequest(request.id)">Sil</button>
         </td>
       </tr>
+      
     </tbody>
   </table>
 </div>

@@ -66,7 +66,7 @@ export class UpdateBookComponent {
   loadBookDetails() {
     this.dataService.getBookById(this.bookId).subscribe(
       (data: any) => {
-        console.log(data)
+       // console.log(data)
         if (data && Array.isArray(data.data)) {
           const bookData = data.data[0]; 
           this.book.id = bookData.id;
@@ -82,13 +82,13 @@ export class UpdateBookComponent {
         }
       },
       (error) => {
-        console.error('Error fetching book details:', error);
-        //this.toastr.error('Error fetching category details.');
+        this.toastr.error('Error fetching category details.');
       }
     );
   }
 
   updateBook() {
+    console.log( this.book.authorId)
     this.dataService.updateBook(this.book).subscribe(
       (response) => {
         this.dataService.showSuccessMessage(response);
