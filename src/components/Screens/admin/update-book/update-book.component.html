@@ -14,17 +14,18 @@
         <input type="number" id="numberOfPages" name="numberOfPages" class="form-control" [(ngModel)]="book.numberOfPages" required>
       </div>
       <div class="mb-3">
-        <label for="authorName" class="form-label">Yazar Adı : </label>
-        <select id="authorName" name="authorName" class="form-control" [(ngModel)]="book.authorName" required>
+        <label for="authorName" class="form-label">Yazar : </label>
+        <select id="authorName" name="authorName" class="form-control" [(ngModel)]="book.authorName" required (change)="setAuthorId()">
           <option *ngFor="let author of authors" [value]="author.name">{{ author.name }} {{ author.surname }}</option>
         </select>
       </div>
       <div class="mb-3">
-        <label for="categoryName" class="form-label">Kategori Adı : </label>
-        <select id="categoryName" name="categoryName" class="form-control" [(ngModel)]="book.categoryName" required>
+        <label for="categoryName" class="form-label">Kategori : </label>
+        <select id="categoryName" name="categoryName" class="form-control" [(ngModel)]="book.categoryName" required (change)="setCategoryId()">
           <option *ngFor="let category of categories" [value]="category.name">{{ category.name }}</option>
         </select>
       </div>
+      
    <!--   <div class="mb-3">
         <label for="imageFile" class="form-label">Kitap Kapak Resmi : </label>
         <input type="file" id="imageFile" name="imageFile" (change)="onFileSelected($event)" class="form-control" accept="image/*" required>

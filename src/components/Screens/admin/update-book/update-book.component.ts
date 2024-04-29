@@ -99,4 +99,21 @@ export class UpdateBookComponent {
       }
     );
   }
+
+  setAuthorId() {
+    const selectedAuthorName = this.book.authorName;
+    const selectedAuthor = this.authors.find(author => author.name === selectedAuthorName);
+    if (selectedAuthor) {
+      this.book.authorId = selectedAuthor.id;
+    }
+  }
+  
+  setCategoryId() {
+    const selectedCategoryName = this.book.categoryName;
+    const selectedCategory = this.categories.find(category => category.name === selectedCategoryName);
+    if (selectedCategory) {
+      this.book.categoryId = selectedCategory.id;
+    }
+  }
+  
 }
