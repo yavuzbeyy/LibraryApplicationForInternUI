@@ -10,7 +10,6 @@ import { HubConnection, HubConnectionBuilder, HttpTransportType } from '@microso
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  public Editor: any; 
   username: string | any = '';
   decodedToken: any = null; 
   role: number | any = null;

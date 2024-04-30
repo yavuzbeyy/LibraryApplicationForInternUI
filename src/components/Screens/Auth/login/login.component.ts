@@ -14,12 +14,15 @@ export class LoginComponent {
   username: string = '';
   password: string = '';
   errorMessage: string = '';
+  forgotPassword: boolean = false;
+  resetPasswordUsername: string = '';
   
   constructor(
     private dataService: DataService,
     private router: Router,
     private toastr: ToastrService,
-    private authService: AuthService
+    private authService: AuthService,
+    
   ) { }
 
   onSubmit(): void {
@@ -59,4 +62,28 @@ export class LoginComponent {
       this.errorMessage = 'Lütfen kullanıcı adı ve şifreyi girin.';
     }
   }
+
+
+  onForgotPassword(): void {
+    this.forgotPassword = !this.forgotPassword;
+  }
+  
+
+onResetPassword() {
+  if (this.resetPasswordUsername) {
+    this.dataService.resetPassword(this.resetPasswordUsername).subscribe(
+      response => {
+        this.dataService.showSuccessMessage(response);
+      },
+      error => {
+        this.dataService.showFailMessage(error);
+      }
+    );
+  } else {
+    this.toastr.error("Lütfen kullanıcı adınızı giriniz", 'Başarısız', {
+      positionClass: 'toast-top-right' 
+    });
+  }
+}
+
 }

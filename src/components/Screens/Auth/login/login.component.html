@@ -29,6 +29,17 @@
                     <div class="invalid-feedback">Lütfen şifrenizi giriniz.</div>
                   </div>
                   <div class="col-12">
+                    <button class="btn btn-orange w-100" (click)="onForgotPassword()">Şifremi Unuttum</button>
+                  </div>
+                  <div *ngIf="forgotPassword" class="col-12">
+                    <label for="resetPasswordUsername" class="form-label">Kullanıcı Adı</label>
+                    <input type="text" name="resetPasswordUsername" class="form-control" id="resetPasswordUsername" [(ngModel)]="resetPasswordUsername">
+                  </div>
+                  <div *ngIf="forgotPassword" class="col-12">
+                    <button class="btn btn-danger w-100" (click)="onResetPassword()">Şifreyi Sıfırla</button>
+                  </div>
+                  
+                  <div class="col-12">
                     <button class="btn btn-primary w-100" type="submit">Giriş Yap</button>
                   </div>
                 </form>

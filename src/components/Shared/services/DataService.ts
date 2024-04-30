@@ -173,4 +173,9 @@ export class DataService {
       const apiUrl = `${this.baseApi}api/User/GetUserByUserId?id=${userId}`;
       return this.http.get<any[]>(apiUrl);
     }
+
+    resetPassword(username : string): Observable<any> {
+      const url = `${this.baseApi}api/User/ForgetPassword?username=${username}`;
+      return this.http.post(url,{ username });
+    }
 }
