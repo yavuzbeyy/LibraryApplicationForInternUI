@@ -22,7 +22,7 @@
         <td> <strong> {{ request.isApproved ? 'Onaylanmadı' : 'Onaylandı' }} </strong></td>
         <!--  <td>{{ request.isReturned ? 'Evet' : 'Hayır' }}</td>-->
         <td>
-          <button class="approve-button" *ngIf="isAdmin" (click)="approveRequest(request.id)">Onayla</button>
+          <button class="approve-button" *ngIf="isAdmin  && request.isApproved"  (click)="approveRequest(request.id)">Onayla</button>
           <button class="delete-button" *ngIf="isAdmin" (click)="deleteRequest(request.id)">Sil</button>
         </td>
       </tr>

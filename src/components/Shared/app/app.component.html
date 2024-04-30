@@ -55,10 +55,10 @@
                 <i class="fas fa-sign-out-alt"></i> Çıkış Yap
               </a>
             </li>
-            <li *ngIf="!username">
+            <li *ngIf="!authService.userIsLogin()">
               <a class="dropdown-item" routerLink="/login" routerLinkActive="active">Giriş Yap</a>
             </li>
-            <li *ngIf="!username">
+            <li *ngIf="!authService.userIsLogin()">
               <a class="dropdown-item" routerLink="/register" routerLinkActive="active">Kayıt Ol</a>
             </li>
           </ul>

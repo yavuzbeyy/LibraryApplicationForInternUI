@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private authService: AuthService,
+    public authService: AuthService,
     private hubConnection: HubConnection
   ) 
   {
@@ -31,10 +31,12 @@ export class AppComponent implements OnInit {
     const token = localStorage.getItem('token');
     if (token) {
       this.authService.login();
+      console.log("user giris durumu : ", this.authService.userIsLogin())
       this.decodeToken(token);
       this.isAdmin = this.authService.isAdmin(token);
     } else {
       console.log('Token not found');
+      console.log("user giris durumu : ", this.authService.userIsLogin())
       this.router.navigate(['/login']);
     }
   }

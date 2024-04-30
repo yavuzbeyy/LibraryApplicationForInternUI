@@ -8,11 +8,15 @@ import { jwtDecode } from 'jwt-decode';
   providedIn: 'root'
 })
 export class AuthService {
-  private isLoggedIn = false;
+  public  isLoggedIn = false;
   username: string | null = null;
   role: string = '';
 
   constructor(private router: Router) {}
+
+  userIsLogin(): boolean{
+    return this.isLoggedIn;
+  }
 
   login() {
     this.isLoggedIn = true;

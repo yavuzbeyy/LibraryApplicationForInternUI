@@ -115,8 +115,6 @@ export class RequestBooksComponent implements OnInit {
     );
   }
 
-
-
   approveRequest(requestId: number): void {
     this.selectedRequest = this.bookRequests.find(request => request.id === requestId);
     console.log("kitabın idsi : " ,this.selectedRequest?.bookId)
