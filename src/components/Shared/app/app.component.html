@@ -50,17 +50,16 @@
             {{ username ? username : 'Giriş' }}
           </a>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-            <li *ngIf="username">
+            <div *ngIf="isLoggedIn; else loggedOutMenu">
               <a class="dropdown-item" (click)="logout()">
                 <i class="fas fa-sign-out-alt"></i> Çıkış Yap
               </a>
-            </li>
-            <li *ngIf="!authService.userIsLogin()">
+            </div>
+            <ng-template #loggedOutMenu>
+              <!-- Kullanıcı girişi yapılmamışsa -->
               <a class="dropdown-item" routerLink="/login" routerLinkActive="active">Giriş Yap</a>
-            </li>
-            <li *ngIf="!authService.userIsLogin()">
               <a class="dropdown-item" routerLink="/register" routerLinkActive="active">Kayıt Ol</a>
-            </li>
+            </ng-template>
           </ul>
         </li>
         

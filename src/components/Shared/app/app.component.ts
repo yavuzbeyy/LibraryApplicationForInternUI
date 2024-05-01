@@ -14,6 +14,7 @@ export class AppComponent implements OnInit {
   decodedToken: any = null; 
   role: number | any = null;
   isAdmin: boolean = false;
+  isLoggedIn: boolean = false;
   
 
   constructor(
@@ -27,10 +28,12 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     
+    if (typeof localStorage !== 'undefined') {
     const token = localStorage.getItem('token');
     if (token) {
       this.authService.login();
       console.log("user giris durumu : ", this.authService.userIsLogin())
+      this.isLoggedIn = this.authService.userIsLogin();
       this.decodeToken(token);
       this.isAdmin = this.authService.isAdmin(token);
     } else {
@@ -38,19 +41,28 @@ export class AppComponent implements OnInit {
       console.log("user giris durumu : ", this.authService.userIsLogin())
       this.router.navigate(['/login']);
     }
+  } else {
+    console.log('localStorage is not available');
+  }
   }
 
    startSignalRConnection() {
+    
+    console.log("Signal R startConnection başında Giriş Yaptin mi:", this.authService.userIsLogin());
     const connectionOptions = {
        withUrl: 'http://localhost:5062/connectServerHub',
       skipNegotiation: true,
        transport: HttpTransportType.WebSockets
+
     };
+    
   
      const startConnection = () => {
        this.hubConnection = new HubConnectionBuilder()
         .withUrl(connectionOptions.withUrl, { ...connectionOptions })
         .build();
+
+        console.log("Signal R startConnection içinde Giriş Yaptin mi:", this.authService.userIsLogin());
   
        this.hubConnection.start()
         .then(() => {
@@ -75,6 +87,7 @@ export class AppComponent implements OnInit {
        //Hoşheldiniz Mesajı
         this.hubConnection.on("WelcomeMessage", (message) => {
          console.log("Hoşgeldin Mesajı : " + message);
+         console.log("Signal R Welcome içinde Giriş Yaptin mi:", this.authService.userIsLogin());
         this.showReceivedMessage(message);
        })
 
@@ -93,7 +106,6 @@ export class AppComponent implements OnInit {
         console.log("Admin'den kullanıcıya gösterilecek mesaj:", message);
         this.showAdminMessageToUser(message);
       });
-      
 
       // SignalRdan Gelen Eski Mesajlar
       this.hubConnection.on("ShowPreviousMessages", (messages) => {
@@ -101,14 +113,13 @@ export class AppComponent implements OnInit {
       messages.forEach((message: any) => { // Her bir mesaj için forEach döngüsü
       this.showPreviousChatMessage(message.message,this.username,message.isAdminMessage);
   });
-
-  
 });
      };
      startConnection(); 
    }
-
-  showReceivedMessage(message: string): void {
+  
+ 
+   showReceivedMessage(message: string): void {
     const chatElement = document.getElementById('liveChatMessages');
     if (chatElement) {
       const chatMessageElement = document.createElement('div');

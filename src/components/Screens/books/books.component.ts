@@ -14,13 +14,20 @@ export class BooksComponent implements OnInit {
   books: any[] = [];
   isAdmin: boolean = false;
 
-  constructor(private dataService: DataService, private authService: AuthService, private router: Router, private modalService: NgbModal) { }
+  constructor(private dataService: DataService, private authService: AuthService, private router: Router, private modalService: NgbModal) 
+  {
+    console.log("book kurucusunda girisYaptimi : " , this.authService.userIsLogin())
+   }
 
   ngOnInit() {
+
     const token = localStorage.getItem('token');
+  
     if (token) {
       this.isAdmin = this.authService.isAdmin(token);
-    }
+      console.log("book sayfası için : ", this.authService.userIsLogin())
+    
+  }
     this.fetchBooks();
   }
 

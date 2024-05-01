@@ -12,7 +12,10 @@ export class AuthService {
   username: string | null = null;
   role: string = '';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) 
+  {
+    
+  }
 
   userIsLogin(): boolean{
     return this.isLoggedIn;
