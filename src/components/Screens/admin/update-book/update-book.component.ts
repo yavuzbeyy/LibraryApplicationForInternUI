@@ -71,6 +71,7 @@ export class UpdateBookComponent {
           const bookData = data.data[0]; 
           this.book.id = bookData.id;
           this.book.title = bookData.title;
+          this.book.description = bookData.description;
           this.book.publicationYear = bookData.publicationYear;;
           this.book.numberOfPages = bookData.numberOfPages;
           this.book.isAvailable = bookData.isAvailable;

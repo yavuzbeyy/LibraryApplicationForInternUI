@@ -8,4 +8,5 @@ export class BookModel {
     fileKey : string ='';
     authorName: string = '';
     categoryName: string = '';
+    description: string = '';
   }
