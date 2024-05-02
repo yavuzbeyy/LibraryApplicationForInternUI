@@ -11,32 +11,32 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <a class="nav-link px-3" routerLink="/book" routerLinkActive="active" aria-current="page">
-            Kitaplar
+            Kitaplar <fa-icon [icon]="bookAtlas"></fa-icon>
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link px-3" routerLink="/author" routerLinkActive="active" aria-current="page">
-            Yazarlar
+            Yazarlar <fa-icon [icon]="pencil"></fa-icon>
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link px-3" routerLink="/category" routerLinkActive="active" aria-current="page">
-            Kategoriler
+            Kategoriler <fa-icon [icon]="paperclip"></fa-icon>
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link px-3" routerLink="/add-book" routerLinkActive="active" aria-current="page" *ngIf="isAdmin">
-            Kitap Ekle
+            Kitap Ekle <fa-icon [icon]="penToSquare"></fa-icon>
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link px-3" routerLink="/add-category" routerLinkActive="active" aria-current="page" *ngIf="isAdmin">
-            Kategori Ekle
+            Kategori Ekle <fa-icon [icon]="penToSquare"></fa-icon>
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link px-3" routerLink="/add-author" routerLinkActive="active" aria-current="page" *ngIf="isAdmin">
-            Yazar Ekle
+            Yazar Ekle  <fa-icon [icon]="penToSquare"></fa-icon>
           </a>
         </li>
         <li class="nav-item">
@@ -51,7 +51,7 @@
           </a>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
             <div *ngIf="isLoggedIn; else loggedOutMenu">
-              <a class="dropdown-item" (click)="logout()">
+              <a class="dropdown-item" (click)="logout()"> <fa-icon [icon]="logoutIcon"></fa-icon>
                 <i class="fas fa-sign-out-alt"></i> Çıkış Yap
               </a>
             </div>
@@ -90,13 +90,13 @@
   <div style="background-color: greenyellow; border-radius: 10px; display: flex; flex-direction: row; justify-content: space-between;"  data-bs-toggle="collapse" data-bs-target="#liveChatCollapse"
   aria-expanded="false" aria-controls="liveChatCollapse">
     <div>
-      <span> < </span>
+      <span> <fa-icon [icon]="faArrowLeftLong"></fa-icon> </span>
     </div>
     <div>
-      LiveChat
+      LiveChat <fa-icon [icon]="faCoffee"></fa-icon>
     </div>
     <div>
-      <span (click)="getPreviousMessages()"> X </span>
+      <span (click)="getPreviousMessages()">  <fa-icon [icon]="faSquareXmark"></fa-icon></span>
     </div>
   </div>
   <div class="collapse" id="liveChatCollapse">

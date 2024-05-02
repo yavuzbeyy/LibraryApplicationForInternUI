@@ -4,11 +4,19 @@ import { jwtDecode } from 'jwt-decode';
 import { AuthService } from '../../Screens/Auth/AuthService';
 import { HubConnection, HubConnectionBuilder, HttpTransportType } from '@microsoft/signalr';
 import { AlertService } from '../Alert/alert.service';
+import { faCoffee } from '@fortawesome/free-solid-svg-icons';
+import { faPaperclip } from '@fortawesome/free-solid-svg-icons';
+import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import { faBookAtlas} from '@fortawesome/free-solid-svg-icons';
+import { faPencil} from '@fortawesome/free-solid-svg-icons';
+import { faRightFromBracket} from '@fortawesome/free-solid-svg-icons';
+import { faSquareXmark} from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeftLong} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit , AfterViewInit{
   username: string | any = '';
@@ -16,7 +24,14 @@ export class AppComponent implements OnInit , AfterViewInit{
   role: number | any = null;
   isAdmin: boolean = false;
   isLoggedIn: boolean = false;
-  
+  faCoffee = faCoffee;
+  paperclip = faPaperclip;
+  penToSquare = faPenToSquare;
+  bookAtlas = faBookAtlas;
+  pencil = faPencil;
+  logoutIcon = faRightFromBracket;  
+  faSquareXmark = faSquareXmark;
+  faArrowLeftLong=faArrowLeftLong;
 
   constructor(
     private router: Router,

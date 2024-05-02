@@ -28,6 +28,7 @@ import { UpdateCategoryComponent } from '../../Screens/admin/update-category/upd
 import { RequestBooksComponent } from '../../Screens/request-books/request-books.component';
 import { BookDetailsModalComponent } from '../../Screens/books/book-details-modal/book-details-modal.component';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
@@ -61,6 +62,7 @@ import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
     }),
     BrowserAnimationsModule,
     NgbModule,
+    FontAwesomeModule,
     
   ],
   providers: [
