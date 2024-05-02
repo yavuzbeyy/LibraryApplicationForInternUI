@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { DataService } from '../../../Shared/services/DataService';
 import { UpdateCategoryModel } from '../../../Shared/Models/UpdateCategoryModel';
 import { ToastrService } from 'ngx-toastr';
+import { AlertService } from '../../../Shared/Alert/alert.service';
 
 @Component({
   selector: 'app-update-category',
@@ -16,7 +17,8 @@ export class UpdateCategoryComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private dataService: DataService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private alertService: AlertService
   ) {}
 
   ngOnInit(): void {
@@ -49,14 +51,25 @@ export class UpdateCategoryComponent implements OnInit {
   }
 
   updateCategory() {
-    this.dataService.updateCategory(this.category).subscribe(
-      (response) => {
-        this.dataService.showSuccessMessage(response);
-      },
-      (error) => {
-        console.error('Error updating category:', error);
-        this.dataService.showFailMessage(error);
-      }
-    );
+    // Kategori güncelleme işlemini onaylamak için AlertService'den acceptOrDecline metodunu kullanalım
+    this.alertService.acceptOrDecline('Kategoriyi Güncelle', 'Bu kategoriyi güncellemek istediğinizden emin misiniz?', 'warning')
+      .then((result) => {
+        if (result) {
+          // Kullanıcı işlemi onayladıysa kategoriyi güncelle
+          this.dataService.updateCategory(this.category).subscribe(
+            (response) => {
+              this.dataService.showSuccessMessage(response);
+              // this.router.navigate(['/categories']);
+            },
+            (error) => {
+              this.dataService.showFailMessage(error);     
+            }
+          );
+        } else {
+          // Kullanıcı işlemi iptal etti
+          console.log('Kategori güncelleme işlemi iptal edildi.');
+        }
+      });
   }
+  
 }

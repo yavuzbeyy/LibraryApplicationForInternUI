@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
 import { AuthService } from '../../Screens/Auth/AuthService';
 import { HubConnection, HubConnectionBuilder, HttpTransportType } from '@microsoft/signalr';
+import { AlertService } from '../Alert/alert.service';
 
 @Component({
   selector: 'app-root',
@@ -20,13 +21,16 @@ export class AppComponent implements OnInit {
   constructor(
     private router: Router,
     public authService: AuthService,
-    private hubConnection: HubConnection
+    private hubConnection: HubConnection,
+    private alertService: AlertService
   ) 
   {
     this.startSignalRConnection(); // buradan kaynaklı giriş yapmış kullanıcının çıkış yapma butonlarını vs.görüyor orayı düzelt
   }
 
   ngOnInit(): void {
+    
+
     
     if (typeof localStorage !== 'undefined') {
     const token = localStorage.getItem('token');
@@ -47,6 +51,8 @@ export class AppComponent implements OnInit {
   }
 
    startSignalRConnection() {
+
+    
     
     console.log("Signal R startConnection başında Giriş Yaptin mi:", this.authService.userIsLogin());
     const connectionOptions = {
@@ -56,7 +62,6 @@ export class AppComponent implements OnInit {
 
     };
     
-  
      const startConnection = () => {
        this.hubConnection = new HubConnectionBuilder()
         .withUrl(connectionOptions.withUrl, { ...connectionOptions })
@@ -125,8 +130,12 @@ export class AppComponent implements OnInit {
       const chatMessageElement = document.createElement('div');
       chatMessageElement.classList.add('chat-message', 'p-3');
       chatMessageElement.innerHTML = `
-        <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-7.png" width="30" height="30"> <h5>Yönetici</h5>
-        <div class="message-content">${message}</div>`;
+      <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-7.png" width="30" height="30"> <h5>Yönetici</h5>
+      <div class="chat ml-2 p-3" style="border: 1px solid #fd0000;
+      font-size: 15px;
+      font-family: 'Roboto', sans-serif;
+      border-radius: 20px;
+      " >${message}</div>`;
       chatElement.appendChild(chatMessageElement);
        // Otomatik olarak en aşağıya kaydır
      chatElement.scrollTop = chatElement.scrollHeight;
@@ -144,8 +153,12 @@ export class AppComponent implements OnInit {
       const chatMessageElement = document.createElement('div');
       chatMessageElement.classList.add('chat-message', 'p-3');
       chatMessageElement.innerHTML = `
-        <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-7.png" width="30" height="30"> <h5>Yönetici</h5>
-        <div class="message-content">${message}</div>`;
+      <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-7.png" width="30" height="30" > <h5>Yönetici</h5>
+      <div class="chat ml-2 p-3" style="border: 1px solid #fd0000;
+      font-size: 15px;
+      font-family: 'Roboto', sans-serif;
+      border-radius: 20px;
+      ">${message}</div>`;
       chatElement.appendChild(chatMessageElement);
        // Otomatik olarak en aşağıya kaydır
      chatElement.scrollTop = chatElement.scrollHeight;
@@ -212,7 +225,10 @@ export class AppComponent implements OnInit {
     chatMessageElement.classList.add('chat-message', 'p-3');
     chatMessageElement.innerHTML = `
       <img src="https://img.icons8.com/color/48/000000/circled-user-male-skin-type-7.png" width="30" height="30"> <h5>${username}</h5>
-      <div class="message-content">${message}</div>`;
+      <div class="bg-white mr-2 p-3" style="border: 1px solid #cf82c5;
+      font-size: 15px;
+      font-family: 'Roboto', sans-serif;
+      border-radius: 20px;">${message}</div>`;
     chatElement.appendChild(chatMessageElement);
      // Otomatik olarak en aşağıya kaydır
      chatElement.scrollTop = chatElement.scrollHeight;
@@ -223,7 +239,10 @@ export class AppComponent implements OnInit {
     chatMessageElement.classList.add('chat-message', 'p-3');
     chatMessageElement.innerHTML = `
       <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-7.png" width="30" height="30"> <h5>Yönetici</h5>
-      <div class="message-content">${message}</div>`;
+      <div class="chat ml-2 p-3" style="border: 1px solid #fd0000;
+      font-size: 15px;
+      font-family: 'Roboto', sans-serif;
+      border-radius: 20px;">${message}</div>`;
     chatElement.appendChild(chatMessageElement);
      chatElement.scrollTop = chatElement.scrollHeight;
   }
@@ -242,9 +261,16 @@ export class AppComponent implements OnInit {
   }
 
   logout(): void {
-    this.authService.logout();
-    this.router.navigate(['/login']).then(() => {
-      window.location.reload();
-    });
+    this.alertService.acceptOrDecline('Çıkış Yap', 'Çıkış yapmak istediğinizden emin misiniz?', 'warning')
+      .then((result: boolean) => { // result parametresinin türü belirtiliyor
+        if (result) {
+          // Kullanıcı onayladıysa çıkış işlemini gerçekleştir
+          this.authService.logout();
+          this.router.navigate(['/login']).then(() => {
+            window.location.reload();
+          });
+        }
+      });
   }
+  
 }

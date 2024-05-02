@@ -59,6 +59,9 @@
               <!-- Kullanıcı girişi yapılmamışsa -->
               <a class="dropdown-item" routerLink="/login" routerLinkActive="active">Giriş Yap</a>
               <a class="dropdown-item" routerLink="/register" routerLinkActive="active">Kayıt Ol</a>
+              <!-- app.component.html -->
+
+
             </ng-template>
           </ul>
         </li>
@@ -80,7 +83,7 @@
 
 <!-- LiveChat -->
 <div class="position-fixed bottom-0 end-0 mb-5 me-5">
-  <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#liveChatCollapse"
+  <button class="btn btn-primary" type="button" style="bottom: 0; right: 0;" data-bs-toggle="collapse" data-bs-target="#liveChatCollapse"
     aria-expanded="false" aria-controls="liveChatCollapse" (click)="getPreviousMessages()">
     LiveChat
   </button>
@@ -90,7 +93,7 @@
       <div class="form-group px-3">
         <textarea class="form-control" #chatMessage rows="5" style="font-size: 10px;" placeholder="Lütfen mesajınızı giriniz"></textarea>
       </div>
-      <div class="d-grid gap-2 col-6 mx-auto">
+      <div class="d-grid gap-2 col-6 mx-auto" style="margin-top: 10px; margin-bottom: 10px;">
         <button class="btn btn-primary" (click)="sendChatMessage(chatMessage.value, username,role)">Gönder</button>
       </div>
     </div>

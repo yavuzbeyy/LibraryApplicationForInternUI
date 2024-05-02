@@ -3,6 +3,7 @@ import { DataService } from '../../../Shared/services/DataService';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
 import { UpdateAuthorModel } from '../../../Shared/Models/UpdateAuthorModel';
+import { AlertService } from '../../../Shared/Alert/alert.service';
 
 @Component({
   selector: 'app-update-author',
@@ -13,7 +14,7 @@ export class UpdateAuthorComponent implements OnInit {
 
   author: UpdateAuthorModel = new UpdateAuthorModel();
   authorId!: number;
-  constructor(private dataService: DataService, private toastr: ToastrService, private route: ActivatedRoute) { }
+  constructor(private dataService: DataService, private toastr: ToastrService, private route: ActivatedRoute,private alertService: AlertService) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -60,15 +61,28 @@ export class UpdateAuthorComponent implements OnInit {
     );
   }
 
+  
   updateAuthor() {
-    this.dataService.updateAuthor(this.author).subscribe(
-      (response) => {
-        this.dataService.showSuccessMessage(response);
-      },
-      (error) => {
-        this.dataService.showFailMessage(error);     
-      }
-    );
+    // Yazar güncelleme işlemini onaylamak için AlertService'den acceptOrDecline metodunu kullanalım
+    this.alertService.acceptOrDecline('Yazarı Güncelle', 'Bu yazarı güncellemek istediğinizden emin misiniz?', 'warning')
+      .then((result) => {
+        if (result) {
+          // Kullanıcı işlemi onayladıysa yazarı güncelle
+          this.dataService.updateAuthor(this.author).subscribe(
+            (response) => {
+              this.dataService.showSuccessMessage(response);
+             // this.router.navigate(['/author']);
+            },
+            (error) => {
+              this.dataService.showFailMessage(error);     
+            }
+          );
+        } else {
+          // Kullanıcı işlemi iptal etti
+          console.log('Yazar güncelleme işlemi iptal edildi.');
+        }
+      });
   }
+
 
 }

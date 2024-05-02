@@ -111,17 +111,19 @@ button.update:hover {
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
 body{
-	background: #d57171;
+	background: #9eeebf;
 	font-family: 'Roboto', sans-serif;
 }
 .card{
 	width: 300px;
-	border: none;
+	border: 3px solid #6e7935;
 	border-radius: 15px;
-  background: #d57171;
+  background: #ffffff;
+  z-index: 1;
+  position: relative;
 }
 .adiv{
-	background: #04CB28;
+	background: #f2fdf4;
 	border-radius: 15px;
 	border-bottom-right-radius: 0;
 	border-bottom-left-radius: 0;
@@ -130,33 +132,32 @@ body{
 }
 .chat{
 	border: none;
-	background: #E2FFE8;
+	background: #9cf0ad;
 	font-size: 10px;
 	border-radius: 20px;
 }
 .bg-white{
-	border: 1px solid #4f4fcf;
+	border: 1px solid #fd0000;
 	font-size: 10px;
 	border-radius: 20px;
 }
-.myvideo img{
-	border-radius: 20px
-}
+
 .dot{
 	font-weight: bold;
 }
 .form-control{
 	border-radius: 12px;
-	border: 1px solid #adef13;
+	border: 1px solid #27790e;
 	font-size: 8px;
 }
 .form-control:focus{
 	box-shadow: none;
 	}
 .form-control::placeholder{
-	font-size: 14px;
+	font-size: 8px;
 	color: #C4C4C4;
 }
+
 
 .chat-message {
   display: flex;
@@ -177,20 +178,9 @@ body{
   overflow-y: auto; /* Yükseklik aşıldığında scrollbar göster */
 }
 
-.chat-message {
-  margin-bottom: 10px;
-  background: #cbf57f;
-}
-
-.message-content {
-  background-color: #cbf57f;
-  border-radius: 15px;
-  padding: 10px 15px;
-  font-size: 14px;
-  max-width: 70%;
-}
-
 #liveChatMessages {
   max-height: 300px; /* İsteğe bağlı olarak ayarlayabilirsiniz */
   overflow-y: auto; /* Yalnızca yükseklik aşıldığında scrollbar'ı göster */
+  position: relative; /* Ensure proper positioning */
+  z-index: 0; /* Set a higher z-index to appear above other elements */
 }

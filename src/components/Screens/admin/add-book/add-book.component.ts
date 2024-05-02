@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../../Shared/services/DataService';
 import { BookModel } from '../../../Shared/Models/BookModel';
 import { ToastrService } from 'ngx-toastr';
+import { AlertService } from '../../../Shared/Alert/alert.service';
 
 @Component({
   selector: 'app-add-book',
@@ -14,7 +15,7 @@ export class AddBookComponent implements OnInit {
   categories: any[] = [];
   selectedFile: File | undefined;
 
-  constructor(private dataService: DataService, private toastr: ToastrService) {}
+  constructor(private dataService: DataService, private toastr: ToastrService,private alertService: AlertService) {}
 
   ngOnInit() {
     
@@ -76,15 +77,25 @@ export class AddBookComponent implements OnInit {
   }
 
   createBook() {
-    this.dataService.createBook(this.book).subscribe(
-      (createResponse) => {
-        this.toastr.success(createResponse.message, 'Başarılı');
-      },
-      (createError) => {
-        this.toastr.error(createError.message, 'Error');
-      }
-    );
+    this.alertService.acceptOrDecline('Kitabı Ekle', 'Bu kitabı eklemek istediğinizden emin misiniz?', 'warning')
+      .then((result) => {
+        if (result) {
+          // Kullanıcı işlemi onayladıysa kitabı ekle
+          this.dataService.createBook(this.book).subscribe(
+            (createResponse) => {
+              this.toastr.success(createResponse.message, 'Başarılı');
+            },
+            (createError) => {
+              this.toastr.error(createError.message, 'Error');
+            }
+          );
+        } else {
+          // Kullanıcı işlemi iptal etti
+          console.log('Kitap ekleme işlemi iptal edildi.');
+        }
+      });
   }
+
 
   onFileSelected(event: any) {
     this.selectedFile = event.target.files[0] as File;

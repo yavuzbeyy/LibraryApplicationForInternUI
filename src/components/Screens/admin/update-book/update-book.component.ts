@@ -3,6 +3,7 @@ import { DataService } from '../../../Shared/services/DataService';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
 import { BookUpdateModel } from '../../../Shared/Models/BookUpdateModel';
+import { AlertService } from '../../../Shared/Alert/alert.service';
 
 @Component({
   selector: 'app-update-book',
@@ -16,7 +17,7 @@ export class UpdateBookComponent {
   selectedFile: File | undefined;
   bookId!: number;
 
-  constructor(private dataService: DataService, private toastr: ToastrService,private route: ActivatedRoute) {}
+  constructor(private dataService: DataService, private toastr: ToastrService,private route: ActivatedRoute,private alertService: AlertService) {}
 
   ngOnInit() { 
     this.route.params.subscribe(params => {
@@ -89,17 +90,26 @@ export class UpdateBookComponent {
   }
 
   updateBook() {
-    console.log( this.book.authorId)
-    this.dataService.updateBook(this.book).subscribe(
-      (response) => {
-        this.dataService.showSuccessMessage(response);
-      },
-      (error) => {
-        console.error('Error updating book:', error);
-        this.dataService.showFailMessage(error);
-      }
-    );
+    this.alertService.acceptOrDecline('Kitabı Güncelle', 'Bu kitabı güncellemek istediğinizden emin misiniz?', 'warning')
+      .then((result) => {
+        if (result) {
+          // Kullanıcı işlemi onayladıysa kitabı güncelle
+          this.dataService.updateBook(this.book).subscribe(
+            (response) => {
+              this.dataService.showSuccessMessage(response);
+              // this.router.navigate(['/books']);
+            },
+            (error) => {
+              this.dataService.showFailMessage(error);     
+            }
+          );
+        } else {
+          // Kullanıcı işlemi iptal etti
+          console.log('Kitap güncelleme işlemi iptal edildi.');
+        }
+      });
   }
+  
 
   setAuthorId() {
     const selectedAuthorName = this.book.authorName;

@@ -3,6 +3,7 @@ import { DataService } from '../../Shared/services/DataService';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { AuthService } from '../Auth/AuthService';
+import { AlertService } from '../../Shared/Alert/alert.service';
 
 
 @Component({
@@ -16,7 +17,7 @@ export class AuthorComponent implements OnInit {
   selectedAuthorId: number | null = null;
   isAdmin : boolean = false;
 
-  constructor(private dataService: DataService,private toastr: ToastrService,private router: Router,private authService: AuthService) { }
+  constructor(private dataService: DataService,private toastr: ToastrService,private router: Router,private authService: AuthService,private alertService: AlertService) { }
 
   ngOnInit() {
     const token = localStorage.getItem('token');
@@ -42,16 +43,23 @@ export class AuthorComponent implements OnInit {
   }
 
   deleteAuthor(authorId: number) {
-    this.dataService.deleteAuthor(authorId).subscribe(
-      (response) => {
-        this.authors = this.authors.filter(a => a.id !== authorId);
-        this.fetchAuthors();
-        this.dataService.showSuccessMessage(response);
-      },
-      (error) => {
-        this.dataService.showFailMessage(error);
-      }
-    );
+    this.alertService.acceptOrDecline('Yazarı Sil', 'Bu yazarı silmek istediğinizden emin misiniz?', 'warning')
+      .then((result) => {
+        if (result) {
+          this.dataService.deleteAuthor(authorId).subscribe(
+            (response) => {
+              this.authors = this.authors.filter(a => a.id !== authorId);
+              this.fetchAuthors();
+              this.dataService.showSuccessMessage(response);
+            },
+            (error) => {
+              this.dataService.showFailMessage(error);
+            }
+          );
+        } else {
+          console.log('Yazar silme işlemi iptal edildi.');
+        }
+      });
   }
 
   showAuthorBooks(authorId: number) {

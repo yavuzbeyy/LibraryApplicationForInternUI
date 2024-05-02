@@ -4,6 +4,7 @@ import { DataService } from '../../Shared/services/DataService';
 import { AuthService } from '../Auth/AuthService';
 import { Router } from '@angular/router';
 import { BookDetailsModalComponent } from './book-details-modal/book-details-modal.component';
+import { AlertService } from '../../Shared/Alert/alert.service';
 
 @Component({
   selector: 'app-books',
@@ -14,7 +15,7 @@ export class BooksComponent implements OnInit {
   books: any[] = [];
   isAdmin: boolean = false;
 
-  constructor(private dataService: DataService, private authService: AuthService, private router: Router, private modalService: NgbModal) 
+  constructor(private dataService: DataService, private authService: AuthService, private router: Router, private modalService: NgbModal,private alertService: AlertService) 
   {
     console.log("book kurucusunda girisYaptimi : " , this.authService.userIsLogin())
    }
@@ -75,16 +76,25 @@ export class BooksComponent implements OnInit {
   }
 
   deleteBook(bookId: number) {
-    this.dataService.deleteBook(bookId).subscribe(
-      (response) => {
-        this.books = this.books.filter(b => b.id !== bookId);
-        this.fetchBooks(); 
-        this.dataService.showSuccessMessage(response);
-      },
-      (error) => {
-        this.dataService.showFailMessage(error);
-      }
-    );
+    this.alertService.acceptOrDecline('Kitabı Sil', 'Bu kitabı silmek istediğinizden emin misiniz?', 'warning')
+      .then((result) => {
+        if (result) {
+          // Kullanıcı işlemi onayladıysa kitabı sil
+          this.dataService.deleteBook(bookId).subscribe(
+            (response) => {
+              this.books = this.books.filter(b => b.id !== bookId);
+              this.fetchBooks(); 
+              this.dataService.showSuccessMessage(response);
+            },
+            (error) => {
+              this.dataService.showFailMessage(error);
+            }
+          );
+        } else {
+          console.log('Kitap silme işlemi iptal edildi.');
+        }
+      });
   }
-
 }
+
+

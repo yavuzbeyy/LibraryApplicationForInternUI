@@ -25,7 +25,6 @@ import { RegisterComponent } from '../../Screens/Auth/register/register.componen
 import { UpdateAuthorComponent } from '../../Screens/admin/update-author/update-author.component';
 import { UpdateBookComponent } from '../../Screens/admin/update-book/update-book.component';
 import { UpdateCategoryComponent } from '../../Screens/admin/update-category/update-category.component';
-import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { RequestBooksComponent } from '../../Screens/request-books/request-books.component';
 import { BookDetailsModalComponent } from '../../Screens/books/book-details-modal/book-details-modal.component';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
@@ -49,6 +48,7 @@ import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
     UpdateCategoryComponent,
     RequestBooksComponent,
     BookDetailsModalComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -60,7 +60,6 @@ import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
       positionClass: 'toast-top-right' 
     }),
     BrowserAnimationsModule,
-    CKEditorModule,
     NgbModule,
     
   ],

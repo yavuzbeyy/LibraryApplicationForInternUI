@@ -3,6 +3,7 @@ import { DataService } from '../../Shared/services/DataService';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router'; // RouterModule ve Router modülünü ekledik
 import { AuthService } from '../Auth/AuthService';
+import { AlertService } from '../../Shared/Alert/alert.service';
 
 @Component({
   selector: 'app-category',
@@ -19,7 +20,8 @@ export class CategoryComponent implements OnInit {
     private dataService: DataService,
     private toastr: ToastrService,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private alertService: AlertService
   ) { }
 
   ngOnInit() {
@@ -46,18 +48,25 @@ export class CategoryComponent implements OnInit {
   }
 
   deleteCategory(categoryId: number) {
-    this.dataService.deleteCategory(categoryId).subscribe(
-      (response) => {
-        this.categories = this.categories.filter(c => c.id !== categoryId);
-        this.dataService.showSuccessMessage(response);
-      },
-      (error) => {
-        console.error('Error deleting category:', error);
-        this.dataService.showFailMessage(error);
-      }
-    );
+    this.alertService.acceptOrDecline('Kategoriyi Sil', 'Bu kategoriyi silmek istediğinizden emin misiniz?', 'warning')
+      .then((result) => {
+        if (result) {
+          // Kullanıcı işlemi onayladıysa kategoriyi sil
+          this.dataService.deleteCategory(categoryId).subscribe(
+            (response) => {
+              this.categories = this.categories.filter(c => c.id !== categoryId);
+              this.dataService.showSuccessMessage(response);
+            },
+            (error) => {
+              console.error('Error deleting category:', error);
+              this.dataService.showFailMessage(error);
+            }
+          );
+        } else {
+          console.log('Kategori silme işlemi iptal edildi.');
+        }
+      });
   }
-
   showCategoryBooks(categoryId: number) {
     this.selectedCategoryId = categoryId;
   }
