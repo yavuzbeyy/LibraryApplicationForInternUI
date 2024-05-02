@@ -122,14 +122,6 @@ body{
   z-index: 1;
   position: relative;
 }
-.adiv{
-	background: #f2fdf4;
-	border-radius: 15px;
-	border-bottom-right-radius: 0;
-	border-bottom-left-radius: 0;
-	font-size: 12px;
-	height: 46px;
-}
 .chat{
 	border: none;
 	background: #9cf0ad;
@@ -158,21 +150,6 @@ body{
 	color: #C4C4C4;
 }
 
-
-.chat-message {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.chat-message .message-content {
-  background-color: #cbf57f;
-  border-radius: 15px;
-  padding: 10px 15px;
-  font-size: 14px;
-  max-width: 70%;
-}
-
 .messages-container {
   max-height: 200px; /* Mesajlar konteynerinin maksimum yüksekliği */
   overflow-y: auto; /* Yükseklik aşıldığında scrollbar göster */
@@ -184,3 +161,5 @@ body{
   position: relative; /* Ensure proper positioning */
   z-index: 0; /* Set a higher z-index to appear above other elements */
 }
+
+

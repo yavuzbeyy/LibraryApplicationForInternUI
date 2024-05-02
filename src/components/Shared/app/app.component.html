@@ -83,12 +83,24 @@
 
 <!-- LiveChat -->
 <div class="position-fixed bottom-0 end-0 mb-5 me-5">
-  <button class="btn btn-primary" type="button" style="bottom: 0; right: 0;" data-bs-toggle="collapse" data-bs-target="#liveChatCollapse"
+  <!-- <button class="btn btn-primary" type="button" style="bottom: 0; right: 0;" data-bs-toggle="collapse" data-bs-target="#liveChatCollapse"
     aria-expanded="false" aria-controls="liveChatCollapse" (click)="getPreviousMessages()">
     LiveChat
-  </button>
+  </button> -->
+  <div style="background-color: greenyellow; border-radius: 10px; display: flex; flex-direction: row; justify-content: space-between;"  data-bs-toggle="collapse" data-bs-target="#liveChatCollapse"
+  aria-expanded="false" aria-controls="liveChatCollapse">
+    <div>
+      <span> < </span>
+    </div>
+    <div>
+      LiveChat
+    </div>
+    <div>
+      <span (click)="getPreviousMessages()"> X </span>
+    </div>
+  </div>
   <div class="collapse" id="liveChatCollapse">
-    <div class="card mt-3">
+    <div class="card">
       <div id="liveChatMessages"></div> <!-- Gelen mesajları göstereceğimiz alan -->
       <div class="form-group px-3">
         <textarea class="form-control" #chatMessage rows="5" style="font-size: 10px;" placeholder="Lütfen mesajınızı giriniz"></textarea>

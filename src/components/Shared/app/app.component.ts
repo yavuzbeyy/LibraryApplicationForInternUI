@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
 import { AuthService } from '../../Screens/Auth/AuthService';
@@ -10,7 +10,7 @@ import { AlertService } from '../Alert/alert.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit , AfterViewInit{
   username: string | any = '';
   decodedToken: any = null; 
   role: number | any = null;
@@ -25,12 +25,14 @@ export class AppComponent implements OnInit {
     private alertService: AlertService
   ) 
   {
+    
+  }
+  ngAfterViewInit(): void {
+   // throw new Error('Method not implemented.');
     this.startSignalRConnection(); // buradan kaynaklı giriş yapmış kullanıcının çıkış yapma butonlarını vs.görüyor orayı düzelt
   }
 
   ngOnInit(): void {
-    
-
     
     if (typeof localStorage !== 'undefined') {
     const token = localStorage.getItem('token');
@@ -51,8 +53,6 @@ export class AppComponent implements OnInit {
   }
 
    startSignalRConnection() {
-
-    
     
     console.log("Signal R startConnection başında Giriş Yaptin mi:", this.authService.userIsLogin());
     const connectionOptions = {
