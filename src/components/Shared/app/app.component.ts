@@ -4,14 +4,8 @@ import { jwtDecode } from 'jwt-decode';
 import { AuthService } from '../../Screens/Auth/AuthService';
 import { HubConnection, HubConnectionBuilder, HttpTransportType } from '@microsoft/signalr';
 import { AlertService } from '../Alert/alert.service';
-import { faCoffee } from '@fortawesome/free-solid-svg-icons';
-import { faPaperclip } from '@fortawesome/free-solid-svg-icons';
-import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
-import { faBookAtlas} from '@fortawesome/free-solid-svg-icons';
-import { faPencil} from '@fortawesome/free-solid-svg-icons';
-import { faRightFromBracket} from '@fortawesome/free-solid-svg-icons';
-import { faSquareXmark} from '@fortawesome/free-solid-svg-icons';
-import { faArrowLeftLong} from '@fortawesome/free-solid-svg-icons';
+import { faSquareXmark,faArrowLeftLong,faRightFromBracket,faPencil,faBookAtlas,faPenToSquare,faPaperclip ,faCoffee} from '@fortawesome/free-solid-svg-icons';
+import { DataService } from '../../Shared/services/DataService';
 
 @Component({
   selector: 'app-root',
@@ -24,6 +18,7 @@ export class AppComponent implements OnInit , AfterViewInit{
   role: number | any = null;
   isAdmin: boolean = false;
   isLoggedIn: boolean = false;
+  showUserList: boolean = false;
   faCoffee = faCoffee;
   paperclip = faPaperclip;
   penToSquare = faPenToSquare;
@@ -32,34 +27,32 @@ export class AppComponent implements OnInit , AfterViewInit{
   logoutIcon = faRightFromBracket;  
   faSquareXmark = faSquareXmark;
   faArrowLeftLong=faArrowLeftLong;
+  users: any[] = [];
 
   constructor(
     private router: Router,
     public authService: AuthService,
     private hubConnection: HubConnection,
-    private alertService: AlertService
-  ) 
-  {
-    
-  }
+    private alertService: AlertService,
+    private dataService: DataService
+  ) {}
+
   ngAfterViewInit(): void {
-   // throw new Error('Method not implemented.');
-    this.startSignalRConnection(); // buradan kaynaklı giriş yapmış kullanıcının çıkış yapma butonlarını vs.görüyor orayı düzelt
+    this.startSignalRConnection(); 
   }
 
   ngOnInit(): void {
-    
+
     if (typeof localStorage !== 'undefined') {
     const token = localStorage.getItem('token');
     if (token) {
       this.authService.login();
-      console.log("user giris durumu : ", this.authService.userIsLogin())
       this.isLoggedIn = this.authService.userIsLogin();
       this.decodeToken(token);
       this.isAdmin = this.authService.isAdmin(token);
+      //this.getAllUsers();
     } else {
       console.log('Token not found');
-      console.log("user giris durumu : ", this.authService.userIsLogin())
       this.router.navigate(['/login']);
     }
   } else {
@@ -68,7 +61,6 @@ export class AppComponent implements OnInit , AfterViewInit{
   }
 
    startSignalRConnection() {
-    
     console.log("Signal R startConnection başında Giriş Yaptin mi:", this.authService.userIsLogin());
     const connectionOptions = {
        withUrl: 'http://localhost:5062/connectServerHub',
@@ -81,8 +73,6 @@ export class AppComponent implements OnInit , AfterViewInit{
        this.hubConnection = new HubConnectionBuilder()
         .withUrl(connectionOptions.withUrl, { ...connectionOptions })
         .build();
-
-        console.log("Signal R startConnection içinde Giriş Yaptin mi:", this.authService.userIsLogin());
   
        this.hubConnection.start()
         .then(() => {
@@ -91,7 +81,7 @@ export class AppComponent implements OnInit , AfterViewInit{
          this.hubConnection.invoke("sendWelcomeMessage");
         })
         .then(() => {
-          console.log("Mesaj sunucuya gönderildi.");
+          //console.log("Mesaj sunucuya gönderildi.");
         })
         .catch(error => {
           console.error("Error while establishing connection or invoking method:", error);
@@ -107,7 +97,6 @@ export class AppComponent implements OnInit , AfterViewInit{
        //Hoşheldiniz Mesajı
         this.hubConnection.on("WelcomeMessage", (message) => {
          console.log("Hoşgeldin Mesajı : " + message);
-         console.log("Signal R Welcome içinde Giriş Yaptin mi:", this.authService.userIsLogin());
         this.showReceivedMessage(message);
        })
 
@@ -128,10 +117,10 @@ export class AppComponent implements OnInit , AfterViewInit{
       });
 
       // SignalRdan Gelen Eski Mesajlar
-      this.hubConnection.on("ShowPreviousMessages", (messages) => {
+      this.hubConnection.on("ShowPreviousMessages", (messages,selectedUsername) => {
       console.log("Previous messages:", messages);
       messages.forEach((message: any) => { // Her bir mesaj için forEach döngüsü
-      this.showPreviousChatMessage(message.message,this.username,message.isAdminMessage);
+      this.showPreviousChatMessage(message.message,selectedUsername,message.isAdminMessage);
   });
 });
      };
@@ -214,7 +203,26 @@ export class AppComponent implements OnInit , AfterViewInit{
     this.hubConnection.invoke("GetPreviousMessages", this.username)
       .then(() => {
         console.log("Bu kullanıcıların geçmiş mesajlarını görme isteği: " + this.username);
-        // this.getPreviousMessage(message);
+      })
+      .catch(error => {
+        console.error("Error while getting previous messages:", error);
+      });
+  }
+
+  getPreviousMessagesBySelectedUsername(selectedUsername:string) {
+
+    const chatElement = document.getElementById('liveChatMessages');
+    if (!chatElement) {
+      console.error('liveChatMessages elementi bulunamadı.');
+      return;
+    }
+  
+    chatElement.innerHTML = '';
+
+    console.log("selected username : ", selectedUsername);
+    this.hubConnection.invoke("GetPreviousMessages", selectedUsername)
+      .then(() => {
+        console.log("Bu kullanıcıların geçmiş mesajlarını görme isteği: " + selectedUsername);
       })
       .catch(error => {
         console.error("Error while getting previous messages:", error);
@@ -287,5 +295,50 @@ export class AppComponent implements OnInit , AfterViewInit{
         }
       });
   }
+
+  closeUserList(){
+    this.showUserList = false;
+  }
+
+  listUsersToChatScreen(event: Event): void {
+    event.stopPropagation();
+    this.showUserList = true;
+
+    // Mevcut chat ekranını temizle
+
+    const chatElement = document.getElementById('liveChatMessages');
+    if (!chatElement) {
+      console.error('liveChatMessages elementi bulunamadı.');
+      return;
+    }
   
+    chatElement.innerHTML = '';
+  
+    this.dataService.getAllUser().subscribe(
+      (data: any) => {
+        if (data && data.data && Array.isArray(data.data)) {
+          this.users = data.data; // Kullanıcıları diziye at
+          console.log(this.users); // Kullanıcıları konsola yazdır
+    
+          // Her bir kullanıcı için döngü
+      /*    this.users.forEach(user => {
+            const chatMessageElement = document.createElement('div');
+            chatMessageElement.classList.add('chat-message', 'p-3');
+            chatMessageElement.innerHTML = `
+              <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-7.png" width="30" height="30"> 
+              <div class="chat ml-2 p-3" style="border: 1px solid #fd0000;
+              font-size: 10px;
+              font-family: 'Roboto', sans-serif;
+              border-radius: 0px;" onclick="getPreviousMessagesBySelectedUsername('${user.username}')"> Kullanıcı : ${user.username}</div>`;
+            chatElement.appendChild(chatMessageElement);
+          });*/
+        }
+      },
+      error => {
+        console.error('Kullanıcı bilgilerini alma hatası:', error);
+      }
+    );
+  }
+
+ 
 }

@@ -41,7 +41,7 @@
         </li>
         <li class="nav-item">
           <a class="nav-link px-3" routerLink="/book-requests" routerLinkActive="active" aria-current="page">
-            Kitap İstekleri
+            Kitap İstekleri <fa-icon [icon]="bookAtlas"></fa-icon>
           </a>
         </li>
         <li class="nav-item dropdown">
@@ -87,17 +87,27 @@
     aria-expanded="false" aria-controls="liveChatCollapse" (click)="getPreviousMessages()">
     LiveChat
   </button> -->
-  <div style="background-color: greenyellow; border-radius: 10px; display: flex; flex-direction: row; justify-content: space-between;"  data-bs-toggle="collapse" data-bs-target="#liveChatCollapse"
+  <div style="background-color: rgb(143, 174, 233); border-radius: 10px; display: flex; flex-direction: row; justify-content: space-between;" 
   aria-expanded="false" aria-controls="liveChatCollapse">
-    <div>
-      <span> <fa-icon [icon]="faArrowLeftLong"></fa-icon> </span>
+  <div *ngIf="isAdmin">
+    <span (click)="listUsersToChatScreen($event)">  <fa-icon [icon]="faArrowLeftLong"></fa-icon> 
+
+    <div style="max-height: 90px; overflow-y: auto;"  *ngIf="showUserList">
+      <div *ngFor="let user of users" class="chat-message p-3" style="overflow-y: auto;">
+        <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-7.png" width="30" height="30">
+        <div class="chat ml-2 p-3" style="border: 1px solid #fd0000; font-size: 10px; font-family: 'Roboto', sans-serif; border-radius: 0px;" (click)="getPreviousMessagesBySelectedUsername(user.username)"> Kullanıcı : {{ user.username }}</div>
+      </div>
     </div>
-    <div>
-      LiveChat <fa-icon [icon]="faCoffee"></fa-icon>
+  </span>
+  </div>
+  
+    <div  data-bs-toggle="collapse" data-bs-target="#liveChatCollapse" >
+      LiveChat : {{this.users.length}} <fa-icon [icon]="faCoffee"></fa-icon>
     </div>
-    <div>
-      <span (click)="getPreviousMessages()">  <fa-icon [icon]="faSquareXmark"></fa-icon></span>
-    </div>
+
+   <!--   <span (click)="getPreviousMessages()">  <fa-icon [icon]="faSquareXmark"></fa-icon></span>-->
+      <span  data-bs-toggle="collapse" data-bs-target="#liveChatCollapse" (click)="closeUserList()">  <fa-icon [icon]="faSquareXmark"></fa-icon></span>
+
   </div>
   <div class="collapse" id="liveChatCollapse">
     <div class="card">
