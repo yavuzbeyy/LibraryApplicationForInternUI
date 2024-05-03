@@ -5,11 +5,11 @@
         <div *ngFor="let user of users" class="user-card">
             <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-7.png" width="30" height="30">
             <div class="user-info">
-                <div>{{ user.username }}</div>
+                <div> <strong>{{ user.username }}</strong></div>
                 <div>{{ user.name}} {{ user.surname}}</div>
                 <div>{{ user.email}}</div>
             </div>
-            <button (click)="this.appComponent.getPreviousMessagesBySelectedUsername(user.username)">Mesaj Gönder</button>
+            <button class="button add-user-button" (click)="this.appComponent.getPreviousMessagesBySelectedUsername(user.username)">Mesaj Gönder</button>
             
         </div>
     </div>
@@ -18,8 +18,18 @@
 <!-- Gruplar Bölümü -->
 <div class="gruplar">
     <h1>Gruplar</h1>
+    <button class="button add-new-group-button" (click)="addNewGroup()" style="margin-bottom: 10px;">Grup Ekle</button> <!-- margin-bottom ile butonun altında 10 piksel boşluk bırakıyoruz -->
     <div class="card-container">
-       
-
+        <div *ngFor="let group of groups" class="user-card">
+            <img src="https://img.icons8.com/office/48/000000/user-group-man-woman.png" width="30" height="30">
+            <div class="user-info">
+                <div>{{ group.name }}</div>
+                <!-- Buraya grup üyeleri veya diğer bilgiler eklenebilir -->
+            </div>
+            <button class="button delete-button" (click)="deleteGroup(group.id)" style="margin-right: 10px; margin-bottom: 10px;">Grubu Sil</button>
+            <button class="button add-new-group-button" >Mesaj Gönder</button>
+            <button class="button add-user-button" (click)="addUserToGroup(group.id)">Kullanıcı Ekle</button>
+        </div>
     </div>
 </div>
+

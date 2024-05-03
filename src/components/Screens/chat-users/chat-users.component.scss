@@ -45,3 +45,45 @@ h1 {
 .send-message-btn:hover {
     background-color: #0056b3;
 }
+
+/* Stil dosyası (Örneğin: styles.css) */
+
+/* Butonlara genel stil */
+.button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+/* Grup Sil butonu */
+.delete-button {
+    background-color: #ff5757;
+    color: white;
+}
+
+.delete-button:hover {
+    background-color: #e44a4a;
+}
+
+/* Kullanıcı Ekle butonu */
+.add-user-button {
+    background-color: #4caf50;
+    color: white;
+}
+
+.add-user-button:hover {
+    background-color: #3e8e41;
+}
+
+/* Grup Ekle butonu */
+.add-new-group-button {
+    background-color: orange; /* Turuncu renk */
+    color: white;
+}
+
+.add-new-group-button:hover {
+    background-color: darkorange; /* Turuncunun biraz koyusu */
+}

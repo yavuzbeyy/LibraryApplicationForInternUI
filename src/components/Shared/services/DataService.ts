@@ -183,4 +183,25 @@ export class DataService {
       const url = `${this.baseApi}api/User/ForgetPassword?username=${username}`;
       return this.http.post(url,{ username });
     }
-}
+
+    deleteGroupRequest(groupId: number): Observable<any> {
+      const url = `${this.baseApi}api/User/DeleteGroupById?groupId=${groupId}`;
+       return this.http.delete(url);
+     } 
+
+     getAllGroups(): Observable<any[]> {
+      const apiUrl = `${this.baseApi}api/User/GetAllGroups`;
+      return this.http.get<any[]>(apiUrl);
+    }
+
+    createGroup(groupName : string ): Observable<any> {
+      const url = `${this.baseApi}api/User/CreateUserGroup?groupName=${groupName}`;
+      return this.http.post(url, groupName);
+    }
+
+    addUserToGroup(username: string, groupId: number): Observable<any> {
+      const url = `${this.baseApi}api/User/AddUserToGroup?username=${username}&groupId=${groupId}`;
+      return this.http.post(url, null);
+    }
+    
+  }
