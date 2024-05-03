@@ -14,6 +14,7 @@ import { DataService } from '../../Shared/services/DataService';
 })
 export class AppComponent implements OnInit , AfterViewInit{
   username: string | any = '';
+  adminSentToHim: string  = '';
   decodedToken: any = null; 
   role: number | any = null;
   isAdmin: boolean = false;
@@ -190,7 +191,7 @@ export class AppComponent implements OnInit , AfterViewInit{
   
     console.log(message, username,role)
     // SignalR üzerinden mesajı gönder
-    this.hubConnection.invoke("SendChatMessageClientOnly", message, username,role)
+    this.hubConnection.invoke("SendChatMessageClientOnly", message, username,role,this.adminSentToHim)
       .then(() => {
         console.log("Mesaj gönderildi:", message);
       })
@@ -210,6 +211,8 @@ export class AppComponent implements OnInit , AfterViewInit{
   }
 
   getPreviousMessagesBySelectedUsername(selectedUsername:string) {
+
+    this.adminSentToHim =  selectedUsername;
 
     const chatElement = document.getElementById('liveChatMessages');
     if (!chatElement) {
@@ -338,6 +341,10 @@ export class AppComponent implements OnInit , AfterViewInit{
         console.error('Kullanıcı bilgilerini alma hatası:', error);
       }
     );
+  }
+
+  selectedUser(selectedUser:string){
+    this.adminSentToHim =  selectedUser
   }
 
  
