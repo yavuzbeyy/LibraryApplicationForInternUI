@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
 import { AuthService } from '../../Screens/Auth/AuthService';
@@ -13,6 +13,7 @@ import { DataService } from '../../Shared/services/DataService';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit , AfterViewInit{
+
   username: string | any = '';
   adminSentToHim: string  = '';
   decodedToken: any = null; 
@@ -29,6 +30,7 @@ export class AppComponent implements OnInit , AfterViewInit{
   faSquareXmark = faSquareXmark;
   faArrowLeftLong=faArrowLeftLong;
   users: any[] = [];
+
 
   constructor(
     private router: Router,
@@ -59,6 +61,8 @@ export class AppComponent implements OnInit , AfterViewInit{
   } else {
     console.log('localStorage is not available');
   }
+
+
   }
 
    startSignalRConnection() {
@@ -91,7 +95,6 @@ export class AppComponent implements OnInit , AfterViewInit{
      
       //Hoşgeldiniz mesajı
          this.hubConnection.on("ReceiveMesasgesForAllClients", (message) => {
-         console.log("Gelen Mesaj : " + message);
          this.showReceivedMessage(message);
        })
 

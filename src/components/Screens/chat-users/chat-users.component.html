@@ -1,0 +1,25 @@
+<!-- Kullanıcılar Bölümü -->
+<div class="kullanicilar">
+    <h1>Kullanıcılar</h1>
+    <div class="card-container">
+        <div *ngFor="let user of users" class="user-card">
+            <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-7.png" width="30" height="30">
+            <div class="user-info">
+                <div>{{ user.username }}</div>
+                <div>{{ user.name}} {{ user.surname}}</div>
+                <div>{{ user.email}}</div>
+            </div>
+            <button (click)="this.appComponent.getPreviousMessagesBySelectedUsername(user.username)">Mesaj Gönder</button>
+            
+        </div>
+    </div>
+</div>
+
+<!-- Gruplar Bölümü -->
+<div class="gruplar">
+    <h1>Gruplar</h1>
+    <div class="card-container">
+       
+
+    </div>
+</div>

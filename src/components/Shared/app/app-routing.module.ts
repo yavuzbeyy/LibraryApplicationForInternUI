@@ -13,6 +13,7 @@ import { UpdateCategoryComponent } from '../../Screens/admin/update-category/upd
 import { UpdateBookComponent } from '../../Screens/admin/update-book/update-book.component';
 import { RequestBooksComponent} from '../../Screens/request-books/request-books.component';
 import { AuthGuard } from '../../Screens/Auth/AuthGuard';
+import { ChatUsersComponent } from '../../Screens/chat-users/chat-users.component';
 
 const routes: Routes = [
  
@@ -28,6 +29,7 @@ const routes: Routes = [
   { path: 'update-category/:id', component: UpdateCategoryComponent ,canActivate: [AuthGuard]},
   { path: 'update-book/:id', component: UpdateBookComponent ,canActivate: [AuthGuard]},
   { path: 'book-requests', component: RequestBooksComponent},
+  { path: 'chat-users', component: ChatUsersComponent},
 ];
 
 @NgModule({

@@ -44,6 +44,11 @@
             Kitap İstekleri <fa-icon [icon]="bookAtlas"></fa-icon>
           </a>
         </li>
+        <li class="nav-item" *ngIf="isAdmin">
+          <a class="nav-link px-3" routerLink="/chat-users" routerLinkActive="active" aria-current="page">
+            İletişim <fa-icon [icon]="bookAtlas"></fa-icon>
+          </a>
+        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
             aria-expanded="false">
@@ -90,7 +95,7 @@
   <div style="background-color: rgb(206, 207, 209); border-radius: 10px; display: flex; flex-direction: row; justify-content: space-between;" 
   aria-expanded="false" aria-controls="liveChatCollapse">
   <div *ngIf="isAdmin">
-    <span (click)="listUsersToChatScreen($event)">  <fa-icon [icon]="faArrowLeftLong"></fa-icon> 
+   <!-- <span (click)="listUsersToChatScreen($event)"> <fa-icon [icon]="faArrowLeftLong"></fa-icon> 
 
     <div style="max-height: 90px; overflow-y: auto;"  *ngIf="showUserList">
       <div *ngFor="let user of users" class="chat-message p-3" style="overflow-y: auto;">
@@ -99,10 +104,11 @@
       </div>
     </div>
   </span>
+  --> 
   </div>
   
   <div (click)="getPreviousMessages()" data-bs-toggle="collapse" data-bs-target="#liveChatCollapse"  >
-      LiveChat : {{this.users.length}} <fa-icon [icon]="faCoffee" ></fa-icon>
+      LiveChat : {{this.adminSentToHim}} <fa-icon [icon]="faCoffee" ></fa-icon>
     </div>
 
    <!--   <span (click)="getPreviousMessages()">  <fa-icon [icon]="faSquareXmark"></fa-icon></span>-->
@@ -122,46 +128,6 @@
   </div>
 </div>
 
-
-
-<!-- LiveChat 
-<div class="position-fixed bottom-0 end-0 mb-5 me-5">
-  <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#liveChatCollapse"
-    aria-expanded="false" aria-controls="liveChatCollapse">
-    LiveChat
-  </button>
-  <div class="collapse" id="liveChatCollapse">
-    <div class="card mt-3">
-      <div class="d-flex flex-row justify-content-between p-3 adiv text-white">
-        <i class="fas fa-chevron-up"></i>
-        <span class="pb-3">Live chat</span>
-        <i class="fas fa-times"></i>
-      </div>
-      <div class="d-flex flex-row p-3">
-        <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-7.png" width="30"
-          height="30">
-        <div class="chat ml-2 p-3">Hello and thankyou for visiting birdlymind. Please click the video above</div>
-      </div>
-
-      <div class="d-flex flex-row p-3">
-        <div class="bg-white mr-2 p-3"><span class="text-muted">Hello and thankyou for visiting birdlynind.</span></div>
-        <img src="https://img.icons8.com/color/48/000000/circled-user-male-skin-type-7.png" width="30"
-          height="30">
-      </div>
-
-      <div class="d-flex flex-row p-3">
-        <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-7.png" width="30"
-          height="30">
-        <div class="myvideo ml-2"><img src="https://imgur.com/GOxU1jx.png" width="200"></div>
-      </div>
-
-      <div class="form-group px-3">
-        <textarea class="form-control" rows="5" placeholder="Type your message"></textarea>
-      </div>
-    </div>
-  </div>
-</div>
--->
 <div style="height: 60px;"></div>
 <footer class="footer mt-auto py-3">  
   <div class="container text-center">

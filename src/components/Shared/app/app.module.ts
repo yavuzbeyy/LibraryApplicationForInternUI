@@ -29,6 +29,7 @@ import { RequestBooksComponent } from '../../Screens/request-books/request-books
 import { BookDetailsModalComponent } from '../../Screens/books/book-details-modal/book-details-modal.component';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ChatUsersComponent } from '../../Screens/chat-users/chat-users.component';
 
 
 @NgModule({
@@ -49,6 +50,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     UpdateCategoryComponent,
     RequestBooksComponent,
     BookDetailsModalComponent,
+    ChatUsersComponent
     
   ],
   imports: [
