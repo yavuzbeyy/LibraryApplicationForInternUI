@@ -21,6 +21,7 @@ export class AppComponent implements OnInit , AfterViewInit{
   isAdmin: boolean = false;
   isLoggedIn: boolean = false;
   showUserList: boolean = false;
+  isGroupMessage: boolean | any = null;
   faCoffee = faCoffee;
   paperclip = faPaperclip;
   penToSquare = faPenToSquare;
@@ -121,10 +122,10 @@ export class AppComponent implements OnInit , AfterViewInit{
       });
 
       // SignalRdan Gelen Eski Mesajlar
-      this.hubConnection.on("ShowPreviousMessages", (messages,selectedUsername) => {
+      this.hubConnection.on("ShowPreviousMessages", (messages) => {
       console.log("Previous messages:", messages);
       messages.forEach((message: any) => { // Her bir mesaj için forEach döngüsü
-      this.showPreviousChatMessage(message.message,selectedUsername,message.isAdminMessage);
+      this.showPreviousChatMessage(message.message,message.username,message.isAdminMessage); //message.selectedusername kalktı
   });
 });
      };
@@ -194,7 +195,7 @@ export class AppComponent implements OnInit , AfterViewInit{
   
     console.log(message, username,role)
     // SignalR üzerinden mesajı gönder
-    this.hubConnection.invoke("SendChatMessageClientOnly", message, username,role,this.adminSentToHim)
+    this.hubConnection.invoke("SendChatMessageClientOnly", message, username,role,this.adminSentToHim,this.isGroupMessage)
       .then(() => {
         console.log("Mesaj gönderildi:", message);
       })
@@ -216,6 +217,7 @@ export class AppComponent implements OnInit , AfterViewInit{
   getPreviousMessagesBySelectedUsername(selectedUsername:string) {
 
     this.adminSentToHim =  selectedUsername;
+    this.isGroupMessage = false;
 
     const chatElement = document.getElementById('liveChatMessages');
     if (!chatElement) {
@@ -229,6 +231,27 @@ export class AppComponent implements OnInit , AfterViewInit{
     this.hubConnection.invoke("GetPreviousMessages", selectedUsername)
       .then(() => {
         console.log("Bu kullanıcıların geçmiş mesajlarını görme isteği: " + selectedUsername);
+      })
+      .catch(error => {
+        console.error("Error while getting previous messages:", error);
+      });
+  }
+
+  getPreviousMessagesByGroupname(groupName:string) {
+
+    this.adminSentToHim =  groupName;
+    this.isGroupMessage = true;
+
+    const chatElement = document.getElementById('liveChatMessages');
+    if (!chatElement) {
+      console.error('liveChatMessages elementi bulunamadı.');
+      return;
+    }
+  
+    chatElement.innerHTML = '';
+
+    this.hubConnection.invoke("GetPreviousMessagesFromGroups", groupName)
+      .then(() => {
       })
       .catch(error => {
         console.error("Error while getting previous messages:", error);
