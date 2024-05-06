@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../Shared/services/DataService';
 import { AppComponent } from '../../Shared/app/app.component';
 
@@ -10,37 +10,42 @@ import { AppComponent } from '../../Shared/app/app.component';
 export class ChatUsersComponent implements OnInit {
 
   users: any[] = [];
-  groups: any[] = []; // Grupları tutacak değişken
-  adminSentToHim : string = '';
+  groups: any[] = [];
+  adminSentToHim: string = '';
+  username: string | null = '';
 
-  constructor(private dataService: DataService, public appComponent:AppComponent) { }
+  constructor(private dataService: DataService, public appComponent: AppComponent) { }
 
   ngOnInit(): void {
-    this.groupApiRequest()
+    this.groupApiRequest();
+    this.username = this.appComponent.username;
   }
 
-  // Grupları yükleme işlevi
   loadGroups() {
-    this.dataService.getAllGroups().subscribe(
-      (data: any) => {
-        if (data && data.data && Array.isArray(data.data)) {
-          this.groups = data.data;
-          console.log(this.groups)
+    // Admin ise tüm grupları yükle
+    if (this.appComponent.isAdmin) {
+      this.dataService.getAllGroups().subscribe(
+        (data: any) => {
+          if (data && data.data && Array.isArray(data.data)) {
+            this.groups = data.data;
+          }
+        },
+        error => {
+          console.error('Grup bilgilerini alma hatası:', error);
         }
-      },
-      error => {
-        console.error('Grup bilgilerini alma hatası:', error);
-      }
-    );
+      );
+    } else {
+      // Admin değilse sadece kullanıcının üye olduğu grupları filtrele
+      this.groups = this.groups.filter(group => group.usernames.includes(this.username));
+    }
   }
 
-  // Yeni grup ekleme işlevi
   addNewGroup() {
     const groupName = prompt("Yeni grup adını girin:");
     if (groupName) {
       this.dataService.createGroup(groupName).subscribe(
         (response: any) => {
-          this.loadGroups(); // Gruplar yeniden yüklensin
+          this.groups.push(response.data);
           console.log('Yeni grup oluşturuldu:', response);
         },
         error => {
@@ -50,12 +55,11 @@ export class ChatUsersComponent implements OnInit {
     }
   }
 
-  // Grup silme işlevi
   deleteGroup(groupId: number) {
     if (confirm("Bu grubu silmek istediğinizden emin misiniz?")) {
       this.dataService.deleteGroupRequest(groupId).subscribe(
         (response: any) => {
-          this.loadGroups(); // Gruplar yeniden yüklensin
+          this.groups = this.groups.filter(group => group.id !== groupId);
           console.log('Grup silindi:', response);
         },
         error => {
@@ -66,7 +70,7 @@ export class ChatUsersComponent implements OnInit {
   }
 
   selectedUser(selectedUser: string) {
-    console.log("selected user : " , selectedUser)
+    console.log("selected user : ", selectedUser);
   }
 
   addUserToGroup(groupId: number) {
@@ -74,9 +78,11 @@ export class ChatUsersComponent implements OnInit {
     if (username) {
       this.dataService.addUserToGroup(username, groupId).subscribe(
         (response: any) => {
+          const groupIndex = this.groups.findIndex(group => group.id === groupId);
+          if (groupIndex !== -1) {
+            this.groups[groupIndex].usernames.push(username);
+          }
           console.log('Kullanıcı gruba eklendi:', response);
-          // İşlem başarılı ise grupları yeniden yükleyebiliriz
-          this.loadGroups();
         },
         error => {
           console.error('Kullanıcı ekleme hatası:', error);
@@ -85,7 +91,7 @@ export class ChatUsersComponent implements OnInit {
     }
   }
 
-  groupApiRequest(){
+  groupApiRequest() {
     this.dataService.getAllUser().subscribe(
       (data: any) => {
         if (data && data.data && Array.isArray(data.data)) {
@@ -96,7 +102,18 @@ export class ChatUsersComponent implements OnInit {
         console.error('Kullanıcı bilgilerini alma hatası:', error);
       }
     );
-    this.loadGroups(); 
+
+    // Tüm grupları yükle
+    this.dataService.getAllGroups().subscribe(
+      (data: any) => {
+        if (data && data.data && Array.isArray(data.data)) {
+          this.groups = data.data;
+          this.loadGroups();
+        }
+      },
+      error => {
+        console.error('Grup bilgilerini alma hatası:', error);
+      }
+    );
   }
-  
 }
