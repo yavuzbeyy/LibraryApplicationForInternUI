@@ -49,6 +49,11 @@ export class DataService {
     return this.http.get(imageUrl, { responseType: 'blob' });
   }
 
+  fetchImagesFromRedis(filekey: string): Observable<Blob> {
+    const imageUrl = `${this.baseApi}file/GetImageByFotokeyFromRedis?filekey=${filekey}`;
+    return this.http.get(imageUrl, { responseType: 'blob' });
+  }
+
   fetchAuthors(): Observable<any[]> {
     const url = `${this.baseApi}api/Author/ListAll`;
     return this.http.get<any[]>(url);

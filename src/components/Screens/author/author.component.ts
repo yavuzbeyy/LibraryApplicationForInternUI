@@ -28,10 +28,12 @@ export class AuthorComponent implements OnInit {
   }
 
   fetchAuthors() {
+   
     this.dataService.fetchAuthors().subscribe(
       (data: any) => {
         if (data && data.data && Array.isArray(data.data)) {
           this.authors = data.data;
+          this.loadAuthorImages()
         } else {
           console.error('Error fetching authors: Invalid data format');
         }
@@ -60,6 +62,24 @@ export class AuthorComponent implements OnInit {
           console.log('Yazar silme işlemi iptal edildi.');
         }
       });
+  }
+
+  loadAuthorImages() {
+    this.authors.forEach(author => {
+      this.dataService.fetchImagesFromRedis(author.fotoKey).subscribe(
+        (imageBlob: Blob) => {
+          const reader = new FileReader();
+          reader.onload = () => {
+            const imageDataUrl = reader.result as string;
+            author.imageUrl = imageDataUrl;
+          };
+          reader.readAsDataURL(imageBlob);
+        },
+        (error) => {
+          console.error(`Error loading image for book ${author.id}:`, error);
+        }
+      );
+    });
   }
 
   showAuthorBooks(authorId: number) {

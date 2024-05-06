@@ -4,8 +4,9 @@
         <div class="card mb-3">
           <div class="row g-0">
             <div class="col-md-4">
+              <img *ngIf="author.imageUrl" [src]="author.imageUrl" class="img-fluid rounded-start" style="max-width: 100%; height: auto;" alt="Author Image">
               <!-- Yazar resmini göster (varsayılan resim kullanabilirsiniz) -->
-              <img src="assets/img/anonym.jpg" class="img-fluid rounded-start" style="max-width: 100%; height: auto;" alt="Author Image">
+              <img src="assets/img/anonym.jpg" *ngIf="!author.imageUrl" class="img-fluid rounded-start" style="max-width: 100%; height: auto;" alt="Author Image">
             </div>
             <div class="col-md-8">
               <div class="card-body">
