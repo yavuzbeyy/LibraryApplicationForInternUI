@@ -16,6 +16,7 @@ export class AuthorComponent implements OnInit {
   authors: any[] = [];
   selectedAuthorId: number | null = null;
   isAdmin : boolean = false;
+  filterText: string = '';
 
   constructor(private dataService: DataService,private toastr: ToastrService,private router: Router,private authService: AuthService,private alertService: AlertService) { }
 
@@ -42,6 +43,17 @@ export class AuthorComponent implements OnInit {
         console.error('Error fetching authors:', error);
       }
     );
+  }
+
+  applyFilter() {
+    if (!this.filterText) {
+      // Filtre metni boşsa, tüm kitapları göster
+      this.fetchAuthors();
+    } else {
+      this.authors= this.authors.filter(author =>
+        author.name.toLowerCase().includes(this.filterText.toLowerCase())
+      );
+    }
   }
 
   deleteAuthor(authorId: number) {

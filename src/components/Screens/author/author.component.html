@@ -1,4 +1,7 @@
 <div class="container">
+  <div class="pagetitle" style="margin-bottom: 10px;">
+    <input type="text" [(ngModel)]="filterText" placeholder="Yazar Adıyla Filtrele" (ngModelChange)="applyFilter()">
+  </div>
     <div class="row">
       <div class="col-md-4" *ngFor="let author of authors">
         <div class="card mb-3">

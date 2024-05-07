@@ -1,6 +1,8 @@
 
+
   <main id="main" class="main">
-    <div class="pagetitle">
+    <div class="pagetitle" style="margin-bottom: 10px;">
+      <input type="text" [(ngModel)]="filterText" placeholder="Kitap Adıyla Filtrele" (ngModelChange)="applyFilter()">
     </div>
     <section class="section">
       <div class="row">

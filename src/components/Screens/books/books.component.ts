@@ -14,6 +14,7 @@ import { AlertService } from '../../Shared/Alert/alert.service';
 export class BooksComponent implements OnInit {
   books: any[] = [];
   isAdmin: boolean = false;
+  filterText: string = '';
 
   constructor(private dataService: DataService, private authService: AuthService, private router: Router, private modalService: NgbModal,private alertService: AlertService) 
   {
@@ -30,6 +31,18 @@ export class BooksComponent implements OnInit {
     
   }
     this.fetchBooks();
+  }
+
+  applyFilter() {
+    if (!this.filterText) {
+      // Filtre metni boşsa, tüm kitapları göster
+      this.fetchBooks();
+    } else {
+      // Filtre metni doluysa, kitapları filtreye göre filtrele
+      this.books = this.books.filter(book =>
+        book.title.toLowerCase().includes(this.filterText.toLowerCase())
+      );
+    }
   }
 
   fetchBooks() {
