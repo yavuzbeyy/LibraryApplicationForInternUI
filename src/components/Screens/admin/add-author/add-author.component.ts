@@ -1,3 +1,5 @@
+// AddAuthorComponent.ts
+
 import { Component } from '@angular/core';
 import { DataService } from '../../../Shared/services/DataService';
 import { AuthorModel } from '../../../Shared/Models/AuthorModel';
@@ -12,6 +14,7 @@ import { AlertService } from '../../../Shared/Alert/alert.service';
 })
 export class AddAuthorComponent {
   author: AuthorModel = new AuthorModel();
+  selectedFile: File | undefined;
 
   constructor(
     private dataService: DataService, 
@@ -21,11 +24,25 @@ export class AddAuthorComponent {
   ) {}
 
   submitForm() {
-    // Yazar ekleme işlemini onaylamak için AlertService'den acceptOrDecline metodunu kullanalım
+    if (this.selectedFile) {
+      this.dataService.uploadImage(this.selectedFile).subscribe(
+        (response: any) => {
+          this.author.fotoKey = response; // Assigning the returned file key to author's imageFileKey field
+          this.createAuthor(); // Proceed to create author after image upload
+        },
+        (uploadError) => {
+          this.toastr.error('Error uploading image', 'Error');
+        }
+      );
+    } else {
+      this.toastr.error('Please select an image for the author.', 'Error');
+    }
+  }
+
+  createAuthor() {
     this.alertService.acceptOrDecline('Yazarı Ekle', 'Bu yazarı eklemek istediğinizden emin misiniz?', 'warning')
       .then((result) => {
         if (result) {
-          // Kullanıcı işlemi onayladıysa yazarı ekle
           this.dataService.createAuthor(this.author).subscribe(
             (response) => {
               this.dataService.showSuccessMessage(response);
@@ -36,9 +53,12 @@ export class AddAuthorComponent {
             }
           );
         } else {
-          // Kullanıcı işlemi iptal etti
           console.log('Yazar ekleme işlemi iptal edildi.');
         }
       });
+  }
+
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0] as File;
   }
 }

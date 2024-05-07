@@ -3,4 +3,5 @@ export class AuthorModel{
     surname : string = "";
     yearOfBirth : number = 0;
     placeOfBirth: string = "";
+    fotoKey: string = '';
 }
