@@ -47,7 +47,6 @@ export class AuthorComponent implements OnInit {
 
   applyFilter() {
     if (!this.filterText) {
-      // Filtre metni boşsa, tüm kitapları göster
       this.fetchAuthors();
     } else {
       this.authors= this.authors.filter(author =>

@@ -2,7 +2,9 @@
 
   <main id="main" class="main">
     <div class="pagetitle" style="margin-bottom: 10px;">
-      <input type="text" [(ngModel)]="filterText" placeholder="Kitap Adıyla Filtrele" (ngModelChange)="applyFilter()">
+      <input type="text" [(ngModel)]="filterText" placeholder="Kitap Adıyla Arama" (ngModelChange)="applyFilter()" style="margin-right: 630px;">
+      <input type="text" [(ngModel)]="filterTextAi" placeholder="Kitap İçeriğiyle Arama" style="margin-right: 10px;">
+      <button (click)="searchBooksByContent()">Ara</button>
     </div>
     <section class="section">
       <div class="row">

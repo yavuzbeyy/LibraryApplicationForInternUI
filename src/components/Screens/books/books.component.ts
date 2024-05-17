@@ -13,8 +13,10 @@ import { AlertService } from '../../Shared/Alert/alert.service';
 })
 export class BooksComponent implements OnInit {
   books: any[] = [];
+  originalBooks: any[] = [];
   isAdmin: boolean = false;
   filterText: string = '';
+  filterTextAi: string = '';
 
   constructor(private dataService: DataService, private authService: AuthService, private router: Router, private modalService: NgbModal,private alertService: AlertService) 
   {
@@ -51,6 +53,7 @@ export class BooksComponent implements OnInit {
         if (data && data.data && Array.isArray(data.data)) {
           this.books = data.data;
           this.loadBookImages();
+          this.originalBooks = this.books
         } else {
           console.error('Error fetching books: Invalid data format');
         }
@@ -65,6 +68,29 @@ export class BooksComponent implements OnInit {
     const modalRef = this.modalService.open(BookDetailsModalComponent, { centered: true });
     modalRef.componentInstance.book = book;
   }
+
+  searchBooksByContent() {
+    if (!this.filterTextAi) {
+      this.books = this.originalBooks // Filtre metni boşsa, tüm kitapları yeniden yükle
+    } else {
+     this.books = this.originalBooks
+      this.dataService.getBooksByContent(this.filterTextAi).subscribe(
+        data => {
+          let bookTitle = data.message; // API'den gelen kitap başlığını al
+          console.log("apiden gelen booktitle" , bookTitle)
+          if (bookTitle) {
+           this.books = this.books.filter(book =>
+              book.title.includes(bookTitle)
+            );
+          }
+          console.log('Books fetched by AI content search:', bookTitle);
+        },
+        error => {
+          console.error('Error fetching books:', error);
+        }
+      );
+    }}
+
 
   loadBookImages() {
     this.books.forEach(book => {

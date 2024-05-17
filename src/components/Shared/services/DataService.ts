@@ -208,5 +208,10 @@ export class DataService {
       const url = `${this.baseApi}api/User/AddUserToGroup?username=${username}&groupId=${groupId}`;
       return this.http.post(url, null);
     }
+
+    getBooksByContent(bookContentQuery: string): Observable<any> {
+      const url = `${this.baseApi}api/Book/BookQueryWithAIModel?bookQueryString=${bookContentQuery}`;
+      return this.http.get<any>(url);
+    }
     
   }
