@@ -5,6 +5,7 @@ import { AuthService } from '../Auth/AuthService';
 import { Router } from '@angular/router';
 import { BookDetailsModalComponent } from './book-details-modal/book-details-modal.component';
 import { AlertService } from '../../Shared/Alert/alert.service';
+import { BookContentModel } from '../../Shared/Models/BookContentModel';
 
 @Component({
   selector: 'app-books',
@@ -17,11 +18,12 @@ export class BooksComponent implements OnInit {
   isAdmin: boolean = false;
   filterText: string = '';
   filterTextAi: string = '';
+  bookContent : BookContentModel = new BookContentModel();
+  
 
   constructor(private dataService: DataService, private authService: AuthService, private router: Router, private modalService: NgbModal,private alertService: AlertService) 
   {
-    console.log("book kurucusunda girisYaptimi : " , this.authService.userIsLogin())
-   }
+  }
 
   ngOnInit() {
 
@@ -74,10 +76,11 @@ export class BooksComponent implements OnInit {
       this.books = this.originalBooks // Filtre metni boşsa, tüm kitapları yeniden yükle
     } else {
      this.books = this.originalBooks
-      this.dataService.getBooksByContent(this.filterTextAi).subscribe(
+     this.bookContent.bookcontent = this.filterTextAi;
+     this.dataService.getBooksByContent(this.bookContent).subscribe(
         data => {
           let bookTitle = data.message; // API'den gelen kitap başlığını al
-          console.log("apiden gelen booktitle" , bookTitle)
+          //console.log("apiden gelen booktitle" , bookTitle)
           if (bookTitle) {
            this.books = this.books.filter(book =>
               book.title.includes(bookTitle)

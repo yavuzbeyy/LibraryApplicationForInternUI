@@ -10,6 +10,7 @@ import { UpdateCategoryModel } from '../Models/UpdateCategoryModel';
 import { UpdateAuthorModel } from '../Models/UpdateAuthorModel';
 import { UpdateBookModel } from '../Models/UpdateBookModel';
 import { RequestBookModel } from '../Models/RequestBookModel';
+import  {BookContentModel } from '../Models/BookContentModel';
 
 
 @Injectable({
@@ -209,9 +210,15 @@ export class DataService {
       return this.http.post(url, null);
     }
 
-    getBooksByContent(bookContentQuery: string): Observable<any> {
+   /* getBooksByContent(bookContentQuery:string): Observable<any> {
       const url = `${this.baseApi}api/Book/BookQueryWithAIModel?bookQueryString=${bookContentQuery}`;
-      return this.http.get<any>(url);
+      const body = { bookQueryString: bookContentQuery };
+      return this.http.post<any>(url,body);
+    }*/
+
+    getBooksByContent(bookcontent: BookContentModel): Observable<any> {
+      const url = `${this.baseApi}api/Book/BookQueryWithAIModel`;
+      return this.http.post<any>(url, bookcontent);
     }
     
   }
