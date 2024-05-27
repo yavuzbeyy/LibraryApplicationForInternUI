@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -30,6 +30,7 @@ import { BookDetailsModalComponent } from '../../Screens/books/book-details-moda
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ChatUsersComponent } from '../../Screens/chat-users/chat-users.component';
+import { ApiAuthenticationService } from '../services/api-authentication.service';
 
 
 @NgModule({
@@ -75,7 +76,13 @@ import { ChatUsersComponent } from '../../Screens/chat-users/chat-users.componen
       useValue: new HubConnectionBuilder()
         .withUrl('https://localhost:5062/connectServerHub')
         .build()
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ApiAuthenticationService,
+      multi: true
     }
+    
   ],
   bootstrap: [AppComponent]
 })

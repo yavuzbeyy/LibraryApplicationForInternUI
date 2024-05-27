@@ -67,7 +67,7 @@ export class AppComponent implements OnInit , AfterViewInit{
   }
 
    startSignalRConnection() {
-    console.log("Signal R startConnection başında Giriş Yaptin mi:", this.authService.userIsLogin());
+    //console.log("Signal R startConnection başında Giriş Yaptin mi:", this.authService.userIsLogin());
     const connectionOptions = {
        withUrl: 'http://localhost:5062/connectServerHub',
       skipNegotiation: true,
