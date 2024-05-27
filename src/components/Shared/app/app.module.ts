@@ -30,7 +30,7 @@ import { BookDetailsModalComponent } from '../../Screens/books/book-details-moda
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ChatUsersComponent } from '../../Screens/chat-users/chat-users.component';
-import { ApiAuthenticationService } from '../services/api-authentication.service';
+import { ApiAuthenticationService } from '../services/BackendAuthentication/api-authentication.service';
 
 
 @NgModule({
